@@ -38,6 +38,21 @@ body {
 .user-img {
   align-self: flex-end;
 }
+.login {
+  width: 80px;
+  margin-left: 10px;
+  margin-right: 4px;
+  text-align: center;
+}
+.login-btn {
+  border-radius: 0.5em;
+  cursor: pointer;
+  border: 0;
+  color: #ffffff;
+  padding: 4px;
+  background-color: rgb(10, 55, 77);
+  margin-left: 10px;
+}
 
 /* input to-do text */
 .section-wrapper {
@@ -49,7 +64,7 @@ body {
   display: inline-block;
   /* border: 1px solid #000; */
   position: relative;
-  margin-bottom: 40px;
+  margin-bottom: 60px;
 }
 
 .add-todo-btn {
@@ -64,7 +79,6 @@ body {
   position: absolute;
   right: 6px;
 }
-
 .add-todo-btn:hover {
   background-color: rgba(46, 89, 112, 0.475);
 }
@@ -74,7 +88,7 @@ body {
 
 /* show add to-do context  */
 
-.show-text-content {
+.input-text-content {
   /* border: 1px solid #000; */
   background-color: rgba(117, 152, 169, 0.475);
   display: flex;
@@ -82,6 +96,7 @@ body {
   margin-bottom: 50px;
   width: 400px;
   justify-content: center;
+  /* display: none; */
 }
 
 .todo-text {
@@ -89,7 +104,7 @@ body {
   background-color: rgba(241, 241, 241, 0.336);
   border: 1px solid rgb(255, 255, 255);
   margin: 20px;
-  height: 200px;
+  height: 120px;
 }
 
 .type-check {
@@ -97,7 +112,7 @@ body {
   flex-direction: row;
   justify-content: space-around;
   color: aliceblue;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .todo-type {
