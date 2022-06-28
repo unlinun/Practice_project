@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <!-- header show logo and user image -->
+      <header class="header-wrapper">
+        <div class="logo">◎ DAY TO DO</div>
+        <div class="user-img">👤</div>
+      </header>
+      <!-- show text content -->
+      <section class="section-wrapper">
+        <div class="show-day">
+          TODAY
+          <button class="add-todo-btn">+</button>
+        </div>
+      </section>
+      <!-- show add todo item text container -->
+      <div class="show-text-content">
+        <input
+          type="text"
+          name="todo-text"
+          class="todo-text"
+          minlength="1"
+          maxlength="15"
+          placeholder="What do you want to do?"
+        />
+        <div class="type-check">
+          <div class="todo-type">
+            <input type="checkbox" name="life" class="todo-life" />
+            <label for="todo-life">Life</label>
+          </div>
+          <div class="todo-type">
+            <input type="checkbox" name="job" class="todo-job" />
+            <label for="todo-job">Job</label>
+          </div>
+        </div>
+        <button class="submit">Submit</button>
+      </div>
+      <!-- show todo item -->
+      <div class="todo-wrapper">
+        <ul class="todo-list">
+          <div class="todo-item">
+            <li>Your first to do</li>
+            <div class="item-btn">
+              <button class="btn remove-todo-btn">✘</button>
+              <button class="btn done-todo-btn">✔︎</button>
+            </div>
+          </div>
+        </ul>
+      </div>
+    </div>
+  </body>
+  <script src="script.js"></script>
+</html>
