@@ -8,10 +8,13 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <!-- create container -->
     <div class="container">
+      <!-- create header-->
       <header class="header-box">
         <div class="logo">Welcome To-Do</div>
         <div class="login-box">
+          <!-- input id,password,login btn -->
           <input
             type="text"
             maxlength="4"
@@ -27,18 +30,25 @@
           <button class="btn login-btn">Login</button>
         </div>
       </header>
+      <!-- create todo box with add text and add btn -->
       <section class="todo-box">
-        <input type="text" placeholder="Add your todo" class="add-todo-text" />
-        <button class="btn add-todo-btn">✚</button>
+        <input
+          type="text"
+          placeholder="Add your todo"
+          disabled
+          class="add-todo-text"
+        />
+        <button disabled class="btn add-todo-btn">✚</button>
       </section>
       <div class="todo-item-box">
-        <ul>
-          <div class="item">
+        <!-- create temp for javascript -->
+        <!-- <ul>
+        <div class="item">
             <li class="item-list">ffffff</li>
-            <button class="btn item-remove">✘</button>
-            <button class="btn item-finished">✔︎</button>
+            <button class="btn item-remove-btn">✘</button>
+            <button class="btn item-finished-btn">✔︎</button>
           </div>
-        </ul>
+        </ul> -->
       </div>
     </div>
   </body>
