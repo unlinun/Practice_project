@@ -1,119 +1,63 @@
 "use strict";
 
-//------------- SELECT DOM ELEMENT -----------
-//content element
+//select DOM element
+//function
+//select DOM elements
 const logo = document.querySelector(".logo");
-const showDay = document.querySelector(".show-day");
+console.log(logo);
 const loginID = document.querySelector(".login-id");
-const loginPin = document.querySelector(".login-password");
-const inputTextContainer = document.querySelector(".input-text-content");
-const inputText = document.querySelector(".todo-text");
-const type_life = document.querySelector(".todo-life");
-const type_job = document.querySelector(".todo-job");
-const todoContainer = document.querySelector(".todo-wrapper");
-const todoList = document.querySelector(".todo-list");
-const item = document.querySelector(".item");
+const loginPin = document.querySelector(".login-pin");
+const addToDo = document.querySelector(".add-todo-text");
+const todoItemBox = document.querySelector(".todo-item-box");
 
-//btn
+//btn elements
 const loginBtn = document.querySelector(".login-btn");
 const addToDoBtn = document.querySelector(".add-todo-btn");
-const submitBtn = document.querySelector(".submit");
-const removeBtn = document.querySelector(".remove-todo-btn");
-const doneBtn = document.querySelector(".done-todo-btn");
+const removeBtn = document.querySelector(".item-remove-btn");
+const finishedBtn = document.querySelector(".item-finished-btn");
 
-//-------------- SETTING OBJECT ------------
-const createUser = function (name, pin, todo) {
-  this.fullName = name;
-  this.pin = pin;
-  this.todoItem = todo;
+//setting login object
+
+const user1 = {
+  fullName: "John Smith",
+  password: 1111,
+};
+const user2 = {
+  fullName: "Alice Huang",
+  password: 2222,
 };
 
-const user1 = new createUser("Ann Huang", 1111, []);
-const user2 = new createUser("Emma Lin", 2222, []);
-const users = [user1, user2];
+const accounts = [user1, user2];
 
-console.log(user1);
-//------------ SETTING USERNAME----------
+//setting user ID
 
-const createUserName = function (account) {
+const userID = function (account) {
   account.forEach((user) => {
     user.ID = user.fullName
       .toLowerCase()
       .split(" ")
-      .map((name) => name[0])
+      .map((n) => n[0])
       .join("");
-    console.log(user.ID);
   });
 };
-createUserName(users);
 
-//---------- SETTING TIMER ----------
-const option = {
-  year: "numeric",
-  month: "2-digit",
-  day: "numeric",
-  hour: "numeric",
-  minute: "numeric",
-  second: "numeric",
-};
-const displayTime = function () {
-  setInterval(() => {
-    const now = new Date();
-    const time = new Intl.DateTimeFormat("en-US", option).format(now);
-    // console.log(time);
-    showDay.textContent = time;
-  }, 1000);
-};
-// displayTime();
+userID(accounts);
+console.log(accounts);
 
-//---------- LOGIN IN EVENT ----------
+//set current user
+
 let currentUser;
-const findCurrentUser = function () {
-  currentUser = users.find((user) => user.ID === loginID.value);
-};
-loginBtn.addEventListener("click", function () {
-  findCurrentUser();
+const current = function (account) {
+  currentUser = account.find((user) => user.ID === loginID.value);
   console.log(currentUser);
-  if (currentUser?.pin === Number(loginPin.value)) {
+};
+
+loginBtn.addEventListener("click", function (e) {
+  current(accounts);
+  if (currentUser?.password === Number(loginPin.value)) {
     loginID.value = loginPin.value = "";
-    todoList.innerHTML = "";
-    logo.textContent = `Hello ${currentUser.fullName}`;
-    displayTime();
+    addToDo.attributes.removeNamedItem("disabled");
+    addToDoBtn.attributes.removeNamedItem("disabled");
+    logo.textContent = `Welcome back ! ${currentUser.fullName}`;
   }
-});
-
-//---------- SETTING LIST EVENT ----------
-
-const addToDoList = function (account) {
-  account.todoItem.forEach((value, i) => {
-    const newHtml = `
-        <div class="todo-item">
-        <li>${i + 1}  ${value}</li>
-        <div class="item-btn">
-        <button class="btn remove-todo-btn">✘</button>
-        <button class="btn done-todo-btn">✔︎</button>
-        </div>
-        </div>
-        `;
-    todoList.insertAdjacentHTML("afterbegin", newHtml);
-  });
-};
-
-// add todo btn event
-addToDoBtn.addEventListener("click", function () {
-  inputTextContainer.classList.remove("hidden");
-});
-
-submitBtn.addEventListener("click", function () {
-  todoList.innerHTML = "";
-  currentUser.todoItem.push(inputText.value);
-  addToDoList(currentUser);
-  inputText.value = "";
-  inputTextContainer.classList.add("hidden");
-  console.log(currentUser);
-});
-
-//-------- SETTING DONE and REMOVE --------
-removeBtn.addEventListener("click", function () {
-  console.log("hello");
 });
