@@ -9,60 +9,34 @@
   </head>
   <body>
     <div class="container">
-      <!-- header show logo and user image -->
-      <header class="header-wrapper">
-        <div class="logo">◎ DAY TO DO</div>
-        <div class="user-img">👤</div>
-        <input
-          type="text"
-          name="login-id"
-          class="login login-id"
-          maxlength="4"
-        />
-        <input
-          type="password"
-          name="login-password"
-          class="login login-password"
-          maxlength="4"
-        />
-        <input type="button" value="Login" class="login-btn" />
-      </header>
-      <!-- show text content -->
-      <section class="section-wrapper">
-        <div class="show-day">TODAY</div>
-        <button class="add-todo-btn">+</button>
-      </section>
-      <!-- show add todo item text container -->
-      <div class="input-text-content hidden">
-        <input
-          type="text"
-          name="todo-text"
-          class="todo-text"
-          minlength="1"
-          maxlength="15"
-          placeholder="What do you want to do?"
-        />
-        <div class="type-check">
-          <div class="todo-type">
-            <input type="checkbox" name="life" class="todo-life" />
-            <label for="todo-life">Life</label>
-          </div>
-          <div class="todo-type">
-            <input type="checkbox" name="job" class="todo-job" />
-            <label for="todo-job">Job</label>
-          </div>
+      <header class="header-box">
+        <div class="logo">Welcome To-Do</div>
+        <div class="login-box">
+          <input
+            type="text"
+            maxlength="4"
+            placeholder="id name"
+            class="btn login-id"
+          />
+          <input
+            type="password"
+            maxlength="4"
+            placeholder="password"
+            class="btn login-pin"
+          />
+          <button class="btn login-btn">Login</button>
         </div>
-        <button class="submit">Submit</button>
-      </div>
-      <!-- show todo item -->
-      <div class="todo-wrapper">
-        <ul class="todo-list">
-          <div class="todo-item">
-            <li class="item">Your first to do</li>
-            <div class="item-btn">
-              <button class="btn remove-todo-btn">✘</button>
-              <button class="btn done-todo-btn">✔︎</button>
-            </div>
+      </header>
+      <section class="todo-box">
+        <input type="text" placeholder="Add your todo" class="add-todo-text" />
+        <button class="btn add-todo-btn">✚</button>
+      </section>
+      <div class="todo-item-box">
+        <ul>
+          <div class="item">
+            <li class="item-list">ffffff</li>
+            <button class="btn item-remove">✘</button>
+            <button class="btn item-finished">✔︎</button>
           </div>
         </ul>
       </div>

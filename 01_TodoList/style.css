@@ -1,180 +1,97 @@
 * {
-  padding: 0;
   margin: 0;
-  box-sizing: inherit;
-}
-
-body {
-  height: 100vh;
-  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
-  color: rgb(27, 27, 27);
+  padding: 0;
   box-sizing: border-box;
 }
-
+body {
+  font-family: "Courier New", Courier, monospace;
+}
 .container {
-  /* border: 1px solid #000; */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+  display: grid;
 }
 
-/* header setting */
-/* Question : how to centered the logo and make user img in the end ?*/
-.header-wrapper {
-  width: 80%;
-  display: flex;
-  flex-direction: row;
-  /* border: 1px solid #000; */
-  justify-content: center;
-  margin-top: 20px;
-  margin-bottom: 100px;
+.header-box {
+  background-color: rgb(93, 135, 147);
+  display: grid;
+  grid-template-columns: 200px 200px;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: 120px;
 }
 .logo {
-  /* border: 1px solid #000; */
-  flex: 3;
-}
-.user-img {
-  align-self: flex-end;
-}
-.login {
-  width: 80px;
-  margin-left: 10px;
-  margin-right: 4px;
-  text-align: center;
-}
-.login-btn {
-  border-radius: 0.5em;
-  cursor: pointer;
-  border: 0;
-  color: #ffffff;
-  padding: 4px;
-  background-color: rgb(10, 55, 77);
-  margin-left: 10px;
-}
-
-/* input to-do text */
-.section-wrapper {
-  padding: 4px;
-}
-
-.show-day {
-  width: 300px;
-  display: inline-block;
-  /* border: 1px solid #000; */
-  position: relative;
-  margin-bottom: 60px;
-}
-
-.add-todo-btn {
-  background-color: rgba(117, 152, 169, 0.475);
-  border: 0;
-  color: #ffffff;
-  font-size: 16px;
-  cursor: pointer;
-  width: 40px;
-  height: 24px;
-  display: inline-block;
-  right: 6px;
-}
-.add-todo-btn:hover {
-  background-color: rgba(46, 89, 112, 0.475);
-}
-
-/* show add to-do context  */
-
-.input-text-content {
-  /* border: 1px solid #000; */
-  background-color: rgba(117, 152, 169, 0.475);
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 50px;
-  width: 400px;
-  justify-content: center;
-  /* display: none; */
-}
-.hidden {
-  display: none;
-}
-
-.todo-text {
-  text-align: center;
-  background-color: rgba(241, 241, 241, 0.336);
-  border: 1px solid rgb(255, 255, 255);
-  margin: 20px;
-  height: 120px;
-}
-
-.type-check {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
+  font-weight: 700;
   color: aliceblue;
-  margin-bottom: 10px;
 }
-
-.todo-type {
-  text-align: center;
-  font-size: 14px;
-  cursor: pointer;
-  padding: 4px;
-  margin: 2px;
-  background-color: rgb(113, 134, 142);
-  border-radius: 0.2em;
-  display: inline-block;
-}
-
-.submit {
-  background-color: #e7e7e7;
-  border-radius: 0.5em;
-  border: 0;
-  cursor: pointer;
+.login-box {
   margin: 10px;
-  align-self: center;
-  width: 100px;
-}
-.submit:hover {
-  background-color: rgb(255, 255, 255);
-}
-
-/* show to-do list */
-.todo-wrapper {
-  width: 320px;
-}
-.todo-list {
-  list-style: none;
-}
-.todo-item {
-  margin-bottom: 8px;
-  display: flex;
-  justify-content: left;
-  align-items: center;
-  flex-direction: row;
-}
-
-.todo-item li {
-  align-self: flex-start;
-  margin-right: 40px;
-}
-
-.item-btn {
-  /* align-content: flex-end; */
-  background-color: #fff;
+  display: grid;
+  grid-template-columns: 100px 100px 50px;
+  grid-template-rows: 30px;
+  gap: 10px;
 }
 
 .btn {
-  margin: 4px;
-  width: 20px;
-  background-color: rgb(205, 205, 205);
-  border: 0;
+  color: #fff;
   cursor: pointer;
+  text-align: center;
+  background-color: #fff;
+  border: 0;
+  border-radius: 0.2em;
 }
 
-.remove-todo-btn:hover {
-  background-color: rgb(231, 198, 198);
+.login-btn {
+  color: black;
+}
+.todo-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-self: center;
+  border-radius: 0.5em;
+  /* background-color: rgb(181, 166, 166); */
+  gap: 20px;
+}
+.add-todo-text {
+  text-align: center;
+  height: 100px;
+  width: 300px;
 }
 
-.done-todo-btn:hover {
-  background-color: rgb(198, 224, 231);
+.add-todo-btn {
+  background-color: rgb(163, 163, 163);
+  height: 20px;
+  width: 20px;
+}
+
+.todo-item-box {
+  margin-top: 40px;
+  /* background-color: rgb(136, 35, 35); */
+  justify-self: center;
+}
+
+.item {
+  width: 200px;
+  display: flex;
+  gap: 10px;
+  justify-content: space-around;
+}
+
+.item-list {
+  font-weight: 500;
+  flex: auto;
+  list-style: none;
+}
+.item-remove {
+  width: 20px;
+  background-color: rgb(33, 93, 116);
+}
+
+.item-finished {
+  width: 20px;
+  background-color: rgb(76, 147, 175);
+}
+
+.finished {
+  text-decoration: line-through;
+  background-color: rgb(239, 230, 182);
 }
