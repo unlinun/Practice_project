@@ -52,12 +52,54 @@ const current = function (account) {
   console.log(currentUser);
 };
 
+// set time
+const setTime = function () {
+  const options = {
+    month: "long",
+    day: "numeric",
+  };
+  const now = new Date();
+  const showTime = Intl.DateTimeFormat("en-US", options).format(now);
+  return showTime;
+};
+
+//loginBtn event handler
 loginBtn.addEventListener("click", function (e) {
+  e.preventDefault();
+  //set current user
   current(accounts);
+  //if login pin === user's pin
   if (currentUser?.password === Number(loginPin.value)) {
+    //set value to empty
     loginID.value = loginPin.value = "";
+    // set input box to enable
     addToDo.attributes.removeNamedItem("disabled");
     addToDoBtn.attributes.removeNamedItem("disabled");
+    //show user's name
     logo.textContent = `Welcome back ! ${currentUser.fullName}`;
   }
 });
+
+// add todo item event handler
+addToDoBtn.addEventListener("click", function (e) {
+  e.preventDefault();
+  newItem();
+  addToDo.value = "";
+});
+
+//add finished and deleted element
+
+// create new item when click add btn
+const newItem = function () {
+  //create a new div
+  const todoValue = addToDo.value;
+  // add adjacentHTML
+  const newItem = ` <ul>
+  <div class="item"
+      <li class="item-list">${setTime()}  ${todoValue}</li>
+      <button class="btn item-remove-btn">✘</button>
+      <button class="btn item-finished-btn">✔︎</button>
+    </div>
+  </ul>`;
+  todoItemBox.insertAdjacentHTML("afterbegin", newItem);
+};
