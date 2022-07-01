@@ -13,7 +13,7 @@ body {
 .header-box {
   background-color: rgb(93, 135, 147);
   display: grid;
-  grid-template-columns: 200px 200px;
+  grid-template-columns: 300px 240px;
   justify-content: space-around;
   align-items: center;
   margin-bottom: 120px;
@@ -31,7 +31,7 @@ body {
 }
 
 .btn {
-  color: #fff;
+  color: rgb(137, 137, 137);
   cursor: pointer;
   text-align: center;
   background-color: #fff;
@@ -41,6 +41,9 @@ body {
 
 .login-btn {
   color: black;
+}
+.login-btn:hover {
+  background-color: rgb(181, 181, 181);
 }
 .todo-box {
   display: flex;
@@ -58,9 +61,14 @@ body {
 }
 
 .add-todo-btn {
+  color: #fff;
   background-color: rgb(163, 163, 163);
   height: 20px;
   width: 20px;
+}
+
+.add-todo-btn:hover {
+  background-color: rgb(70, 70, 70);
 }
 
 .todo-item-box {
@@ -70,28 +78,37 @@ body {
 }
 
 .item {
-  width: 200px;
-  display: flex;
-  gap: 10px;
-  justify-content: space-around;
+  background-color: rgb(238, 238, 238);
+  width: 400px;
+  display: grid;
+  grid-template-columns: 320px 20px 20px;
+  justify-content: space-between;
+  margin-bottom: 10px;
 }
 
 .item-list {
+  text-decoration: underline;
   font-weight: 500;
-  flex: auto;
   list-style: none;
 }
-.item-remove {
-  width: 20px;
-  background-color: rgb(33, 93, 116);
+.item-remove-btn {
+  color: #fff;
+  /* width: 20px; */
+  background-color: rgb(21, 21, 21);
+}
+.item-remove-btn:hover {
+  background-color: rgb(202, 202, 202);
 }
 
-.item-finished {
-  width: 20px;
+.item-finished-btn {
+  color: #fff;
+  /* width: 20px; */
   background-color: rgb(76, 147, 175);
+}
+.item-finished-btn:hover {
+  background-color: rgb(206, 206, 206);
 }
 
 .finished {
-  text-decoration: line-through;
   background-color: rgb(239, 230, 182);
 }
