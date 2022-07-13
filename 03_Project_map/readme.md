@@ -9,14 +9,15 @@ Use a clear interface and map for presentation.
 ## User stories
 
 - Haru :
-  Job : architect
-  age : 30
-  needs : I want to know design category and location of projects and show pictures when clicked.
+
+  - Job : architect
+  - age : 30
+  - needs : I want to know design category and location of projects and show pictures when clicked.
 
 - Frank :
-  Job : engineer
-  age : 45
-  needs : I want to know the style of this company and have a list I can quickly browse.
+  - Job : engineer
+  - age : 45
+  - needs : I want to know the style of this company and have a list I can quickly browse.
 
 ## Features
 
