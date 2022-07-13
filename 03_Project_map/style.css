@@ -1,0 +1,133 @@
+:root{
+    --color--main-1 : rgb(86, 89, 85);
+    --color--second-1 : rgb(124, 126, 120);
+
+    --color--light--1: rgba(254, 254, 254,0.3);
+    --color--gray--1 :rgb(125, 125, 125);
+    --color--gray--2 :rgb(25, 25, 25);
+}
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+html{
+    font-size: 62.5%;
+}
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 400;
+    line-height: 1.6;
+    height: 100vh;
+    overscroll-behavior-y: none;
+}
+
+a:link,
+a:visited {
+  color: var(--color--main);
+}
+
+.header{
+    color: aliceblue;
+    font-weight: 600;
+    line-height: 40px;
+    font-size: 20px;
+    text-align: center;
+    height: 40px;
+    background:var(--color--main-1);
+}
+.wrapper{
+    display: flex;
+}
+
+.project-side{
+    flex-basis: 560px;
+    background-color: var(--color--second-1);
+    padding: 3rem 5rem 4rem 5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.projects{
+    /* background-color: #000; */
+    list-style: none;
+    height: 100vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+.form{
+    /* border: 1px solid rgb(255, 255, 255); */
+    background-color: var(--color--light--1);
+    border-radius: 5px;
+    margin-bottom: 1.75rem;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem 0.5rem;
+}
+
+.form-row{
+    padding: 8px;
+    /* background-color: rgb(79, 42, 42); */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+}
+label{
+    color: aliceblue;
+}
+
+input,select,button{
+    cursor: pointer;
+    border: none;
+    height:28px;
+    border-radius: 0.2rem;
+    background-color: rgba(255, 255, 255, 0.727);
+}
+.add-btn{
+    color: aliceblue;
+    background-color: var(--color--second-1);
+    cursor: pointer;
+    margin: 10px;
+    width: 20px;
+    height: 20px;
+    align-self: flex-end;
+    justify-self: end;
+}
+
+.project{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    background-color: var(--color--light--1);
+    border-radius: 5px;
+    margin-bottom: 1.75rem;
+    gap: 4px;
+}
+.project-detial{
+    color: aliceblue;
+    margin-top: 20px;
+}
+
+.project-img{
+    margin: 10px 20px;
+    background-color: #000;
+    width: 240px;
+    height: 160px;
+    grid-row: 1/-1;
+    grid-column: 1/2;
+}
+
+#map{
+    height: 100vh;
+}
+.map-side{
+    background-color: #000;
+    flex: 1;
+}
+
+.hidden{
+    display: none;
+}

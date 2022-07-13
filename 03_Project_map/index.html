@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HUGE design</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
+      integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
+      crossorigin=""
+    />
+    <script
+      src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
+      integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
+      crossorigin=""
+    ></script>
+    <script defer src="script.js"></script>
+  </head>
+  <body>
+    <header class="header">HUGE design studio</header>
+    <div class="wrapper">
+      <section class="project-side">
+        <ul class="projects">
+          <form class="form hidden">
+            <div class="form-row">
+              <label class="form-type"> Type </label>
+              <select class="form-input input-type">
+                <option value="residential">residential</option>
+                <option value="business">business</option>
+                <option value="park">park</option>
+              </select>
+            </div>
+            <div class="form-row">
+              <label class="form-type"> Project name </label>
+              <input
+                type="text"
+                class="input-name"
+                placeholder="project name"
+              />
+            </div>
+            <div class="form-row">
+              <label class="form-type"> Photo </label>
+              <input type="file" name="img" id="img" />
+            </div>
+            <div class="form-row">
+              <label class="form-type"> Year </label>
+              <input type="text" class="input-year" placeholder="ex:2020" />
+            </div>
+            <button class="form-type add-btn">+</button>
+          </form>
+          <!-- <li class="project" data-id="223445">
+                        <div class="project-detial project-img">
+                            <img src="" alt="">
+                        </div>
+                        <div class="project-detial">
+                            <span class="project-title">Type :</span>
+                            <span class="project-value">Type</span>
+                        </div>
+                        <div class="project-detial">
+                            <span class="project-title">Type :</span>
+                            <span class="project-value">Type</span>
+                        </div>
+                        <div class="project-detial">
+                            <span class="project-title">Type :</span>
+                            <span class="project-value">Type</span>
+                        </div>
+                    </li> -->
+        </ul>
+      </section>
+      <section class="map-side">
+        <div id="map"></div>
+      </section>
+    </div>
+  </body>
+</html>
