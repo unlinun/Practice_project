@@ -20,7 +20,7 @@
     <script defer src="script.js"></script>
   </head>
   <body>
-    <header class="header">HUGE design studio</header>
+    <header class="header">HUGE PROJECT MAP</header>
     <div class="wrapper">
       <section class="project-side">
         <ul class="projects">
@@ -46,10 +46,12 @@
               <label class="form-type"> Photo </label>
               <input
                 type="file"
+                id="input-img"
                 class="form-input input-img"
-                name="img"
-                accept="image/gif, image/jpeg, image/png"
+                accept="image/*"
+                hidden
               />
+              <label class="file-btn" for="input-img">Choose File +</label>
             </div>
             <div class="form-row">
               <label class="form-type"> Year </label>
