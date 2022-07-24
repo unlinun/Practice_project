@@ -32,11 +32,12 @@ class App {
       console.log(note);
     }
 
-    ////renderNote
+    //renderNote
+    this._checkVowel(note);
     this._renderNotes(note);
     this._clearValue();
 
-    ////////popup
+    ///popup
     const load = document.querySelectorAll(".load");
     load.forEach((btn) =>
       btn.addEventListener("click", this._popup.bind(this))
@@ -74,6 +75,19 @@ class App {
 
   _closePopup() {
     popupBox.classList.add("hidden");
+  }
+
+  ///////// check vowel
+  _checkVowel(note) {
+    let count = 0;
+    const vowel = ["a", "e", "i", "o", "u"];
+    console.log(note.text);
+    for (let word of note.text) {
+      if (vowel.includes(word)) {
+        count++;
+      }
+    }
+    alert(`total: ${count} vowels`);
   }
 }
 
