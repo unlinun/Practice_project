@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Memory game</title>
+    <link rel="stylesheet" href="style.css" />
+    <script defer src="script.js"></script>
+  </head>
+  <body>
+    <header class="header">
+      <h1 class="title">Memory Game!</h1>
+      <h3 class="explain">Please find the same photo</h3>
+    </header>
+    <div class="game">
+      <div class="custom-container">
+        <label for="size">Choose size</label>
+        <select name="size" id="choose-size">
+          <option value="0">-</option>
+          <option value="8">8</option>
+          <option value="12">12</option>
+          <option value="16">16</option>
+        </select>
+        <button class="start-btn">START!</button>
+      </div>
+      <div class="card-box">
+        <!-- <div class="card front-card back-card"></div>
+        <div class="card back-card"></div> -->
+      </div>
+    </div>
+    <footer class="score-box">
+      <span class="score">You got <span class="point">00</span> points!</span>
+      <span class="score">You have <span class="chance">03</span> chance!</span>
+    </footer>
+  </body>
+</html>
