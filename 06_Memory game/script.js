@@ -1,85 +1,99 @@
 "use strict";
-
-const cardBox = document.querySelector(".card-box");
-const point = document.querySelector(".point");
-const chance = document.querySelector(".chance");
 const chooseSize = document.querySelector("#choose-size");
-console.log(chooseSize.value);
-
 const startBtn = document.querySelector(".start-btn");
+const cardBox = document.querySelector(".card-box");
 
-//// set item
 class App {
-  #start = false;
-  #cardArray = [];
+  #cardArray;
+  #isFlip = false;
+  #firstCard;
+  #secondCard;
   constructor() {
     startBtn.addEventListener("click", this._getCardSize.bind(this));
   }
 
-  //   default value!
-  _defaultValue() {
-    startBtn.textContent = "START";
-    chooseSize.value = 0;
-    this.#cardArray = [];
-    cardBox.style.gridTemplateRows = "";
-    cardBox.innerHTML = "";
-    console.log(cardBox);
-  }
-
-  // 1. set card
+  //// 2. get card gird size and set array
   _getCardSize() {
-    if (chooseSize.value != 0) {
-      this.#start = true;
-    }
+    const arr = [];
     const size = chooseSize.value;
-    console.log(this.#start);
-    if (this.#start && chooseSize.value != 0) {
-      startBtn.textContent = "STOP";
-      const array = [];
-      for (let i = 1; i <= size / 2; i++) {
-        array.push(i);
-      }
-      const newArray = [...array, ...array];
-      this.#cardArray = newArray.sort(() => Math.random() - 0.5);
-      chooseSize.value = 0;
-      //// render Card function
-      this._renderCard(this.#cardArray);
-      this._frontCard();
-      this._cardId();
-      ////flip
-      this._flipCard(this.#cardArray);
-    } else {
-      this.#start = this.#start;
-      this._defaultValue();
+    chooseSize.value = 0;
+    startBtn.textContent = "STOP";
+    // setting array by size value
+    for (let i = 1; i <= size / 2; i++) {
+      arr.push(i);
     }
+    // random sort of card array
+    this.#cardArray = [...arr, ...arr].sort(() => Math.random() - 0.5);
+    console.log(this.#cardArray);
+
+    // render card and display: gird
+    this._renderCard(this.#cardArray);
+
+    // get card DOM and add click handler
+    const cards = document.querySelectorAll(".card");
+    const frontCard = document.querySelectorAll(".front-card");
+    // setting card id
+    this._cardId(cards);
+    this._frontCard(frontCard);
+
+    // add flip event
+    cards.forEach((c) =>
+      c.addEventListener("click", this._flipCard.bind(this))
+    );
   }
 
-  // 2. set right size of card
-  _renderCard(card) {
-    cardBox.style.gridTemplateRows = `repeat(${card.length / 4}, 180px)`;
-    for (let i = 0; i < card.length; i++) {
-      const html = ` <div class="card front-card back-card" ></div>`;
-      console.log(i);
+  //// 3. display card and setting grid template
+  _renderCard(array) {
+    cardBox.style.gridTemplateRows = `repeat(${array.length / 4},180px)`;
+    const html = ` <div class="card">
+    <div class="front-card"></div>
+    <div class="back-card"></div>
+  </div>`;
+    for (let i = 0; i < array.length; i++) {
       cardBox.insertAdjacentHTML("beforeend", html);
     }
-    console.log(cardBox);
   }
-  // 3. set card data
-  _cardId() {
-    const card = document.querySelectorAll(".card");
+
+  //// 4. set card id
+  _cardId(card) {
     card.forEach((c, i) => c.setAttribute("data-id", `0${this.#cardArray[i]}`));
   }
-  // 4. set frontCard
-  _frontCard() {
-    const front = document.querySelectorAll(".front-card");
+  //// 5. set front card img
+  _frontCard(front) {
     front.forEach(
-      (c) => (c.style.backgroundImage = `url('image/img-bgc.png')`)
+      (c, i) =>
+        (c.style.backgroundImage = `url('image/img-0${
+          this.#cardArray[i]
+        }.png')`)
     );
-    console.log(front);
   }
-  // 5.flip card
-  _flipCard(card) {
-    const cards = document.querySelectorAll(".card");
+  //// 6. add flip card class
+  _flipCard(e) {
+    console.log(e.target);
+    e.target.parentElement.classList.add("flip");
+    if (!this.#isFlip) {
+      this.#isFlip = true;
+      this.#firstCard = e.target.parentElement;
+    } else {
+      this.#isFlip = false;
+      this.#secondCard = e.target.parentElement;
+      console.log(this.#firstCard, this.#secondCard);
+      this._cardCompare(this.#firstCard, this.#secondCard);
+    }
+  }
+
+  ///// 7. compare if first and second has same id
+  _cardCompare(first, second) {
+    if (first.dataset.id === second.dataset.id) {
+      first.removeEventListener("click", this._flipCard.bind(this));
+      second.removeEventListener("click", this._flipCard.bind(this));
+    } else {
+      setTimeout(() => {
+        first.classList.remove("flip");
+        second.classList.remove("flip");
+      }, 1000);
+    }
   }
 }
-const app = new App();
+
+const game = new App();
