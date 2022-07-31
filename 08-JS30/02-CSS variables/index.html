@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <script defer src="script.js"></script>
+</head>
+<body>
+    <div class="header">
+        <h2>COLOR <h1>Variable</h1></h2>
+    </div>
+    <div class="range-bar">
+        <!-- spacing -->
+        <label for="spacing">Spacing:</label>
+        <input id="spacing" type="range" name="space" min="10" max="200" value="10" data-sizing="px">
+        <!-- blur -->
+        <label for="blur">Blur:</label>
+        <input type="range" name="blur" id="blur" min="0" max="25" value="10" data-sizing="px">
+        <!-- color -->
+        <label for="main-color">Color:</label>
+        <input type="color" name="color" id="color" value="#23ff00">
+    </div>
+
+    <img src="img.png" alt="img">
+</body>
+</html>

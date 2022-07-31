@@ -1,0 +1,45 @@
+/* roots */
+:root{
+    --color: #23ff00;
+    --blur:10px;
+    --space:10px;
+}
+
+img{
+    padding: var(--space);
+    background: var(--color);
+    filter: blur(var(--blur));
+}
+
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html{
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+body{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.header{
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.range-bar{
+    margin-bottom: 40px;
+}
+img{
+    width: 400px;
+}
