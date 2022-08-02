@@ -1,0 +1,84 @@
+:root{
+    --main-color: #a9e34b;
+    --dark-color: #343a40;
+    --gary-color: #868e96;
+}
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html{
+    font-family: 'Oswald', sans-serif;
+}
+
+body{
+    color: var(--dark-color);
+    min-height: 100vh;
+}
+
+.accordion-container{
+    line-height: 1.6 ;
+    width: 700px;
+    margin: 100px auto;
+}
+
+.item-container{
+    padding: 24px;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 20px;
+
+    margin-bottom: 40px;
+    box-shadow: 0 0 32px rgba(0,0,0,0.1);
+}
+
+.title,.number{
+    font-size: 20px;
+    color: var(--dark-color);
+}
+
+.drop-icon{
+    cursor: pointer;
+    stroke: var(--main-color);
+    width: 24px;
+    height: 24px;
+}
+
+.drop-icon:hover{
+    stroke: var(--gary-color);
+}
+ .hidden-box{
+    display: none;
+    opacity: 0;
+    grid-column: 2;
+}
+.hidden-box .text{
+    margin-bottom: 20px;
+}
+
+.hidden-box ul{
+    color: var(--gary-color);
+    padding-left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.item-active{
+    border-top: 4px solid var(--main-color);
+}
+
+.item-active .title, .item-active .number{
+    font-size: 20px;
+    color: var(--main-color);
+}
+
+.item-active .hidden-box{
+    display: block;
+    opacity: 100%;
+}
+
+
