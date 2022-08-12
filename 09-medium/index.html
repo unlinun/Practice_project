@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width ,initial-scale=1.0" />
+    <title>Clone medium</title>
+
+    <!-- css file -->
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div id="root">
+      <!-- 最右側 主要 nav -->
+      <header class="header-container">
+        <nav class="main-nav">
+          <img class="logo-img" src="image/logo/logo.png" alt="logo" />
+          <!-- 主要 nav icon button -->
+          <div class="main-nav-list">
+            <span class="nav-icon"
+              ><ion-icon class="icon" name="home-outline"></ion-icon
+            ></span>
+            <span class="nav-icon"
+              ><ion-icon class="icon" name="notifications-outline"></ion-icon
+            ></span>
+            <span class="nav-icon"
+              ><ion-icon class="icon" name="bookmarks-outline"></ion-icon
+            ></span>
+            <span class="nav-icon"
+              ><ion-icon class="icon" name="reader-outline"></ion-icon
+            ></span>
+            <span class="nav-icon"
+              ><ion-icon name="remove-outline"></ion-icon
+            ></span>
+            <span class="nav-icon"
+              ><ion-icon class="icon" name="notifications-outline"></ion-icon
+            ></span>
+          </div>
+          <!-- 主帳號大頭照 -->
+          <img
+            class="account-img"
+            src="image/user/user-2.jpeg"
+            alt="account-img"
+          />
+        </nav>
+      </header>
+      <!-- 中間 文章主要區域 -->
+      <main class="article-container">
+        <!-- 中間 上方導覽列 -->
+        <nav class="article-nav">
+          <span class="nav-icon"> <ion-icon name="add"></ion-icon></span>
+          <!-- 導覽列列表 -->
+          <ul class="article-list">
+            <li class="list-item">For you</li>
+            <li class="list-item">Following</li>
+            <li class="list-item">Beauty</li>
+            <li class="list-item">Photography</li>
+            <li class="list-item">Film</li>
+            <li class="list-item">Art</li>
+            <li class="list-item">Design</li>
+            <li class="list-item">Music</li>
+          </ul>
+          <span class="nav-icon"
+            ><ion-icon name="chevron-forward"></ion-icon
+          ></span>
+        </nav>
+        <!-- 文章區域 -->
+        <section class="article-section">
+          <div class="articles">
+            <!-- 單文章元件 -->
+            <div class="article-item">
+              <div class="author">
+                <img
+                  class="author-img"
+                  src="image/user/user-1.jpeg"
+                  alt="author-name"
+                />
+                <p class="author-name">Huli</p>
+                <p class="sub-text">Jul 23</p>
+              </div>
+              <div class="article-main-section">
+                <!-- 文章標題段落 -->
+                <div class="text-area">
+                  <h3 class="article-title">
+                    2022 年 7 月出國旅遊心得，前往日本
+                  </h3>
+                  <p class="article-text">
+                    上週去了一趟日本，起因是有些假要在時限內請完，外加我一直很想在疫情期間去貴賓室看看（我太天真了，之後詳述），再加上以旅遊限制來說，日本目前還是需要旅遊團一起，所以就選擇這裡了。
+                    雖然說
+                  </p>
+                </div>
+                <div class="article-img img-1"></div>
+              </div>
+              <div class="article-info">
+                <!-- 文章發佈時間、文章推薦、文章收藏相關按鈕 -->
+                <div class="main-info">
+                  <span class="category">旅遊</span>
+                  <p class="sub-text read-time">9 min read</p>
+                  <p class="sub-text">&dot;</p>
+                  <p class="sub-text suggest">From you network</p>
+                </div>
+                <div class="more-info">
+                  <span class="article-icon">
+                    <ion-icon class="icon" name="bookmark-outline"></ion-icon>
+                  </span>
+                  <span class="article-icon">
+                    <ion-icon
+                      class="icon"
+                      name="remove-circle-outline"
+                    ></ion-icon>
+                  </span>
+                  <span class="article-icon">
+                    <ion-icon
+                      class="icon"
+                      name="ellipsis-horizontal"
+                    ></ion-icon>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="article-item">
+              <div class="author">
+                <img
+                  class="author-img"
+                  src="image/user/user-2.jpeg"
+                  alt="author-name"
+                />
+                <p class="author-name">Well Wang</p>
+                <p class="sub-text">Jul 23</p>
+              </div>
+              <div class="article-main-section">
+                <div class="text-area">
+                  <h3 class="article-title">
+                    養寵物的大小事，不要讓你的寵物獨自一人
+                  </h3>
+                  <p class="article-text">
+                    養寵物的大小事你都必須要了解，不管是疫苗、健康檢查、飼料、零食、罐頭。這些都是非常重要需具備的知識。
+                  </p>
+                </div>
+                <div class="article-img img-2"></div>
+              </div>
+              <div class="article-info">
+                <div class="main-info">
+                  <span class="category">寵物</span>
+                  <p class="sub-text read-time">9 min read</p>
+                  <p class="sub-text">&dot;</p>
+                  <p class="sub-text suggest">select from you network</p>
+                </div>
+                <div class="more-info">
+                  <span class="article-icon">
+                    <ion-icon class="icon" name="bookmark-outline"></ion-icon>
+                  </span>
+                  <span class="article-icon">
+                    <ion-icon
+                      class="icon"
+                      name="remove-circle-outline"
+                    ></ion-icon>
+                  </span>
+                  <span class="article-icon">
+                    <ion-icon
+                      class="icon"
+                      name="ellipsis-horizontal"
+                    ></ion-icon>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="article-item">
+              <div class="author">
+                <img
+                  class="author-img"
+                  src="image/user/user-1.jpeg"
+                  alt="author-name"
+                />
+                <p class="author-name">Huli</p>
+                <p class="sub-text">Jul 23</p>
+              </div>
+              <div class="article-main-section">
+                <div class="text-area">
+                  <h3 class="article-title">
+                    2022 年 7 月出國旅遊心得，前往日本
+                  </h3>
+                  <p class="article-text">
+                    上週去了一趟日本，起因是有些假要在時限內請完，外加我一直很想在疫情期間去貴賓室看看（我太天真了，之後詳述），再加上以旅遊限制來說，日本目前還是需要旅遊團一起，所以就選擇這裡了。
+                    雖然說
+                  </p>
+                </div>
+                <div class="article-img img-1"></div>
+              </div>
+              <div class="article-info">
+                <div class="main-info">
+                  <span class="category">旅遊</span>
+                  <p class="sub-text read-time">9 min read</p>
+                  <p class="sub-text">&dot;</p>
+                  <p class="sub-text suggest">From you network</p>
+                </div>
+                <div class="more-info">
+                  <span class="article-icon">
+                    <ion-icon class="icon" name="bookmark-outline"></ion-icon>
+                  </span>
+                  <span class="article-icon">
+                    <ion-icon
+                      class="icon"
+                      name="remove-circle-outline"
+                    ></ion-icon>
+                  </span>
+                  <span class="article-icon">
+                    <ion-icon
+                      class="icon"
+                      name="ellipsis-horizontal"
+                    ></ion-icon>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+      <!-- 最右側區塊 -->
+      <aside class="aside-container">
+        <button class="cta-btn">Get unlimited access</button>
+        <input
+          type="search"
+          name="search"
+          id="search-box"
+          placeholder="Search"
+        />
+        <div class="what-we-are-reading">
+          <span class="sub-title"
+            ><ion-icon class="dot-icon" name="ellipse"></ion-icon> What We're
+            Reading Today</span
+          >
+
+          <div class="author-item">
+            <div class="title">
+              <img
+                class="author-img img-sm"
+                src="image/user/user-1.jpeg"
+                alt="author-img"
+              />
+              <p class="p-sm">Dr. David Ludwig</p>
+            </div>
+            <p class="p-md">
+              重度拖延症患者，興趣是光想不做，有很多想做的事，卻一件都沒有執行。無聊的時
+            </p>
+          </div>
+          <div class="author-item">
+            <div class="title">
+              <img
+                class="author-img img-sm"
+                src="image/user/user-1.jpeg"
+                alt="author-img"
+              />
+              <p class="p-sm">Dr. David Ludwig</p>
+            </div>
+            <p class="p-md">
+              重度拖延症患者，興趣是光想不做，有很多想做的事，卻一件都沒有執行。無聊的時
+            </p>
+          </div>
+          <a href="#">See the full list</a>
+        </div>
+      </aside>
+    </div>
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+    ></script>
+    <script src="js/script.js"></script>
+  </body>
+</html>
