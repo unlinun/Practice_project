@@ -24,6 +24,18 @@ class RecipeView extends View {
     active.forEach((ev) => window.addEventListener(ev, handlerFunction));
   }
 
+  //建立點擊增加與減少的事件
+  addHandlerServings(handlerFunction) {
+    this._parentElement.addEventListener("click", function (e) {
+      e.preventDefault();
+      const btn = e.target.closest(".btn--increase-servings");
+      if (!btn) return;
+      // 在 HTMl 當中增加 data-attribute ， 來表示 serving 的數量
+      const servingCount = +btn.dataset.servings;
+      // 如果 count >0 才能繼續往下減少
+      if (servingCount > 0 && servingCount <= 10) handlerFunction(servingCount);
+    });
+  }
   // 建立 recipe 的 render
   _generateMarkup() {
     return `
@@ -56,12 +68,16 @@ class RecipeView extends View {
               <span class="recipe__info-text">servings</span>
   
               <div class="recipe__info-buttons">
-                <button class="btn--tiny btn--increase-servings">
+                <button class="btn--tiny btn--increase-servings" data-servings="${
+                  this._data.servings - 1
+                }">
                   <svg>
                     <use href="${icon}#icon-minus-circle"></use>
                   </svg>
                 </button>
-                <button class="btn--tiny btn--increase-servings">
+                <button class="btn--tiny btn--increase-servings" data-servings="${
+                  this._data.servings + 1
+                }">
                   <svg>
                     <use href="${icon}#icon-plus-circle"></use>
                   </svg>

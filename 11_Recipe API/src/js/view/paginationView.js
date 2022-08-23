@@ -13,6 +13,7 @@ class PaginationView extends View {
       if (!btn) return;
       const goToPage = +btn.dataset.goto;
       console.log(goToPage);
+      //這裡的 handler 是在 controller 中的 callback function
       handler(goToPage);
     });
   }
