@@ -5,6 +5,8 @@ import * as model from "./model.js";
 import recipeView from "./view/recipeView.js";
 import searchView from "./view/searchView.js";
 import resultView from "./view/resultView.js";
+import paginationView from "./view/paginationView.js";
+
 //import data using parcel
 import "core-js/stable";
 import "regenerator-runtime/runtime";
@@ -50,16 +52,29 @@ const controlSearchResults = async function () {
     // 2) 顯示取得的 search 資料
     await model.loadSearchResults(query);
     // console.log(model.state.search.searchResult);
-    // 3) render result 將搜尋結果呈現
-    resultView.render(model.state.search.searchResult);
+    // 3) render result 將搜尋結果回傳，並且分成一頁一頁
+    // 這裡會改變 model.state.search 裡面的 page 參數
+    resultView.render(model.loadSearchResultPage());
+    // 4) render pagination 呈現分頁按鈕
+    paginationView.render(model.state.search);
   } catch (error) {
     recipeView.renderError();
   }
+};
+
+const controlPagination = function (goto) {
+  // 這邊需要新的資訊頁面 render NEW searchResult
+  // 1) render result NEW 新的頁面
+  // 這裡會改變 model.state.search 裡面的 page 參數
+  resultView.render(model.loadSearchResultPage(goto));
+  // 2) render NEW pagination 呈現新的分頁按鈕
+  paginationView.render(model.state.search);
 };
 
 // 在 controller 當中，增加 event 的監聽
 const initEvent = function () {
   recipeView.addHandlerRender(controlRecipe);
   searchView.addHandlerSearch(controlSearchResults);
+  paginationView.addHandlerClick(controlPagination);
 };
 initEvent();

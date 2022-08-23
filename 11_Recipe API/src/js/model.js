@@ -1,5 +1,5 @@
 import { async } from "regenerator-runtime";
-import { API_URL } from "./config";
+import { API_URL, RES_PER_PAGE } from "./config";
 import { getJSON } from "./helper";
 
 // 將 state 導出，讓其他地方可以使用
@@ -8,6 +8,8 @@ export const state = {
   search: {
     query: "",
     searchResult: [],
+    resultPerPage: RES_PER_PAGE,
+    page: 1,
   },
 };
 
@@ -51,4 +53,16 @@ export const loadSearchResults = async function (query) {
   } catch (error) {
     throw error;
   }
+};
+
+// 創建 search result 的 page 顯示 function
+
+export const loadSearchResultPage = function (page = state.search.page) {
+  state.search.page = page;
+  //因為 per page 可以是固定的變量，所以將他設定在 config 的資料夾中
+  const start = (page - 1) * state.search.resultPerPage; //0
+  const end = page * state.search.resultPerPage; //9
+
+  // 使用 slice 的方法，來取得每次 10 筆資料
+  return state.search.searchResult.slice(start, end);
 };
