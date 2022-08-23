@@ -66,3 +66,12 @@ export const loadSearchResultPage = function (page = state.search.page) {
   // 使用 slice 的方法，來取得每次 10 筆資料
   return state.search.searchResult.slice(start, end);
 };
+
+// 更改 serving 的數量，還有 ingredients 的數量
+
+export const loadNewServing = function (newServing) {
+  state.recipe.ingredients.forEach((ing) => {
+    ing.quantity = (ing.quantity * newServing) / state.recipe.servings;
+  });
+  state.recipe.servings = newServing;
+};

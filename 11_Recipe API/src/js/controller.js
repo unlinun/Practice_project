@@ -28,6 +28,8 @@ const controlRecipe = async function () {
     const id = window.location.hash.slice(1);
     if (!id) return;
 
+    //在按下菜單後，會加入一個 active 的 class
+    resultView.update(model.loadSearchResultPage());
     //在獲取到資料之前，會先出現 "loading icon"，轉圈圈之類的 icon，來表達正在 loading
     recipeView.renderSpinner();
     // 1) Render recipe
@@ -62,6 +64,14 @@ const controlSearchResults = async function () {
   }
 };
 
+// 如果使用者改變食譜的數量，則整體數量（model.state.recipe.ingredients）一起變更
+const controlServings = function (newServing) {
+  // 在 model 當中，修改新的 servings 數量
+  model.loadNewServing(newServing);
+  //重新渲染菜單 => 但是！使用 update，而不是使用 render
+  recipeView.update(model.state.recipe);
+};
+
 const controlPagination = function (goto) {
   // 這邊需要新的資訊頁面 render NEW searchResult
   // 1) render result NEW 新的頁面
@@ -74,6 +84,7 @@ const controlPagination = function (goto) {
 // 在 controller 當中，增加 event 的監聽
 const initEvent = function () {
   recipeView.addHandlerRender(controlRecipe);
+  recipeView.addHandlerServings(controlServings);
   searchView.addHandlerSearch(controlSearchResults);
   paginationView.addHandlerClick(controlPagination);
 };
