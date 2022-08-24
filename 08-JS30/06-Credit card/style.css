@@ -1,0 +1,187 @@
+* {
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  padding: 0;
+  margin: 0;
+  text-decoration: none;
+  outline: none;
+  border: none;
+  box-sizing: border-box;
+}
+body {
+  background-color: #eee;
+}
+
+/* 這是置中的 container */
+.container {
+  min-height: 100vh;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 40px;
+}
+/* ****************** */
+/* CARD */
+/* card 中的 container */
+.card-container {
+  position: relative;
+  margin-bottom: -5rem;
+  width: 400px;
+  height: 220px;
+}
+
+/* front-card */
+.front-card {
+  color: #fff;
+  font-size: 0.75rem;
+  display: flex;
+  flex-flow: column;
+  transform: perspective(1000px) rotateY(0deg);
+  /* 增加 transition */
+  transition: transform 0.5s ease-in-out;
+
+  border-radius: 1rem;
+  background-image: url("/images/bg-card-front.png");
+  background-size: cover;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+
+  /* backface-visibility */
+  backface-visibility: hidden;
+}
+.front-logo {
+  position: absolute;
+  background-image: url("/images/card-logo.svg");
+  background-size: cover;
+  height: 28px;
+  width: 50px;
+
+  left: 16px;
+  top: 16px;
+}
+
+.card-number {
+  margin: 0 auto;
+  padding-top: 4.5rem;
+  color: #fff;
+  letter-spacing: 2px;
+  font-size: 1.5rem;
+}
+.front-card .info-box span {
+  font-size: 0.5rem;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.front-card .flexbox {
+  padding: 3rem 1.5rem 0 1.5rem;
+
+  display: flex;
+  justify-content: space-between;
+}
+.expiration {
+  display: flex;
+}
+
+/* back-card */
+
+.back-card {
+  border-radius: 1rem;
+  background-image: url("/images/bg-card-back.png");
+  background-size: cover;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+
+  /* backface-visibility */
+  backface-visibility: hidden;
+
+  /* css 中 perspective 的用法 */
+  transform: perspective(1000px) rotateY(180deg);
+  /* 增加 transition */
+  transition: transform 0.5s ease-in-out;
+}
+
+.back-card .card-cvc {
+  color: #fff;
+  position: absolute;
+  right: 44px;
+  top: 100px;
+}
+
+/* ****************** */
+/* FORM */
+
+/* 設定 form 的 style */
+.container form {
+  border-radius: 0.31rem;
+  background: #fff;
+  box-shadow: 0 10px 20px rgba(255, 255, 255, 0.3);
+
+  width: 50%;
+  padding: 10rem 1.5rem 1.5rem 1.5rem;
+}
+
+.container form .input-box {
+  /* margin-top: 1.5rem; */
+  margin-bottom: 1.5rem;
+}
+
+.container form .input-box span {
+  font-size: 12px;
+  display: block;
+  color: #444;
+  margin-bottom: 0.5rem;
+}
+
+.container form .input-box input,
+.container form .input-box select {
+  width: 100%;
+  padding: 0.625rem;
+  border-radius: 0.625rem;
+  border: 1px solid #ccc;
+  color: #444;
+}
+
+/* 同一行的 input box */
+.container form .flexbox {
+  display: flex;
+  gap: 0.625rem;
+}
+
+.container form .flexbox .input-box {
+  flex: 1 1 150px;
+}
+
+/* submit btn style */
+.container form .submit {
+  margin-top: 20px;
+  width: 100%;
+  padding: 0.625rem;
+  border-radius: 0.625rem;
+  background: #fff;
+  box-shadow: -1px -1px 10px rgba(0, 0, 0, 0.3);
+  color: #555;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+
+  transition: all linear 0.2s;
+}
+
+.container form .submit:hover {
+  letter-spacing: 0.5rem;
+  transform: scale(0.98);
+  box-shadow: -1px -1px 20px rgba(17, 102, 200, 0.3);
+}
+
+.container form .submit:active {
+  background-color: rgba(35, 106, 229, 0.9);
+  color: #fff;
+}
