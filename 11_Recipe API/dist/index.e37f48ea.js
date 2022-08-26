@@ -543,6 +543,8 @@ var _searchViewJs = require("./view/searchView.js");
 var _searchViewJsDefault = parcelHelpers.interopDefault(_searchViewJs);
 var _resultViewJs = require("./view/resultView.js");
 var _resultViewJsDefault = parcelHelpers.interopDefault(_resultViewJs);
+var _paginationViewJs = require("./view/paginationView.js");
+var _paginationViewJsDefault = parcelHelpers.interopDefault(_paginationViewJs);
 var _runtime = require("regenerator-runtime/runtime");
 if (module.hot) module.hot.accept();
 // const recipeContainer = document.querySelector(".recipe");
@@ -555,6 +557,8 @@ const controlRecipe = async function() {
         // 使用slice(1) 來取得 # 之後的 id
         const id = window.location.hash.slice(1);
         if (!id) return;
+        //在按下菜單後，會加入一個 active 的 class
+        (0, _resultViewJsDefault.default).update(_modelJs.loadSearchResultPage());
         //在獲取到資料之前，會先出現 "loading icon"，轉圈圈之類的 icon，來表達正在 loading
         (0, _recipeViewJsDefault.default).renderSpinner();
         // 1) Render recipe
@@ -578,20 +582,40 @@ const controlSearchResults = async function() {
         // 2) 顯示取得的 search 資料
         await _modelJs.loadSearchResults(query);
         // console.log(model.state.search.searchResult);
-        // 3) render result 將搜尋結果呈現
-        (0, _resultViewJsDefault.default).render(_modelJs.state.search.searchResult);
+        // 3) render result 將搜尋結果回傳，並且分成一頁一頁
+        // 這裡會改變 model.state.search 裡面的 page 參數
+        (0, _resultViewJsDefault.default).render(_modelJs.loadSearchResultPage());
+        // 4) render pagination 呈現分頁按鈕
+        (0, _paginationViewJsDefault.default).render(_modelJs.state.search);
     } catch (error) {
         (0, _recipeViewJsDefault.default).renderError();
     }
 };
+// 如果使用者改變食譜的數量，則整體數量（model.state.recipe.ingredients）一起變更
+const controlServings = function(newServing) {
+    // 在 model 當中，修改新的 servings 數量
+    _modelJs.loadNewServing(newServing);
+    //重新渲染菜單 => 但是！使用 update，而不是使用 render
+    (0, _recipeViewJsDefault.default).update(_modelJs.state.recipe);
+};
+const controlPagination = function(goto) {
+    // 這邊需要新的資訊頁面 render NEW searchResult
+    // 1) render result NEW 新的頁面
+    // 這裡會改變 model.state.search 裡面的 page 參數
+    (0, _resultViewJsDefault.default).render(_modelJs.loadSearchResultPage(goto));
+    // 2) render NEW pagination 呈現新的分頁按鈕
+    (0, _paginationViewJsDefault.default).render(_modelJs.state.search);
+};
 // 在 controller 當中，增加 event 的監聽
 const initEvent = function() {
     (0, _recipeViewJsDefault.default).addHandlerRender(controlRecipe);
+    (0, _recipeViewJsDefault.default).addHandlerServings(controlServings);
     (0, _searchViewJsDefault.default).addHandlerSearch(controlSearchResults);
+    (0, _paginationViewJsDefault.default).addHandlerClick(controlPagination);
 };
 initEvent();
 
-},{"core-js/modules/web.immediate.js":"49tUX","./model.js":"Y4A21","regenerator-runtime/runtime":"dXNgZ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./view/recipeView.js":"7Olh7","./view/searchView.js":"blwqv","./view/resultView.js":"i3HJw"}],"49tUX":[function(require,module,exports) {
+},{"core-js/modules/web.immediate.js":"49tUX","./model.js":"Y4A21","regenerator-runtime/runtime":"dXNgZ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./view/recipeView.js":"7Olh7","./view/searchView.js":"blwqv","./view/resultView.js":"i3HJw","./view/paginationView.js":"9Reww"}],"49tUX":[function(require,module,exports) {
 // TODO: Remove this module from `core-js@4` since it's split to modules listed below
 require("../modules/web.clear-immediate");
 require("../modules/web.set-immediate");
@@ -1692,6 +1716,8 @@ parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "state", ()=>state);
 parcelHelpers.export(exports, "loadRecipe", ()=>loadRecipe);
 parcelHelpers.export(exports, "loadSearchResults", ()=>loadSearchResults);
+parcelHelpers.export(exports, "loadSearchResultPage", ()=>loadSearchResultPage);
+parcelHelpers.export(exports, "loadNewServing", ()=>loadNewServing);
 var _regeneratorRuntime = require("regenerator-runtime");
 var _config = require("./config");
 var _helper = require("./helper");
@@ -1699,7 +1725,9 @@ const state = {
     recipe: {},
     search: {
         query: "",
-        searchResult: []
+        searchResult: [],
+        resultPerPage: (0, _config.RES_PER_PAGE),
+        page: 1
     }
 };
 const loadRecipe = async function(id) {
@@ -1738,6 +1766,20 @@ const loadSearchResults = async function(query) {
     } catch (error) {
         throw error;
     }
+};
+const loadSearchResultPage = function(page = state.search.page) {
+    state.search.page = page;
+    //因為 per page 可以是固定的變量，所以將他設定在 config 的資料夾中
+    const start = (page - 1) * state.search.resultPerPage; //0
+    const end = page * state.search.resultPerPage; //9
+    // 使用 slice 的方法，來取得每次 10 筆資料
+    return state.search.searchResult.slice(start, end);
+};
+const loadNewServing = function(newServing) {
+    state.recipe.ingredients.forEach((ing)=>{
+        ing.quantity = ing.quantity * newServing / state.recipe.servings;
+    });
+    state.recipe.servings = newServing;
 };
 
 },{"regenerator-runtime":"dXNgZ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./config":"k5Hzs","./helper":"lVRAz"}],"dXNgZ":[function(require,module,exports) {
@@ -2342,8 +2384,10 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "API_URL", ()=>API_URL);
 parcelHelpers.export(exports, "TIME_OUT", ()=>TIME_OUT);
+parcelHelpers.export(exports, "RES_PER_PAGE", ()=>RES_PER_PAGE);
 const API_URL = `https://forkify-api.herokuapp.com/api/v2/recipes`;
 const TIME_OUT = 10;
+const RES_PER_PAGE = 10;
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"lVRAz":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -2409,6 +2453,18 @@ class RecipeView extends (0, _viewJsDefault.default) {
         ];
         active.forEach((ev)=>window.addEventListener(ev, handlerFunction));
     }
+    //建立點擊增加與減少的事件
+    addHandlerServings(handlerFunction) {
+        this._parentElement.addEventListener("click", function(e) {
+            e.preventDefault();
+            const btn = e.target.closest(".btn--increase-servings");
+            if (!btn) return;
+            // 在 HTMl 當中增加 data-attribute ， 來表示 serving 的數量
+            const servingCount = +btn.dataset.servings;
+            // 如果 count >0 才能繼續往下減少
+            if (servingCount > 0 && servingCount <= 10) handlerFunction(servingCount);
+        });
+    }
     // 建立 recipe 的 render
     _generateMarkup() {
         return `
@@ -2435,12 +2491,12 @@ class RecipeView extends (0, _viewJsDefault.default) {
               <span class="recipe__info-text">servings</span>
   
               <div class="recipe__info-buttons">
-                <button class="btn--tiny btn--increase-servings">
+                <button class="btn--tiny btn--increase-servings" data-servings="${this._data.servings - 1}">
                   <svg>
                     <use href="${0, _iconsSvgDefault.default}#icon-minus-circle"></use>
                   </svg>
                 </button>
-                <button class="btn--tiny btn--increase-servings">
+                <button class="btn--tiny btn--increase-servings" data-servings="${this._data.servings + 1}">
                   <svg>
                     <use href="${0, _iconsSvgDefault.default}#icon-plus-circle"></use>
                   </svg>
@@ -2800,10 +2856,39 @@ class View {
     _data;
     render(data) {
         if (!data || Array.isArray(data) && data.length === 0) return this.renderError();
+        console.log(data);
         this._data = data;
         const markup = this._generateMarkup();
         this._clear();
         this._parentElement.insertAdjacentHTML("afterbegin", markup);
+    }
+    //只要 update 一小部分的頁面
+    update(data) {
+        if (!data || Array.isArray(data) && data.length === 0) return this.renderError(`Search something 😄`);
+        this._data = data;
+        const newMarkup = this._generateMarkup();
+        // createRange()/createContextualFragment(碎片)，取得 node 的上下文範圍 list
+        const newDOM = document.createRange().createContextualFragment(newMarkup); //產生一個 document-fragment
+        // 選取全部 DOM 中的 elements，記得轉成 array 才能使用 forEach()
+        const newElements = Array.from(newDOM.querySelectorAll("*"));
+        // oldElement 就是 parent element 的 DOM elements
+        const oldElements = Array.from(this._parentElement.querySelectorAll("*"));
+        newElements.forEach((newEl, i)=>{
+            // 找回原有的 elements
+            const oldEl = oldElements[i];
+            // 使用 isEqualNode 來做 node list 的比較
+            // nodeValue 如果遇到 text 屬性，就會回傳 Content of the text node，確認他是否不是 空白
+            if (!newEl.isEqualNode(oldEl) && newEl.firstChild.nodeValue.trim() !== "") oldEl.textContent = newEl.textContent;
+            // 設定新的 data value
+            if (!newEl.isEqualNode(oldEl)) {
+                // log 出 node list 中的 attribute
+                const attributes = Array.from(newEl.attributes);
+                attributes.forEach((attr)=>{
+                    // 將原有的 attribute 設定成 新的 attribute
+                    oldEl.setAttribute(attr.name, attr.value);
+                });
+            }
+        });
     }
     // 清除父層中的 html
     _clear() {
@@ -2889,9 +2974,10 @@ class ResultView extends (0, _viewDefault.default) {
         return this._data.map(this._generateMarkupPreview).join("");
     }
     _generateMarkupPreview(result) {
+        const id = window.location.hash.slice(1);
         return `
         <li class="preview">
-            <a class="preview__link" href="#${result.id}">
+            <a class="preview__link ${id === result.id ? "preview__link--active" : " "}" href="#${result.id}">
               <figure class="preview__fig">
                 <img src="${result.image}" alt="Test" />
               </figure>
@@ -2906,6 +2992,79 @@ class ResultView extends (0, _viewDefault.default) {
 }
 exports.default = new ResultView();
 
-},{"./view":"4wVyX","url:../../img/icons.svg":"loVOp","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["fA0o9","aenu9"], "aenu9", "parcelRequireb5a2")
+},{"./view":"4wVyX","url:../../img/icons.svg":"loVOp","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"9Reww":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _viewJs = require("./view.js");
+var _viewJsDefault = parcelHelpers.interopDefault(_viewJs);
+var _iconsSvg = require("url:../../img/icons.svg");
+var _iconsSvgDefault = parcelHelpers.interopDefault(_iconsSvg);
+// 子層繼承父層的 CLASS
+class PaginationView extends (0, _viewJsDefault.default) {
+    // 建立父層 DOM element
+    _parentElement = document.querySelector(".pagination");
+    addHandlerClick(handler) {
+        this._parentElement.addEventListener("click", function(e) {
+            e.preventDefault();
+            const btn = e.target.closest(".btn--inline");
+            if (!btn) return;
+            const goToPage = +btn.dataset.goto;
+            console.log(goToPage);
+            //這裡的 handler 是在 controller 中的 callback function
+            handler(goToPage);
+        });
+    }
+    _generateMarkup() {
+        const curPage = this._data.page;
+        // 計算出有幾頁
+        const resultPage = Math.ceil(this._data.searchResult.length / this._data.resultPerPage);
+        console.log("一共的頁數 : " + resultPage);
+        // 為每一個 btn 添加 data Attribute 以跳轉至該頁面
+        // 1. 如果只有一頁
+        if (resultPage === 1) return ``;
+        // 2. 如果在第一頁，還有其他頁數
+        if (curPage === 1 && curPage < resultPage) return `
+        <button data-goto="${curPage + 1}" class="btn--inline pagination__btn--next">
+            <span>Page ${curPage + 1}</span>
+            <svg class="search__icon">
+                <use href="${0, _iconsSvgDefault.default}#icon-arrow-right"></use>
+            </svg>
+        </button>
+        `;
+        // 3. 如果在最後一頁
+        if (curPage === resultPage && resultPage > 1) return `
+        <button data-goto="${curPage - 1}" class="btn--inline pagination__btn--prev">
+            <svg class="search__icon">
+                <use href="${0, _iconsSvgDefault.default}#icon-arrow-left"></use>
+            </svg>
+            <span>Page ${curPage - 1}</span>
+        </button>
+        <button data-goto="1" class="btn--inline pagination__btn--next">
+            <span>Back 1</span>
+            <svg class="search__icon">
+                <use href="${0, _iconsSvgDefault.default}#icon-arrow-right"></use>
+            </svg>
+        </button>
+        `;
+        // 4. 如果在其他頁，且還有其他頁
+        if (curPage > 1 && curPage < resultPage) return `
+        <button data-goto="${curPage - 1}" class="btn--inline pagination__btn--prev">
+            <svg class="search__icon">
+                <use href="${0, _iconsSvgDefault.default}#icon-arrow-left"></use>
+            </svg>
+            <span>Page ${curPage - 1}</span>
+        </button>
+        <button data-goto="${curPage + 1}" class="btn--inline pagination__btn--next">
+            <span>Page ${curPage + 1}</span>
+            <svg class="search__icon">
+            <use href="${0, _iconsSvgDefault.default}#icon-arrow-right"></use>
+            </svg>
+        </button>
+        `;
+    }
+}
+exports.default = new PaginationView();
+
+},{"./view.js":"4wVyX","url:../../img/icons.svg":"loVOp","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["fA0o9","aenu9"], "aenu9", "parcelRequireb5a2")
 
 //# sourceMappingURL=index.e37f48ea.js.map
