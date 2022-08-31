@@ -1,0 +1,11 @@
+# Avoid annoying .DS_Store files!!!
+.DS_Store
+
+# Dont't put node_module inside!!!
+/node_modules/
+
+# testing
+/coverage
+
+#public
+/public/

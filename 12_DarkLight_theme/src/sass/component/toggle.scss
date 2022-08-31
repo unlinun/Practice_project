@@ -1,0 +1,113 @@
+@use "../util/" as *;
+
+// research code from sara -- https://codepen.io/SaraSoueidan/pen/jpBbrq/?editors=1100
+
+.toggle {
+  // label inside toggle => mobile flex
+  display: flex;
+  justify-content: space-between;
+  border: 0;
+  position: relative;
+  cursor: pointer;
+
+  // set label position
+  &__label {
+    // mobile flex
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__label label {
+    color: var(--text-color-title);
+    @include breakpoint-up(medium) {
+      position: absolute;
+    }
+  }
+
+  &__label label:nth-of-type(1) {
+    @include breakpoint-up(medium) {
+      left: -60%;
+    }
+  }
+  &__label label:nth-of-type(2) {
+    opacity: 0;
+    @include breakpoint-up(medium) {
+      opacity: 1;
+      top: -110%;
+      left: 50%;
+      transform: translate(-50%, 0%);
+    }
+  }
+
+  &__label label:nth-of-type(3) {
+    opacity: 0;
+    @include breakpoint-up(medium) {
+      right: -60%;
+    }
+    @include breakpoint-up(x-large) {
+      opacity: 1;
+    }
+  }
+
+  //  set radio effect
+  &__wrapper {
+    width: rem(80);
+    height: rem(24);
+    position: relative;
+  }
+  input[type="radio"] {
+    opacity: 0;
+    margin-left: rem(-2);
+    position: relative;
+    z-index: 1;
+    height: 100%;
+    width: rem(24);
+    border-radius: 50%;
+    cursor: pointer;
+
+    &:focus ~ .toggle__switcher {
+      border: 3px solid var(--bg-color);
+    }
+  }
+  &__background {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 0;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(
+      225deg,
+      var(--toggle-color-end) 0%,
+      var(--toggle-color-start) 98.02%
+    );
+    border-radius: rem(20);
+  }
+  &__switcher {
+    height: rem(20);
+    width: rem(20);
+    background: var(--bg-color);
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    cursor: pointer;
+
+    transition: all 0.2s ease-in;
+  }
+
+  //   here can be setting in the JS
+  #light:checked ~ .toggle__switcher {
+    top: 50%;
+    left: 60%;
+    transform: translate(50%, -50%);
+  }
+  #dark:checked ~ .toggle__switcher {
+    top: 50%;
+    left: 2%;
+    transform: translate(0, -50%);
+  }
+}

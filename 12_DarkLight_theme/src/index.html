@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+
+<!-- here to set theme -->
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Frontend Mentor | [Challenge Name Here]</title>
+    <!-- Google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- css -->
+    <link rel="stylesheet" href="css/style.css" />
+    <script defer src="js/script.js"></script>
+  </head>
+  <body>
+    <!-- 使內容置中，並設置最大寬度 -->
+    <div class="container">
+      <!-- header with title and theme toggle -->
+      <header class="header">
+        <!-- title -->
+        <div class="header__title">
+          <h1>Social Media Dashboard</h1>
+          <span class="header__subtitle">Total Followers: 23,004</span>
+        </div>
+        <!-- 使用 fieldset 使使用屏幕閱讀器者也能順利瀏覽網頁 -->
+        <fieldset
+          class="header__toggle toggle"
+          aria-label="theme toggle"
+          role="radiogroup"
+        >
+          <!-- <legend>theme toggle</legend> -->
+          <div class="toggle__label">
+            <label for="light">dark</label>
+            <label for="default">default</label>
+            <label for="light">light</label>
+          </div>
+
+          <!-- 包含 radio input, 背景色, switcher -->
+          <div class="toggle__wrapper">
+            <input type="radio" name="theme" id="dark" />
+            <input type="radio" name="theme" id="default" />
+            <input type="radio" name="theme" id="light" />
+            <div aria-hidden="true" class="toggle__background"></div>
+            <div aria-hidden="true" class="toggle__switcher"></div>
+          </div>
+        </fieldset>
+      </header>
+      <main>
+        <section>
+          @nathanf 1987 Followers 12 Today @nathanf 1044 Followers 99 Today
+          @realnathanf 11k Followers 1099 Today Nathan F. 8239 Subscribers 144
+          Today
+        </section>
+        <section>
+          <h2>
+            Overview - Today Page Views 87 3% Likes 52 2% Likes 5462 2257%
+            Profile Views 52k 1375% Retweets 117 303% Likes 507 553% Likes 107
+            19% Total Views 1407 12%
+          </h2>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

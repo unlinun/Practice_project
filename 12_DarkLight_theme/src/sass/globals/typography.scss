@@ -1,0 +1,30 @@
+@use "../util/" as *;
+
+h1,
+h2,
+h3 {
+  margin-top: 0;
+}
+h1 {
+  font-size: rem(24);
+  margin-bottom: rem(4);
+  @include breakpoint-up(large) {
+    font-size: rem(28);
+  }
+}
+
+p {
+  margin-top: 0;
+}
+
+a,
+a:link,
+a:active,
+a:visited {
+  text-decoration: none;
+}
+
+label {
+  font-size: rem(12);
+  font-weight: 700;
+}

@@ -19,8 +19,18 @@
 2.  如何建立主題變換按鈕(3 state switch)？
 
     - 使用 `<radio>` 並且配合 `<fieldset>` and `<legend>` 來做到無障礙的使用
-    - https://hackmd.io/@ouob/SJG_MCcat
+    - https://codepen.io/renddrew/pen/bRomab?editors=1100
 
 3.  如何使用 JS 來進行主題顏色的切換？
 
     - https://www.pullrequest.com/blog/how-to-implement-dark-mode-with-css-js/
+
+### 補充資訊
+
+1. 變換主題，使用 react -- https://css-tricks.com/easy-dark-mode-and-multiple-color-themes-in-react/
+2. fieldset 的使用 -- https://developer.mozilla.org/en-US/docs/Web/HTML/Element/fieldset
+3. 把 aria-hidden="true" 加到元素上會把該元素和它的所有子元素從無障礙樹上移除。這樣做可以通過隱藏下列內容來提升使用輔助技術的用戶體驗：
+   - 純裝飾性的內容，如圖標、圖片
+   - 重複的內容，如重複的文本
+   - 屏幕外或被折疊的內容，如菜單
+4. 如果使用 `display-none` 在元素上，則你將無法使用鍵盤操控該元素

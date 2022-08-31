@@ -1,0 +1,13 @@
+@use "../util/" as *;
+
+// 設定全局的容器大小
+.container {
+  // mobile first
+  max-width: rem(1110);
+  padding: 0 rem(24);
+  margin: 0 auto;
+
+  @include breakpoint-up(large) {
+    padding: 0;
+  }
+}
