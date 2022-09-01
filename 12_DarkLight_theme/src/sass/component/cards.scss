@@ -1,0 +1,126 @@
+@use "../util/" as *;
+
+.main {
+  //  to fit the design position
+  transform: translateY(rem(-100));
+}
+.cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
+  row-gap: rem(30);
+  margin-bottom: rem(48);
+
+  @include breakpoint-up(medium) {
+    grid-template-columns: repeat(4, 1fr);
+    gap: rem(30);
+  }
+  &__subtitle {
+    color: var(--text-color-title);
+    @include breakpoint-up(medium) {
+      grid-column: 1/5;
+    }
+  }
+}
+
+.card {
+  padding: rem(24);
+  text-align: center;
+  border-radius: rem(5);
+  cursor: pointer;
+  transition: all 0.1 ease-in;
+  &--border {
+    background: var(--border-color) top/100% 4px no-repeat var(--bg-color-card);
+  }
+  &--no-border {
+    background: var(--bg-color-card);
+  }
+  &__platform {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: rem(8);
+    margin-bottom: rem(24);
+    &--flex {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+  &__icon {
+    display: inline-block;
+    width: rem(24);
+    height: rem(24);
+    &--facebook {
+      background-image: url("../../assets/images/icon-facebook.svg");
+      background-size: cover;
+    }
+    &--twitter {
+      background-image: url("../../assets/images/icon-twitter.svg");
+      background-size: cover;
+    }
+    &--instagram {
+      background-image: url("../../assets/images/icon-instagram.svg");
+      background-size: cover;
+    }
+    &--youtube {
+      background-image: url("../../assets/images/icon-youtube.svg");
+      background-size: cover;
+    }
+  }
+  &__username {
+    font-size: rem(12);
+    font-weight: 700;
+  }
+  &__action {
+    font-size: rem(12);
+    font-weight: 700;
+  }
+  &__followers {
+    margin-bottom: rem(20);
+    &--flex {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0;
+    }
+  }
+  &__count {
+    margin-bottom: rem(4);
+    color: var(--text-color-title);
+    &--big {
+      font-size: rem(56);
+      font-weight: 700;
+    }
+    &--small {
+      font-size: rem(28);
+      font-weight: 700;
+    }
+  }
+  &__label {
+    font-size: rem(12);
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: rem(5);
+    color: var(--text-color-p);
+  }
+  &__change {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: rem(4);
+
+    font-size: rem(12);
+    font-weight: 700;
+    &--up {
+      color: var(--green-color);
+    }
+    &--down {
+      color: var(--red-color);
+    }
+  }
+}
+
+.card:hover {
+  background-color: var(--bg-color-hover);
+}

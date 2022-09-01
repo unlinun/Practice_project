@@ -19,7 +19,7 @@
   }
 
   &__label label {
-    color: var(--text-color-title);
+    color: var(--text-color-p);
     @include breakpoint-up(medium) {
       position: absolute;
     }
@@ -27,14 +27,14 @@
 
   &__label label:nth-of-type(1) {
     @include breakpoint-up(medium) {
-      left: -60%;
+      left: -80%;
     }
   }
   &__label label:nth-of-type(2) {
     opacity: 0;
     @include breakpoint-up(medium) {
       opacity: 1;
-      top: -110%;
+      top: -100%;
       left: 50%;
       transform: translate(-50%, 0%);
     }
@@ -43,7 +43,7 @@
   &__label label:nth-of-type(3) {
     opacity: 0;
     @include breakpoint-up(medium) {
-      right: -60%;
+      right: -80%;
     }
     @include breakpoint-up(x-large) {
       opacity: 1;
@@ -52,17 +52,20 @@
 
   //  set radio effect
   &__wrapper {
-    width: rem(80);
+    width: rem(52);
     height: rem(24);
     position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   input[type="radio"] {
     opacity: 0;
-    margin-left: rem(-2);
     position: relative;
     z-index: 1;
     height: 100%;
-    width: rem(24);
+    width: 100%;
     border-radius: 50%;
     cursor: pointer;
 
@@ -77,16 +80,12 @@
     z-index: 0;
     height: 100%;
     width: 100%;
-    background: linear-gradient(
-      225deg,
-      var(--toggle-color-end) 0%,
-      var(--toggle-color-start) 98.02%
-    );
+    background: var(--toggle-color);
     border-radius: rem(20);
   }
   &__switcher {
-    height: rem(20);
-    width: rem(20);
+    height: rem(18);
+    width: rem(18);
     background: var(--bg-color);
     border-radius: 50%;
     position: absolute;
@@ -96,18 +95,20 @@
     z-index: 2;
     cursor: pointer;
 
-    transition: all 0.2s ease-in;
+    transition: all 0.2s ease-out;
+    &:hover {
+      opacity: 0.8;
+    }
   }
 
   //   here can be setting in the JS
   #light:checked ~ .toggle__switcher {
     top: 50%;
-    left: 60%;
-    transform: translate(50%, -50%);
+    left: 78%;
   }
   #dark:checked ~ .toggle__switcher {
     top: 50%;
-    left: 2%;
+    left: 5%;
     transform: translate(0, -50%);
   }
 }

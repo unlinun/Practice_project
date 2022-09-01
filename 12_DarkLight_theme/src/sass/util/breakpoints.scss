@@ -6,18 +6,18 @@
 // 1. 命名要儲存的 scss map 變量名稱
 
 // media query min-width
-//media query max-width (375px, 700px, 900px, 1440px)
+//media query max-width (375px, 920px, 1100px, 1440px)
 $breakpoint-up: (
   "small": em(375),
-  "medium": em(700),
+  "medium": em(920),
   "large": em(1100),
   "x-large": em(1440),
 );
 
-//media query max-width (374.8px, 699.8px, 899.8px, 1439.8px)
+//media query max-width (374.8px, 919.8px, 1099.8px, 1439.8px)
 $breakpoint-down: (
   "small": em(374.8),
-  "medium": em(699.8),
+  "medium": em(919.8),
   "large": em(1099.8),
   "x-large": em(1439.8),
 );

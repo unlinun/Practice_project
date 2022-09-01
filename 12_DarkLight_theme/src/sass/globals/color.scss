@@ -2,33 +2,56 @@
   --green-color: hsl(163, 72%, 41%);
   --red-color: hsl(356, 69%, 56%);
 
-  --facebook-color: hsl(208, 92%, 53%);
-  --twitter-color: hsl(203, 89%, 53%);
-  --instagram-color:linear-gradient( hsl(37, 97%, 70%) 0%,hsl(329, 70%, 58%)98%)
-  --youtube-color: hsl(348, 97%, 39%);
+  --border-color: hsl(0, 0%, 60%);
 }
 
-
-html[data-theme="dark"]{
-
- //default theme = dark
- --toggle-color-start:hsl(210, 78%, 56%);
- --toggle-color-end:hsl(146, 68%, 55%);
- --bg-color: hsl(230, 17%, 14%);
- --bg-color-top: hsl(232, 19%, 15%);
- --bg-color-card: hsl(228, 28%, 20%);
- --text-color-title: hsl(228, 34%, 66%);
- --text-color-p: hsl(0, 0%, 100%); 
+[data-media="facebook"] {
+  --border-color: linear-gradient(
+    90deg,
+    hsl(208, 92%, 53%),
+    hsl(208, 92%, 53%)
+  );
+}
+[data-media="twitter"] {
+  --border-color: linear-gradient(
+    90deg,
+    hsl(203, 89%, 53%),
+    hsl(203, 89%, 53%)
+  );
+}
+[data-media="instagram"] {
+  --border-color: linear-gradient(90deg, hsl(22, 82%, 59%), hsl(339, 80%, 51%));
+}
+[data-media="youtube"] {
+  --border-color: linear-gradient(
+    90deg,
+    hsl(348, 97%, 39%),
+    hsl(348, 97%, 39%)
+  );
 }
 
+html[data-theme="dark"] {
+  //default theme = dark
+  --toggle-color: linear-gradient(
+    225deg,
+    hsl(210, 78%, 56%) 0%,
+    hsl(146, 68%, 55%) 98.02%
+  );
+  --bg-color: hsl(230, 17%, 14%);
+  --bg-color-top: hsl(224, 24%, 15%);
+  --bg-color-card: hsl(228, 28%, 20%);
+  --bg-color-hover: hsl(229, 25%, 25%);
 
+  --text-color-p: hsl(228, 34%, 66%);
+  --text-color-title: hsl(0, 0%, 100%);
+}
 
 html[data-theme="light"] {
-  --toggle-color-start:hsl(210, 78%, 56%);
-  --toggle-color-end:hsl(146, 68%, 55%);
+  --toggle-color: hsl(230, 22%, 74%);
   --bg-color: hsl(0, 0%, 100%);
   --bg-color-top: hsl(225, 100%, 98%);
   --bg-color-card: hsl(227, 47%, 96%);
-  --text-color-title: hsl(228, 12%, 44%);
-  --text-color-p: hsl(230, 17%, 14%);
+  --bg-color-hover: hsl(222, 32%, 92%);
+  --text-color-p: hsl(228, 12%, 44%);
+  --text-color-title: hsl(230, 17%, 14%);
 }

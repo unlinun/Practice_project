@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <!-- here to set theme -->
-<html lang="en" data-theme="light">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -20,9 +20,9 @@
   </head>
   <body>
     <!-- 使內容置中，並設置最大寬度 -->
-    <div class="container">
-      <!-- header with title and theme toggle -->
-      <header class="header">
+    <!-- header with title and theme toggle -->
+    <header class="header">
+      <div class="header__wrapper container">
         <!-- title -->
         <div class="header__title">
           <h1>Social Media Dashboard</h1>
@@ -36,9 +36,9 @@
         >
           <!-- <legend>theme toggle</legend> -->
           <div class="toggle__label">
-            <label for="light">dark</label>
-            <label for="default">default</label>
-            <label for="light">light</label>
+            <label for="light">Dark</label>
+            <label for="default">Default</label>
+            <label for="light">Light</label>
           </div>
 
           <!-- 包含 radio input, 背景色, switcher -->
@@ -50,21 +50,174 @@
             <div aria-hidden="true" class="toggle__switcher"></div>
           </div>
         </fieldset>
-      </header>
-      <main>
-        <section>
-          @nathanf 1987 Followers 12 Today @nathanf 1044 Followers 99 Today
-          @realnathanf 11k Followers 1099 Today Nathan F. 8239 Subscribers 144
-          Today
-        </section>
-        <section>
-          <h2>
-            Overview - Today Page Views 87 3% Likes 52 2% Likes 5462 2257%
-            Profile Views 52k 1375% Retweets 117 303% Likes 507 553% Likes 107
-            19% Total Views 1407 12%
-          </h2>
-        </section>
-      </main>
-    </div>
+      </div>
+    </header>
+    <main class="main">
+      <section class="container cards">
+        <div class="card card--border" data-media="facebook">
+          <div class="card__platform">
+            <div class="card__icon card__icon--facebook"></div>
+            <div class="card__username">@nathanf</div>
+          </div>
+          <div class="card__followers">
+            <div class="card__count card__count--big">1987</div>
+            <div class="card__label">Followers</div>
+          </div>
+          <div class="card__change card__change--up">
+            <img src="assets/images/icon-up.svg" alt="icon-up" />
+            <p class="card__number">12 Today</p>
+          </div>
+        </div>
+        <div class="card card--border" data-media="twitter">
+          <div class="card__platform">
+            <div class="card__icon card__icon--twitter"></div>
+            <div class="card__username">@nathanf</div>
+          </div>
+          <div class="card__followers">
+            <div class="card__count card__count--big">1044</div>
+            <div class="card__label">Followers</div>
+          </div>
+          <div class="card__change card__change--up">
+            <img src="assets/images/icon-up.svg" alt="icon-up" />
+            <p class="card__number">99 Today</p>
+          </div>
+        </div>
+        <div class="card card--border" data-media="instagram">
+          <div class="card__platform">
+            <div class="card__icon card__icon--instagram"></div>
+            <div class="card__username">@realnathanf</div>
+          </div>
+          <div class="card__followers">
+            <div class="card__count card__count--big">11k</div>
+            <div class="card__label">Followers</div>
+          </div>
+          <div class="card__change card__change--up">
+            <img src="assets/images/icon-up.svg" alt="icon-up" />
+            <p class="card__number">1099 Today</p>
+          </div>
+        </div>
+        <div class="card card--border" data-media="youtube">
+          <div class="card__platform">
+            <div class="card__icon card__icon--youtube"></div>
+            <div class="card__username">Nathan F.</div>
+          </div>
+          <div class="card__followers">
+            <div class="card__count card__count--big">8239</div>
+            <div class="card__label">Subscribers</div>
+          </div>
+          <div class="card__change card__change--down">
+            <img src="assets/images/icon-down.svg" alt="icon-down" />
+            <p class="card__number">144 Today</p>
+          </div>
+        </div>
+      </section>
+      <section class="container cards">
+        <h2 class="cards__subtitle">Overview - Today</h2>
+        <div class="card card--no-border">
+          <div class="card__platform card__platform--flex">
+            <div class="card__action">Page Views</div>
+            <div class="card__icon card__icon--facebook"></div>
+          </div>
+          <div class="card__followers card__followers--flex">
+            <div class="card__count card__count--small">87</div>
+            <div class="card__change card__change--up">
+              <img src="assets/images/icon-up.svg" alt="icon-up" />
+              <p class="card__number">3%</p>
+            </div>
+          </div>
+        </div>
+        <div class="card card--no-border">
+          <div class="card__platform card__platform--flex">
+            <div class="card__action">Likes</div>
+            <div class="card__icon card__icon--facebook"></div>
+          </div>
+          <div class="card__followers card__followers--flex">
+            <div class="card__count card__count--small">52</div>
+            <div class="card__change card__change--down">
+              <img src="assets/images/icon-down.svg" alt="icon-down" />
+              <p class="card__number">-2%</p>
+            </div>
+          </div>
+        </div>
+        <div class="card card--no-border">
+          <div class="card__platform card__platform--flex">
+            <div class="card__action">Likes</div>
+            <div class="card__icon card__icon--instagram"></div>
+          </div>
+          <div class="card__followers card__followers--flex">
+            <div class="card__count card__count--small">5462</div>
+            <div class="card__change card__change--up">
+              <img src="assets/images/icon-up.svg" alt="icon-up" />
+              <p class="card__number">2257%</p>
+            </div>
+          </div>
+        </div>
+        <div class="card card--no-border">
+          <div class="card__platform card__platform--flex">
+            <div class="card__action">Likes</div>
+            <div class="card__icon card__icon--instagram"></div>
+          </div>
+          <div class="card__followers card__followers--flex">
+            <div class="card__count card__count--small">5462</div>
+            <div class="card__change card__change--up">
+              <img src="assets/images/icon-up.svg" alt="icon-up" />
+              <p class="card__number">2257%</p>
+            </div>
+          </div>
+        </div>
+        <div class="card card--no-border">
+          <div class="card__platform card__platform--flex">
+            <div class="card__action">Retweets</div>
+            <div class="card__icon card__icon--twitter"></div>
+          </div>
+          <div class="card__followers card__followers--flex">
+            <div class="card__count card__count--small">117</div>
+            <div class="card__change card__change--up">
+              <img src="assets/images/icon-up.svg" alt="icon-up" />
+              <p class="card__number">303%</p>
+            </div>
+          </div>
+        </div>
+        <div class="card card--no-border">
+          <div class="card__platform card__platform--flex">
+            <div class="card__action">Likes</div>
+            <div class="card__icon card__icon--twitter"></div>
+          </div>
+          <div class="card__followers card__followers--flex">
+            <div class="card__count card__count--small">507</div>
+            <div class="card__change card__change--up">
+              <img src="assets/images/icon-up.svg" alt="icon-up" />
+              <p class="card__number">553%</p>
+            </div>
+          </div>
+        </div>
+        <div class="card card--no-border">
+          <div class="card__platform card__platform--flex">
+            <div class="card__action">Likes</div>
+            <div class="card__icon card__icon--youtube"></div>
+          </div>
+          <div class="card__followers card__followers--flex">
+            <div class="card__count card__count--small">107</div>
+            <div class="card__change card__change--down">
+              <img src="assets/images/icon-down.svg" alt="icon-down" />
+              <p class="card__number">-19%</p>
+            </div>
+          </div>
+        </div>
+        <div class="card card--no-border">
+          <div class="card__platform card__platform--flex">
+            <div class="card__action">Total views</div>
+            <div class="card__icon card__icon--youtube"></div>
+          </div>
+          <div class="card__followers card__followers--flex">
+            <div class="card__count card__count--small">1407</div>
+            <div class="card__change card__change--down">
+              <img src="assets/images/icon-down.svg" alt="icon-down" />
+              <p class="card__number">-12%</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
   </body>
 </html>

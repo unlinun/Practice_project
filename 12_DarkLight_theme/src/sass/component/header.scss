@@ -1,19 +1,34 @@
 @use "../util/" as *;
 .header {
-  margin-top: rem(36);
-  margin-bottom: rem(46);
+  background: var(--bg-color-top);
+  border-end-end-radius: rem(15);
+  border-bottom-left-radius: rem(15);
 
-  @include breakpoint-up(medium) {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  &__wrapper {
+    padding-top: rem(36);
+    padding-bottom: rem(120);
+    margin-bottom: rem(48);
+    @include breakpoint-up(medium) {
+      margin-bottom: rem(24);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
   }
   &__title {
-    margin-bottom: rem(46);
+    margin-bottom: rem(20);
+    padding-bottom: rem(24);
+    border-bottom: 2px solid var(--bg-color-card);
+    color: var(--text-color-title);
+
+    @include breakpoint-up(medium) {
+      margin-bottom: 0;
+      border-bottom: 0;
+    }
   }
   &__subtitle {
     font-size: rem(14);
-    color: var(--text-color-title);
+    color: var(--text-color-p);
     font-weight: 700;
   }
 }
