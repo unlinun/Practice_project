@@ -1,0 +1,37 @@
+//導入 function 文件
+@use "function" as *;
+
+// 首先使用 scss map 來儲存資料，scss map 主要是使用 "key":"value" 來儲存
+
+// 1. 命名要儲存的 scss map 變量名稱
+
+// media query min-width
+//media query max-width (375px, 920px, 1440px)
+$breakpoint-up: (
+  "small": em(375),
+  "medium": em(920),
+  "large": em(1440),
+);
+
+//media query max-width (374.8px, 919.8px, 1439.8px)
+$breakpoint-down: (
+  "small": em(374.8),
+  "medium": em(919.8),
+  "large": em(1439.8),
+);
+
+//2. 利用 scss 中的 mixin function 來創建一個調用的規則
+// 傳入一個參數（placeholder）
+
+//min-width
+@mixin breakpoint-up($size) {
+  @media (min-width: map-get($breakpoint-up, $size)) {
+    @content;
+  }
+}
+//max-width
+@mixin breakpoint-down($size) {
+  @media (max-width: map-get($breakpoint-down,$size)) {
+    @content;
+  }
+}

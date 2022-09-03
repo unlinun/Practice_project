@@ -1,0 +1,55 @@
+@use "../util/" as *;
+
+.toggle {
+  display: flex;
+  align-items: center;
+  gap: rem(24);
+  &__subtitle {
+    font-size: rem(12);
+    font-weight: 700;
+    letter-spacing: rem(2);
+    color: var(--number-color-text);
+  }
+  &__wrapper {
+    width: rem(64);
+    display: flex;
+    flex-direction: column;
+    gap: rem(8);
+    border: none;
+  }
+  &__label {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    font-size: rem(12);
+    color: var(--number-color-text);
+  }
+  &__input {
+    height: rem(24);
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    border-radius: rem(20);
+    background-color: var(--bg-color-toggle);
+    position: relative;
+
+    & input[type="radio"] {
+      opacity: 0;
+      cursor: pointer;
+    }
+  }
+  &__switcher {
+    height: rem(16);
+    width: rem(16);
+    background-color: var(--btn-color-toggle);
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+  }
+  &__switcher:hover {
+    opacity: 0.9;
+  }
+}

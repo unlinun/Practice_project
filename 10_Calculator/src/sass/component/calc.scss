@@ -1,0 +1,59 @@
+@use "../util/" as *;
+
+.calc {
+  padding: rem(20);
+  border-radius: rem(10);
+  background-color: var(--bg-color-calc);
+
+  &__keys {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: auto;
+    align-items: center;
+    justify-content: center;
+    gap: rem(16);
+    @include breakpoint-up(medium) {
+      gap: rem(24);
+    }
+  }
+  &__key {
+    height: rem(60);
+    // align-self: center;
+    border: none;
+    border-radius: rem(5);
+    background-color: var(--bg-color-key);
+    box-shadow: 0 rem(4) rem(1) var(--shadow-color-key);
+    font-size: rem(32);
+    font-weight: 700;
+    color: var(--key-color-text);
+    cursor: pointer;
+
+    transition: all 0.2;
+
+    &--point,
+    &--del {
+      background-color: var(--bg-color-point);
+      box-shadow: 0 rem(4) rem(1) var(--shadow-color-point);
+      font-size: rem(18);
+      letter-spacing: rem(-1);
+      color: var(--point-color-text);
+    }
+    &--point {
+      grid-column: 1/3;
+    }
+    &--equal {
+      background-color: var(--bg-color-equal);
+      box-shadow: 0 rem(4) rem(1) var(--shadow-color-equal);
+      font-size: rem(18);
+      letter-spacing: rem(-1);
+      color: var(--equal-color-text);
+      grid-column: 3/5;
+    }
+  }
+  &__key:hover {
+    opacity: 0.9;
+  }
+  &__key:active {
+    transform: scale(0.95);
+  }
+}

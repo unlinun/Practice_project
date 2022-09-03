@@ -1,0 +1,62 @@
+:root {
+  --bg-color: hsl(268, 75%, 9%);
+  --bg-color-count: hsl(268, 71%, 12%);
+
+  --bg-color-calc: hsl(268, 71%, 12%);
+  --bg-color-key: hsl(268, 47%, 21%);
+  --shadow-color-key: hsl(290, 70%, 36%);
+  --bg-color-point: hsl(281, 89%, 26%);
+  --shadow-color-point: hsl(285, 91%, 52%);
+  --bg-color-equal: hsl(176, 100%, 44%);
+  --shadow-color-equal: hsl(177, 92%, 70%);
+
+  --bg-color-toggle: hsl(268, 71%, 12%);
+  --btn-color-toggle: hsl(176, 100%, 44%);
+
+  --point-color-text: rgb(253, 253, 253);
+  --equal-color-text: hsl(198, 20%, 13%);
+  --key-color-text: hsl(52, 100%, 62%);
+  --number-color-text: hsl(52, 100%, 62%);
+}
+
+[data-theme="dark"] {
+  --bg-color: hsl(222, 26%, 31%);
+  --bg-color-count: hsl(224, 36%, 15%);
+
+  --bg-color-calc: hsl(223, 31%, 20%);
+  --bg-color-key: hsl(30, 25%, 89%);
+  --shadow-color-key: hsl(28, 16%, 65%);
+  --bg-color-point: hsl(225, 21%, 49%);
+  --shadow-color-point: hsl(224, 28%, 35%);
+  --bg-color-equal: hsl(6, 63%, 50%);
+  --shadow-color-equal: hsl(6, 70%, 34%);
+
+  --bg-color-toggle: hsl(223, 31%, 20%);
+  --btn-color-toggle: hsl(6, 63%, 50%);
+
+  --point-color-text: hsl(0, 0, 100%);
+  --equal-color-text: hsl(0, 0%, 100%);
+  --key-color-text: hsl(221, 14%, 31%);
+  --number-color-text: hsl(0, 0%, 100%);
+}
+
+[data-theme="light"] {
+  --bg-color: hsl(0, 0%, 90%);
+  --bg-color-count: hsl(0, 0%, 93%);
+
+  --bg-color-calc: hsl(0, 5%, 81%);
+  --bg-color-key: hsl(45, 7%, 89%);
+  --shadow-color-key: hsl(35, 11%, 61%);
+  --bg-color-point: hsl(185, 42%, 37%);
+  --shadow-color-point: hsl(185, 58%, 25%);
+  --bg-color-equal: hsl(25, 98%, 40%);
+  --shadow-color-equal: hsl(25, 99%, 27%);
+
+  --bg-color-toggle: hsl(0, 5%, 81%);
+  --btn-color-toggle: hsl(25, 98%, 40%);
+
+  --point-color-text: hsl(0, 0%, 100%);
+  --equal-color-text: hsl(0, 0%, 100%);
+  --key-color-text: hsl(60, 10%, 19%);
+  --number-color-text: hsl(60, 10%, 19%);
+}

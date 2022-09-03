@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- displays site properly based on user's device -->
+    <title>Frontend Mentor | Calculator app</title>
+
+    <!-- google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <script defer src="js/script.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <!-- header with logo and theme switch -->
+      <header class="head">
+        <div class="head__logo"><h1>calc</h1></div>
+        <div class="head__toggle toggle">
+          <p class="toggle__subtitle">THEME</p>
+          <fieldset class="toggle__wrapper">
+            <!-- <legend>THEME</legend> -->
+            <div class="toggle__label">
+              <label for="dark"> 1 </label>
+              <label for="purple"> 2 </label>
+              <label for="light"> 3 </label>
+            </div>
+            <div class="toggle__input">
+              <input type="radio" name="dark" id="dark" />
+              <input type="radio" name="purple" id="purple" />
+              <input type="radio" name="light" id="light" />
+              <div aria-hidden="true" class="toggle__switcher"></div>
+            </div>
+          </fieldset>
+        </div>
+      </header>
+      <!-- display calc area -->
+      <section class="count">
+        <div class="count__key">+</div>
+        <div class="count__number">00000000</div>
+      </section>
+      <!-- main section for btn -->
+      <section class="calc">
+        <div class="calc__keys">
+          <button class="calc__key">7</button>
+          <button class="calc__key">8</button>
+          <button class="calc__key">9</button>
+          <button class="calc__key calc__key--del" data-key="del">DEL</button>
+          <button class="calc__key">4</button>
+          <button class="calc__key">5</button>
+          <button class="calc__key">6</button>
+          <button class="calc__key" data-key="+">+</button>
+          <button class="calc__key">1</button>
+          <button class="calc__key">2</button>
+          <button class="calc__key">3</button>
+          <button class="calc__key" data-key="-">-</button>
+          <button class="calc__key">.</button>
+          <button class="calc__key">0</button>
+          <button class="calc__key" data-key="/">/</button>
+          <button class="calc__key" data-key="x">x</button>
+          <button class="calc__key calc__key--point" data-key="reset">
+            RESET
+          </button>
+          <button class="calc__key calc__key--equal" data-key="equal">=</button>
+        </div>
+      </section>
+    </div>
+  </body>
+</html>

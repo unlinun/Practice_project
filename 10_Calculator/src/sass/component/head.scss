@@ -1,0 +1,13 @@
+@use "../util/" as *;
+
+.head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: rem(20);
+  margin-bottom: rem(40);
+
+  &__logo {
+    color: var(--number-color-text);
+  }
+}

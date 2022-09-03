@@ -1,0 +1,27 @@
+@use "../util/" as *;
+
+.count {
+  height: rem(80);
+  padding: rem(20);
+  margin-bottom: rem(28);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  font-size: rem(24);
+  font-weight: 700;
+
+  border-radius: rem(10);
+  background-color: var(--bg-color-count);
+  @include breakpoint-up(medium) {
+    height: rem(120);
+  }
+  &__number {
+    font-size: rem(40);
+    font-weight: 700;
+    color: var(--number-color-text);
+    @include breakpoint-up(medium) {
+      font-size: rem(48);
+    }
+  }
+}
