@@ -38,6 +38,8 @@
 
 1.  整體 layout 的建構
     - 使用 grid 來作為整體的 layout
+2.  計算機的邏輯
+    - https://freshman.tech/calculator/
 
 ### 響應式設計
 
