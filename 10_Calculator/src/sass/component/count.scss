@@ -16,6 +16,14 @@
   @include breakpoint-up(medium) {
     height: rem(120);
   }
+  &__key {
+    font-size: rem(20);
+    font-weight: 700;
+    color: var(--number-color-text);
+    @include breakpoint-up(medium) {
+      font-size: rem(28);
+    }
+  }
   &__number {
     font-size: rem(40);
     font-weight: 700;

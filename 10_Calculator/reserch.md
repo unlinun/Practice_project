@@ -29,6 +29,12 @@
 
     ```
 
+    - 若是使用 JS 來監聽
+
+    ```
+    window.matchMedia(`(prefers-color-scheme: light)`).matches
+    ```
+
 2.  如何建立主題變換按鈕(3 state switch)？
     - 使用 `<radio>` / `checkbox` 來作為基本架構
     - https://webcodespace.com/how-to-create-a-three-state-toggle-switch-using-html-css-and-javascript
