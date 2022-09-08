@@ -1,23 +1,26 @@
-import { async } from "regenerator-runtime";
-import { API_URL, RES_PER_PAGE } from "./config";
 import { getJSON } from "./helper";
+import { API_URL } from "./config";
+import { PAGE_NUM } from "./config";
+// model 主要是用來接收 WEB API 的資料，負責 data
+// API -- https://forkify-api.herokuapp.com/v2
 
-// 將 state 導出，讓其他地方可以使用
+// 1. 建立一個狀態 => state 存儲資料
 export const state = {
   recipe: {},
-  search: {
+  searchRecipe: {
     query: "",
-    searchResult: [],
-    resultPerPage: RES_PER_PAGE,
+    result: [],
+    resultsPerPage: PAGE_NUM,
     page: 1,
+    totalPage: 1,
   },
 };
 
-// 在 model 中建立資訊，再由 controller 交付給 view 來呈現
-export const loadRecipe = async function (id) {
+// GET API DATA
+export const getData = async function (id) {
   try {
-    const data = await getJSON(`${API_URL}/${id}`);
-    // 建立菜單，並且將菜單更名
+    const data = await getJSON(`${API_URL}${id}`);
+    // 新增一個 recipe 變數
     const { recipe } = data.data;
     state.recipe = {
       id: recipe.id,
@@ -35,43 +38,34 @@ export const loadRecipe = async function (id) {
   }
 };
 
-// 創建 search function, 傳入一個 query(請求) => 要搜尋什麼 ?
-
-export const loadSearchResults = async function (query) {
+export const getSearchData = async function (query) {
   try {
-    state.search.query = query;
+    state.searchRecipe.query = query;
     const data = await getJSON(`${API_URL}?search=${query}`);
-    state.search.searchResult = data.data.recipes.map((recipe) => {
-      //這邊會 return 一個新的物件
+    // 將 search 的 data 儲存在 state 當中
+    state.searchRecipe.result = data.data.recipes.map((recipe) => {
       return {
         id: recipe.id,
         title: recipe.title,
-        image: recipe.image_url,
         publisher: recipe.publisher,
+        image: recipe.image_url,
       };
     });
-  } catch (error) {
-    throw error;
+    console.log(data);
+  } catch (err) {
+    throw err;
   }
 };
 
-// 創建 search result 的 page 顯示 function
-
-export const loadSearchResultPage = function (page = state.search.page) {
-  state.search.page = page;
-  //因為 per page 可以是固定的變量，所以將他設定在 config 的資料夾中
-  const start = (page - 1) * state.search.resultPerPage; //0
-  const end = page * state.search.resultPerPage; //9
-
-  // 使用 slice 的方法，來取得每次 10 筆資料
-  return state.search.searchResult.slice(start, end);
-};
-
-// 更改 serving 的數量，還有 ingredients 的數量
-
-export const loadNewServing = function (newServing) {
-  state.recipe.ingredients.forEach((ing) => {
-    ing.quantity = (ing.quantity * newServing) / state.recipe.servings;
-  });
-  state.recipe.servings = newServing;
+export const getSearchPage = function (page = state.searchRecipe.page) {
+  //get current page
+  state.searchRecipe.page = page;
+  // get total page
+  state.searchRecipe.totalPage = Math.ceil(
+    state.searchRecipe.result.length / state.searchRecipe.resultsPerPage
+  );
+  console.log(state.searchRecipe.totalPage);
+  const start = (page - 1) * state.searchRecipe.resultsPerPage;
+  const end = page * state.searchRecipe.resultsPerPage;
+  return state.searchRecipe.result.slice(start, end);
 };

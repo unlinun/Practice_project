@@ -615,7 +615,7 @@ const initEvent = function() {
 };
 initEvent();
 
-},{"core-js/modules/web.immediate.js":"49tUX","./model.js":"Y4A21","regenerator-runtime/runtime":"dXNgZ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./view/recipeView.js":"7Olh7","./view/searchView.js":"blwqv","./view/resultView.js":"i3HJw","./view/paginationView.js":"9Reww"}],"49tUX":[function(require,module,exports) {
+},{"core-js/modules/web.immediate.js":"49tUX","./model.js":"Y4A21","./view/recipeView.js":"7Olh7","./view/searchView.js":"blwqv","./view/resultView.js":"i3HJw","./view/paginationView.js":"9Reww","regenerator-runtime/runtime":"dXNgZ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"49tUX":[function(require,module,exports) {
 // TODO: Remove this module from `core-js@4` since it's split to modules listed below
 require("../modules/web.clear-immediate");
 require("../modules/web.set-immediate");
@@ -1782,7 +1782,7 @@ const loadNewServing = function(newServing) {
     state.recipe.servings = newServing;
 };
 
-},{"regenerator-runtime":"dXNgZ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./config":"k5Hzs","./helper":"lVRAz"}],"dXNgZ":[function(require,module,exports) {
+},{"regenerator-runtime":"dXNgZ","./config":"k5Hzs","./helper":"lVRAz","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dXNgZ":[function(require,module,exports) {
 /**
  * Copyright (c) 2014-present, Facebook, Inc.
  *
@@ -2349,7 +2349,17 @@ try {
     else Function("r", "regeneratorRuntime = r")(runtime);
 }
 
-},{}],"gkKU3":[function(require,module,exports) {
+},{}],"k5Hzs":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "API_URL", ()=>API_URL);
+parcelHelpers.export(exports, "TIME_OUT", ()=>TIME_OUT);
+parcelHelpers.export(exports, "RES_PER_PAGE", ()=>RES_PER_PAGE);
+const API_URL = `https://forkify-api.herokuapp.com/api/v2/recipes`;
+const TIME_OUT = 10;
+const RES_PER_PAGE = 10;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gkKU3":[function(require,module,exports) {
 exports.interopDefault = function(a) {
     return a && a.__esModule ? a : {
         default: a
@@ -2379,17 +2389,7 @@ exports.export = function(dest, destName, get) {
     });
 };
 
-},{}],"k5Hzs":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "API_URL", ()=>API_URL);
-parcelHelpers.export(exports, "TIME_OUT", ()=>TIME_OUT);
-parcelHelpers.export(exports, "RES_PER_PAGE", ()=>RES_PER_PAGE);
-const API_URL = `https://forkify-api.herokuapp.com/api/v2/recipes`;
-const TIME_OUT = 10;
-const RES_PER_PAGE = 10;
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"lVRAz":[function(require,module,exports) {
+},{}],"lVRAz":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "getJSON", ()=>getJSON);
@@ -2426,7 +2426,7 @@ const getJSON = async function(url) {
     }
 };
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./config":"k5Hzs"}],"7Olh7":[function(require,module,exports) {
+},{"./config":"k5Hzs","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"7Olh7":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 ////// 這個資料夾是 render "VIEW"
@@ -2557,7 +2557,96 @@ class RecipeView extends (0, _viewJsDefault.default) {
 //不要匯出整個 class ，而是匯出一個 default object
 exports.default = new RecipeView();
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","url:../../img/icons.svg":"loVOp","fractional":"3SU56","./view.js":"4wVyX"}],"loVOp":[function(require,module,exports) {
+},{"./view.js":"4wVyX","url:../../img/icons.svg":"loVOp","fractional":"3SU56","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"4wVyX":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _iconsSvg = require("url:../../img/icons.svg");
+var _iconsSvgDefault = parcelHelpers.interopDefault(_iconsSvg);
+class View {
+    _data;
+    render(data) {
+        if (!data || Array.isArray(data) && data.length === 0) return this.renderError();
+        console.log(data);
+        this._data = data;
+        const markup = this._generateMarkup();
+        this._clear();
+        this._parentElement.insertAdjacentHTML("afterbegin", markup);
+    }
+    //只要 update 一小部分的頁面
+    update(data) {
+        if (!data || Array.isArray(data) && data.length === 0) return this.renderError(`Search something 😄`);
+        this._data = data;
+        const newMarkup = this._generateMarkup();
+        // createRange()/createContextualFragment(碎片)，取得 node 的上下文範圍 list
+        const newDOM = document.createRange().createContextualFragment(newMarkup); //產生一個 document-fragment
+        // 選取全部 DOM 中的 elements，記得轉成 array 才能使用 forEach()
+        const newElements = Array.from(newDOM.querySelectorAll("*"));
+        // oldElement 就是 parent element 的 DOM elements
+        const oldElements = Array.from(this._parentElement.querySelectorAll("*"));
+        newElements.forEach((newEl, i)=>{
+            // 找回原有的 elements
+            const oldEl = oldElements[i];
+            // 使用 isEqualNode 來做 node list 的比較
+            // nodeValue 如果遇到 text 屬性，就會回傳 Content of the text node，確認他是否不是 空白
+            if (!newEl.isEqualNode(oldEl) && newEl.firstChild.nodeValue.trim() !== "") oldEl.textContent = newEl.textContent;
+            // 設定新的 data value
+            if (!newEl.isEqualNode(oldEl)) {
+                // log 出 node list 中的 attribute
+                const attributes = Array.from(newEl.attributes);
+                attributes.forEach((attr)=>{
+                    // 將原有的 attribute 設定成 新的 attribute
+                    oldEl.setAttribute(attr.name, attr.value);
+                });
+            }
+        });
+    }
+    // 清除父層中的 html
+    _clear() {
+        this._parentElement.innerHTML = "";
+    }
+    //建立 loading 的轉圈效果
+    renderSpinner() {
+        const html = ` 
+      <div class="spinner">
+        <svg>
+          <use href="${(0, _iconsSvgDefault.default)}#icon-loader"></use>
+        </svg>
+      </div>`;
+        this._clear();
+        this._parentElement.insertAdjacentHTML("afterbegin", html);
+    }
+    // 建立 Success message, 傳入一個 message 參數
+    renderError(message = this._successMsg) {
+        const html = `
+        <div class="message">
+            <div>
+              <svg>
+                <use href="${(0, _iconsSvgDefault.default)}#icon-smile"></use>
+              </svg>
+            </div>
+            <p>${message}</p>
+        </div>`;
+        this._clear();
+        this._parentElement.insertAdjacentHTML("afterbegin", html);
+    }
+    // 建立 Error catcher, 傳入一個 message 參數
+    renderError(errorMsg = this._errorMsg) {
+        const html = `
+        <div class="error">
+            <div>
+              <svg>
+                <use href="${(0, _iconsSvgDefault.default)}#icon-alert-triangle"></use>
+              </svg>
+            </div>
+            <p>${errorMsg}</p>
+        </div>`;
+        this._clear();
+        this._parentElement.insertAdjacentHTML("afterbegin", html);
+    }
+}
+exports.default = View;
+
+},{"url:../../img/icons.svg":"loVOp","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"loVOp":[function(require,module,exports) {
 module.exports = require("./helpers/bundle-url").getBundleURL("hWUTQ") + "icons.dfd7a6db.svg" + "?" + Date.now();
 
 },{"./helpers/bundle-url":"lgJ39"}],"lgJ39":[function(require,module,exports) {
@@ -2847,96 +2936,7 @@ Fraction.primeFactors = function(n) {
 };
 module.exports.Fraction = Fraction;
 
-},{}],"4wVyX":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _iconsSvg = require("url:../../img/icons.svg");
-var _iconsSvgDefault = parcelHelpers.interopDefault(_iconsSvg);
-class View {
-    _data;
-    render(data) {
-        if (!data || Array.isArray(data) && data.length === 0) return this.renderError();
-        console.log(data);
-        this._data = data;
-        const markup = this._generateMarkup();
-        this._clear();
-        this._parentElement.insertAdjacentHTML("afterbegin", markup);
-    }
-    //只要 update 一小部分的頁面
-    update(data) {
-        if (!data || Array.isArray(data) && data.length === 0) return this.renderError(`Search something 😄`);
-        this._data = data;
-        const newMarkup = this._generateMarkup();
-        // createRange()/createContextualFragment(碎片)，取得 node 的上下文範圍 list
-        const newDOM = document.createRange().createContextualFragment(newMarkup); //產生一個 document-fragment
-        // 選取全部 DOM 中的 elements，記得轉成 array 才能使用 forEach()
-        const newElements = Array.from(newDOM.querySelectorAll("*"));
-        // oldElement 就是 parent element 的 DOM elements
-        const oldElements = Array.from(this._parentElement.querySelectorAll("*"));
-        newElements.forEach((newEl, i)=>{
-            // 找回原有的 elements
-            const oldEl = oldElements[i];
-            // 使用 isEqualNode 來做 node list 的比較
-            // nodeValue 如果遇到 text 屬性，就會回傳 Content of the text node，確認他是否不是 空白
-            if (!newEl.isEqualNode(oldEl) && newEl.firstChild.nodeValue.trim() !== "") oldEl.textContent = newEl.textContent;
-            // 設定新的 data value
-            if (!newEl.isEqualNode(oldEl)) {
-                // log 出 node list 中的 attribute
-                const attributes = Array.from(newEl.attributes);
-                attributes.forEach((attr)=>{
-                    // 將原有的 attribute 設定成 新的 attribute
-                    oldEl.setAttribute(attr.name, attr.value);
-                });
-            }
-        });
-    }
-    // 清除父層中的 html
-    _clear() {
-        this._parentElement.innerHTML = "";
-    }
-    //建立 loading 的轉圈效果
-    renderSpinner() {
-        const html = ` 
-      <div class="spinner">
-        <svg>
-          <use href="${(0, _iconsSvgDefault.default)}#icon-loader"></use>
-        </svg>
-      </div>`;
-        this._clear();
-        this._parentElement.insertAdjacentHTML("afterbegin", html);
-    }
-    // 建立 Success message, 傳入一個 message 參數
-    renderError(message = this._successMsg) {
-        const html = `
-        <div class="message">
-            <div>
-              <svg>
-                <use href="${(0, _iconsSvgDefault.default)}#icon-smile"></use>
-              </svg>
-            </div>
-            <p>${message}</p>
-        </div>`;
-        this._clear();
-        this._parentElement.insertAdjacentHTML("afterbegin", html);
-    }
-    // 建立 Error catcher, 傳入一個 message 參數
-    renderError(errorMsg = this._errorMsg) {
-        const html = `
-        <div class="error">
-            <div>
-              <svg>
-                <use href="${(0, _iconsSvgDefault.default)}#icon-alert-triangle"></use>
-              </svg>
-            </div>
-            <p>${errorMsg}</p>
-        </div>`;
-        this._clear();
-        this._parentElement.insertAdjacentHTML("afterbegin", html);
-    }
-}
-exports.default = View;
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","url:../../img/icons.svg":"loVOp"}],"blwqv":[function(require,module,exports) {
+},{}],"blwqv":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 class SearchView {
