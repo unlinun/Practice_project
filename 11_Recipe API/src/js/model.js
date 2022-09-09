@@ -51,7 +51,6 @@ export const getSearchData = async function (query) {
         image: recipe.image_url,
       };
     });
-    console.log(data);
   } catch (err) {
     throw err;
   }
@@ -64,8 +63,15 @@ export const getSearchPage = function (page = state.searchRecipe.page) {
   state.searchRecipe.totalPage = Math.ceil(
     state.searchRecipe.result.length / state.searchRecipe.resultsPerPage
   );
-  console.log(state.searchRecipe.totalPage);
   const start = (page - 1) * state.searchRecipe.resultsPerPage;
   const end = page * state.searchRecipe.resultsPerPage;
   return state.searchRecipe.result.slice(start, end);
+};
+
+export const getRecipeServings = function (servings) {
+  const newServings = servings;
+  state.recipe.ingredients.forEach((ing) => {
+    ing.quantity = (ing.quantity * newServings) / state.recipe.servings;
+  });
+  state.recipe.servings = newServings;
 };

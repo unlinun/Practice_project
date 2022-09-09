@@ -12,6 +12,31 @@ export default class View {
     this._clear();
     this._parentElement.insertAdjacentHTML("afterbegin", markup);
   }
+  //   UPDATE PART OF DATA
+  update(data) {
+    if (!data || (Array.isArray(data) && data.length === 0))
+      return this.renderError();
+    this._data = data;
+    const markup = this._generateMarkup();
+    const newDOM = document.createRange().createContextualFragment(markup);
+    // 因為使用 querySelectAll 會產生 nodeList 所以需要使用 Array.from 來將其改為 Array
+    const newElements = Array.from(newDOM.querySelectorAll("*"));
+    const currentElements = Array.from(
+      this._parentElement.querySelectorAll("*")
+    );
+
+    newElements.forEach((newEl, i) => {
+      const currentEl = currentElements[i];
+      if (!newEl.isEqualNode(currentEl)) {
+        currentEl.firstChild.textContent = newEl.firstChild.textContent;
+        const attribute = Array.from(newEl.attributes);
+        console.log(attribute);
+        attribute.forEach((att) => {
+          currentEl.setAttribute(att.name, att.value);
+        });
+      }
+    });
+  }
 
   //   CLEAR PARENT ELEMENT
   _clear() {

@@ -533,89 +533,77 @@ function hmrAcceptRun(bundle, id) {
 
 },{}],"aenu9":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-// import model and view
+// import
 var _webImmediateJs = require("core-js/modules/web.immediate.js");
-var _modelJs = require("./model.js");
-//因為 recipeView中，是 export default，所以可以自己命名
-var _recipeViewJs = require("./view/recipeView.js");
+var _modelJs = require("../js/model.js");
+var _recipeViewJs = require("../js/views/recipeView.js");
 var _recipeViewJsDefault = parcelHelpers.interopDefault(_recipeViewJs);
-var _searchViewJs = require("./view/searchView.js");
+var _searchViewJs = require("../js/views/searchView.js");
 var _searchViewJsDefault = parcelHelpers.interopDefault(_searchViewJs);
-var _resultViewJs = require("./view/resultView.js");
+var _resultViewJs = require("../js/views/resultView.js");
 var _resultViewJsDefault = parcelHelpers.interopDefault(_resultViewJs);
-var _paginationViewJs = require("./view/paginationView.js");
+var _paginationViewJs = require("../js/views/paginationView.js");
 var _paginationViewJsDefault = parcelHelpers.interopDefault(_paginationViewJs);
 var _runtime = require("regenerator-runtime/runtime");
-if (module.hot) module.hot.accept();
-// const recipeContainer = document.querySelector(".recipe");
-// // https://forkify-api.herokuapp.com/v2
-///////////////////////////////////////
+// if (module.hot) {
+//   module.hot.accept();
+// }
+// 首先呼叫 API，使用 async await
 const controlRecipe = async function() {
-    // 使用 try catch 語句，來捕捉 async await 的 error
     try {
-        // 當點擊菜單時，會根據該 id 來去抓取遠端 API 資料，或是當網頁開啟時具有該 id，則直接開啟其菜單頁面
-        // 使用slice(1) 來取得 # 之後的 id
+        // 獲得網址的 id
         const id = window.location.hash.slice(1);
         if (!id) return;
-        //在按下菜單後，會加入一個 active 的 class
-        (0, _resultViewJsDefault.default).update(_modelJs.loadSearchResultPage());
-        //在獲取到資料之前，會先出現 "loading icon"，轉圈圈之類的 icon，來表達正在 loading
+        // 利用 API load recipe
+        //  在 load 之前，會先呈現 spinner
         (0, _recipeViewJsDefault.default).renderSpinner();
-        // 1) Render recipe
-        // 因為 model.loadRecipe 不會回傳任何的資訊，所以不需要將他存在變數當中，但他是一個 promise，所以需要使用 await
-        await _modelJs.loadRecipe(id);
-        // 2) 建立菜單的 html , render Recipe
-        // 創建一個 method 叫做 render 來自 recipeView
-        // 在 module 中，是會因為狀態改變看連動變化的，所以 state.recipe 也會因為 function 的關係而有資訊產生
+        // 呈現已經選擇到的菜單(在最初的時候先 render)
+        (0, _resultViewJsDefault.default).update(_modelJs.getSearchPage());
+        // get recipe data
+        await _modelJs.getData(id);
+        // render recipe view
         (0, _recipeViewJsDefault.default).render(_modelJs.state.recipe);
+    // 將 recipe 呈現在畫面
     } catch (err) {
         (0, _recipeViewJsDefault.default).renderError();
     }
 };
-// 增加 search 的controller
-const controlSearchResults = async function() {
+const controlSearchRecipe = async function() {
     try {
-        (0, _resultViewJsDefault.default).renderSpinner();
-        // 1) get search query
+        // get search query
         const query = (0, _searchViewJsDefault.default).getQuery();
         if (!query) return;
-        // 2) 顯示取得的 search 資料
-        await _modelJs.loadSearchResults(query);
-        // console.log(model.state.search.searchResult);
-        // 3) render result 將搜尋結果回傳，並且分成一頁一頁
-        // 這裡會改變 model.state.search 裡面的 page 參數
-        (0, _resultViewJsDefault.default).render(_modelJs.loadSearchResultPage());
-        // 4) render pagination 呈現分頁按鈕
-        (0, _paginationViewJsDefault.default).render(_modelJs.state.search);
-    } catch (error) {
-        (0, _recipeViewJsDefault.default).renderError();
+        (0, _resultViewJsDefault.default).renderSpinner();
+        // load search result
+        await _modelJs.getSearchData(query);
+        (0, _resultViewJsDefault.default).render(_modelJs.getSearchPage());
+        // render Pagination
+        (0, _paginationViewJsDefault.default).render(_modelJs.state.searchRecipe);
+    } catch (err) {
+        console.log(err);
     }
 };
-// 如果使用者改變食譜的數量，則整體數量（model.state.recipe.ingredients）一起變更
-const controlServings = function(newServing) {
-    // 在 model 當中，修改新的 servings 數量
-    _modelJs.loadNewServing(newServing);
-    //重新渲染菜單 => 但是！使用 update，而不是使用 render
+const controlPagination = function(gotoPage) {
+    // RERENDER
+    //  render NEW result
+    (0, _resultViewJsDefault.default).render(_modelJs.getSearchPage(gotoPage));
+    // render Pagination
+    (0, _paginationViewJsDefault.default).render(_modelJs.state.searchRecipe);
+};
+const controlServings = function(servings) {
+    _modelJs.getRecipeServings(servings);
     (0, _recipeViewJsDefault.default).update(_modelJs.state.recipe);
 };
-const controlPagination = function(goto) {
-    // 這邊需要新的資訊頁面 render NEW searchResult
-    // 1) render result NEW 新的頁面
-    // 這裡會改變 model.state.search 裡面的 page 參數
-    (0, _resultViewJsDefault.default).render(_modelJs.loadSearchResultPage(goto));
-    // 2) render NEW pagination 呈現新的分頁按鈕
-    (0, _paginationViewJsDefault.default).render(_modelJs.state.search);
+// ADD handler function
+const init = function() {
+    (0, _recipeViewJsDefault.default)._addHandlerRender(controlRecipe);
+    (0, _recipeViewJsDefault.default)._addHandlerServings(controlServings);
+    (0, _searchViewJsDefault.default)._addHandlerSearch(controlSearchRecipe);
+    (0, _paginationViewJsDefault.default)._addHandlerPagination(controlPagination);
 };
-// 在 controller 當中，增加 event 的監聽
-const initEvent = function() {
-    (0, _recipeViewJsDefault.default).addHandlerRender(controlRecipe);
-    (0, _recipeViewJsDefault.default).addHandlerServings(controlServings);
-    (0, _searchViewJsDefault.default).addHandlerSearch(controlSearchResults);
-    (0, _paginationViewJsDefault.default).addHandlerClick(controlPagination);
-};
-initEvent();
+init();
 
-},{"core-js/modules/web.immediate.js":"49tUX","./model.js":"Y4A21","./view/recipeView.js":"7Olh7","./view/searchView.js":"blwqv","./view/resultView.js":"i3HJw","./view/paginationView.js":"9Reww","regenerator-runtime/runtime":"dXNgZ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"49tUX":[function(require,module,exports) {
+},{"core-js/modules/web.immediate.js":"49tUX","../js/model.js":"Y4A21","../js/views/recipeView.js":"l60JC","../js/views/searchView.js":"9OQAM","../js/views/resultView.js":"f70O5","../js/views/paginationView.js":"6z7bi","regenerator-runtime/runtime":"dXNgZ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"49tUX":[function(require,module,exports) {
 // TODO: Remove this module from `core-js@4` since it's split to modules listed below
 require("../modules/web.clear-immediate");
 require("../modules/web.set-immediate");
@@ -1714,26 +1702,26 @@ $({
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "state", ()=>state);
-parcelHelpers.export(exports, "loadRecipe", ()=>loadRecipe);
-parcelHelpers.export(exports, "loadSearchResults", ()=>loadSearchResults);
-parcelHelpers.export(exports, "loadSearchResultPage", ()=>loadSearchResultPage);
-parcelHelpers.export(exports, "loadNewServing", ()=>loadNewServing);
-var _regeneratorRuntime = require("regenerator-runtime");
-var _config = require("./config");
+parcelHelpers.export(exports, "getData", ()=>getData);
+parcelHelpers.export(exports, "getSearchData", ()=>getSearchData);
+parcelHelpers.export(exports, "getSearchPage", ()=>getSearchPage);
+parcelHelpers.export(exports, "getRecipeServings", ()=>getRecipeServings);
 var _helper = require("./helper");
+var _config = require("./config");
 const state = {
     recipe: {},
-    search: {
+    searchRecipe: {
         query: "",
-        searchResult: [],
-        resultPerPage: (0, _config.RES_PER_PAGE),
-        page: 1
+        result: [],
+        resultsPerPage: (0, _config.PAGE_NUM),
+        page: 1,
+        totalPage: 1
     }
 };
-const loadRecipe = async function(id) {
+const getData = async function(id) {
     try {
-        const data = await (0, _helper.getJSON)(`${(0, _config.API_URL)}/${id}`);
-        // 建立菜單，並且將菜單更名
+        const data = await (0, _helper.getJSON)(`${(0, _config.API_URL)}${id}`);
+        // 新增一個 recipe 變數
         const { recipe  } = data.data;
         state.recipe = {
             id: recipe.id,
@@ -1750,39 +1738,726 @@ const loadRecipe = async function(id) {
         throw err;
     }
 };
-const loadSearchResults = async function(query) {
+const getSearchData = async function(query) {
     try {
-        state.search.query = query;
+        state.searchRecipe.query = query;
         const data = await (0, _helper.getJSON)(`${(0, _config.API_URL)}?search=${query}`);
-        state.search.searchResult = data.data.recipes.map((recipe)=>{
-            //這邊會 return 一個新的物件
+        // 將 search 的 data 儲存在 state 當中
+        state.searchRecipe.result = data.data.recipes.map((recipe)=>{
             return {
                 id: recipe.id,
                 title: recipe.title,
-                image: recipe.image_url,
-                publisher: recipe.publisher
+                publisher: recipe.publisher,
+                image: recipe.image_url
             };
         });
-    } catch (error) {
-        throw error;
+    } catch (err) {
+        throw err;
     }
 };
-const loadSearchResultPage = function(page = state.search.page) {
-    state.search.page = page;
-    //因為 per page 可以是固定的變量，所以將他設定在 config 的資料夾中
-    const start = (page - 1) * state.search.resultPerPage; //0
-    const end = page * state.search.resultPerPage; //9
-    // 使用 slice 的方法，來取得每次 10 筆資料
-    return state.search.searchResult.slice(start, end);
+const getSearchPage = function(page = state.searchRecipe.page) {
+    //get current page
+    state.searchRecipe.page = page;
+    // get total page
+    state.searchRecipe.totalPage = Math.ceil(state.searchRecipe.result.length / state.searchRecipe.resultsPerPage);
+    const start = (page - 1) * state.searchRecipe.resultsPerPage;
+    const end = page * state.searchRecipe.resultsPerPage;
+    return state.searchRecipe.result.slice(start, end);
 };
-const loadNewServing = function(newServing) {
+const getRecipeServings = function(servings) {
+    const newServings = servings;
     state.recipe.ingredients.forEach((ing)=>{
-        ing.quantity = ing.quantity * newServing / state.recipe.servings;
+        ing.quantity = ing.quantity * newServings / state.recipe.servings;
     });
-    state.recipe.servings = newServing;
+    state.recipe.servings = newServings;
 };
 
-},{"regenerator-runtime":"dXNgZ","./config":"k5Hzs","./helper":"lVRAz","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dXNgZ":[function(require,module,exports) {
+},{"./helper":"lVRAz","./config":"k5Hzs","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"lVRAz":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "getJSON", ()=>getJSON);
+parcelHelpers.export(exports, "timeout", ()=>timeout);
+// helper 當中的 function 是希望可以一直重複使用的
+var _config = require("./config");
+const getJSON = async function(url) {
+    try {
+        // 這裡使用 promise.race([參數1, 參數2])
+        const response = await Promise.race([
+            fetch(url),
+            timeout((0, _config.TIMEOUT))
+        ]);
+        const data = await response.json();
+        /* 建立一個 throw new Error, 利用 API 的 error message 來創建 mes，因為 API 中會提供 status, OK ,message, 所以可以將他們多加利用 */ if (!response.ok) throw new Error(`${data.message} (${res.status})`);
+        return data;
+    } catch (err) {
+        throw err;
+    }
+};
+const timeout = function(s) {
+    return new Promise(function(_, reject) {
+        setTimeout(function() {
+            reject(new Error(`Request took too long! Timeout after ${s} second`));
+        }, s * 1000);
+    });
+};
+
+},{"./config":"k5Hzs","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"k5Hzs":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "API_URL", ()=>API_URL);
+parcelHelpers.export(exports, "TIMEOUT", ()=>TIMEOUT);
+parcelHelpers.export(exports, "PAGE_NUM", ()=>PAGE_NUM);
+const API_URL = `https://forkify-api.herokuapp.com/api/v2/recipes/`;
+const TIMEOUT = 5;
+const PAGE_NUM = 10;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gkKU3":[function(require,module,exports) {
+exports.interopDefault = function(a) {
+    return a && a.__esModule ? a : {
+        default: a
+    };
+};
+exports.defineInteropFlag = function(a) {
+    Object.defineProperty(a, "__esModule", {
+        value: true
+    });
+};
+exports.exportAll = function(source, dest) {
+    Object.keys(source).forEach(function(key) {
+        if (key === "default" || key === "__esModule" || dest.hasOwnProperty(key)) return;
+        Object.defineProperty(dest, key, {
+            enumerable: true,
+            get: function() {
+                return source[key];
+            }
+        });
+    });
+    return dest;
+};
+exports.export = function(dest, destName, get) {
+    Object.defineProperty(dest, destName, {
+        enumerable: true,
+        get: get
+    });
+};
+
+},{}],"l60JC":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+// VIEW 是產生前端畫面的 HTML ，讓資料可以顯示出來給使用者，負責的就是『畫面』的部分 !!!
+var _viewJs = require("./view.js");
+var _viewJsDefault = parcelHelpers.interopDefault(_viewJs);
+// 利用 parcel 來導入 icon 的新位置
+var _iconsSvg = require("url:../../img/icons.svg");
+var _iconsSvgDefault = parcelHelpers.interopDefault(_iconsSvg);
+// import fraction(分數)
+var _fractional = require("fractional");
+class RecipeView extends (0, _viewJsDefault.default) {
+    _parentElement = document.querySelector(".recipe");
+    _errMessage = `Can't find data`;
+    _sucMessage = `Great!`;
+    //   GENERATE HTML!!!
+    _generateMarkup() {
+        return `
+    <figure class="recipe__fig">
+      <img src="${this._data.image}" alt="${this._data.title}" 
+      class="recipe__img" />
+      <h1 class="recipe__title">
+        <span>${this._data.title}</span>
+      </h1>
+    </figure>
+
+    <div class="recipe__details">
+      <div class="recipe__info">
+        <svg class="recipe__info-icon">
+          <use href="${0, _iconsSvgDefault.default}#icon-clock"></use>
+        </svg>
+        <span class="recipe__info-data recipe__info-data--minutes">${this._data.cookingTime}</span>
+        <span class="recipe__info-text">minutes</span>
+      </div>
+      <div class="recipe__info">
+        <svg class="recipe__info-icon">
+          <use href="${0, _iconsSvgDefault.default}#icon-users"></use>
+        </svg>
+        <span class="recipe__info-data recipe__info-data--people">${this._data.servings}</span>
+        <span class="recipe__info-text">servings</span>
+
+        <div class="recipe__info-buttons">
+          <button class="btn--tiny btn--increase-servings" data-servings="${this._data.servings - 1}">
+            <svg>
+              <use href="${0, _iconsSvgDefault.default}#icon-minus-circle"></use>
+            </svg>
+          </button>
+          <button class="btn--tiny btn--increase-servings" data-servings="${this._data.servings + 1}">
+            <svg>
+              <use href="${0, _iconsSvgDefault.default}#icon-plus-circle"></use>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="recipe__user-generated">
+
+      </div>
+      <button class="btn--round">
+        <svg class="">
+          <use href="${0, _iconsSvgDefault.default}#icon-bookmark-fill"></use>
+        </svg>
+      </button>
+    </div>
+
+    <div class="recipe__ingredients">
+      <h2 class="heading--2">Recipe ingredients</h2>
+      <ul class="recipe__ingredient-list">
+      ${this._data.ingredients.map((ing)=>{
+            return this._markupIngredients(ing);
+        }).join("")}
+      </ul>
+    </div>
+
+    <div class="recipe__directions">
+      <h2 class="heading--2">How to cook it</h2>
+      <p class="recipe__directions-text">
+        This recipe was carefully designed and tested by
+        <span class="recipe__publisher">${this._data.publisher}</span>. Please check out
+        directions at their website.
+      </p>
+      <a
+        class="btn--small recipe__btn"
+        href="http://thepioneerwoman.com/cooking/pasta-with-tomato-cream-sauce/"
+        target="_blank"
+      >
+        <span>Directions</span>
+        <svg class="search__icon">
+          <use href="${0, _iconsSvgDefault.default}#icon-arrow-right"></use>
+        </svg>
+      </a>
+    </div>
+`;
+    }
+    _markupIngredients(ing) {
+        return ` 
+    <li class="recipe__ingredient">
+        <svg class="recipe__icon">
+            <use href="${0, _iconsSvgDefault.default}#icon-check"></use>
+        </svg>
+        <div class="recipe__quantity">${ing.quantity ? new (0, _fractional.Fraction)(ing.quantity).toString() : ""}</div>
+        <div class="recipe__description">
+        <span class="recipe__unit">${ing.unit}</span>
+        ${ing.description}
+        </div>
+    </li>`;
+    }
+    _addHandlerRender(handler) {
+        const event = [
+            "hashchange",
+            "load"
+        ];
+        event.forEach((ev)=>window.addEventListener(ev, handler));
+    }
+    _addHandlerServings(handler) {
+        this._parentElement.addEventListener("click", function(e) {
+            const btn = e.target.closest(".btn--increase-servings");
+            if (!btn) return;
+            const newServings = +btn.dataset.servings;
+            if (newServings > 0 && newServings <= 20) handler(newServings);
+        });
+    }
+}
+exports.default = new RecipeView();
+
+},{"./view.js":"bWlJ9","url:../../img/icons.svg":"loVOp","fractional":"3SU56","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"bWlJ9":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _iconsSvg = require("url:../../img/icons.svg");
+var _iconsSvgDefault = parcelHelpers.interopDefault(_iconsSvg);
+class View {
+    _data;
+    //   RENDER DATA
+    render(data) {
+        if (!data || Array.isArray(data) && data.length === 0) return this.renderError();
+        this._data = data;
+        const markup = this._generateMarkup();
+        this._clear();
+        this._parentElement.insertAdjacentHTML("afterbegin", markup);
+    }
+    //   UPDATE PART OF DATA
+    update(data) {
+        if (!data || Array.isArray(data) && data.length === 0) return this.renderError();
+        this._data = data;
+        const markup = this._generateMarkup();
+        const newDOM = document.createRange().createContextualFragment(markup);
+        // 因為使用 querySelectAll 會產生 nodeList 所以需要使用 Array.from 來將其改為 Array
+        const newElements = Array.from(newDOM.querySelectorAll("*"));
+        const currentElements = Array.from(this._parentElement.querySelectorAll("*"));
+        newElements.forEach((newEl, i)=>{
+            const currentEl = currentElements[i];
+            if (!newEl.isEqualNode(currentEl)) {
+                currentEl.firstChild.textContent = newEl.firstChild.textContent;
+                const attribute = Array.from(newEl.attributes);
+                console.log(attribute);
+                attribute.forEach((att)=>{
+                    currentEl.setAttribute(att.name, att.value);
+                });
+            }
+        });
+    }
+    //   CLEAR PARENT ELEMENT
+    _clear() {
+        this._parentElement.innerHTML = "";
+    }
+    //   RENDER SPINNER
+    renderSpinner() {
+        const markup = `
+            <div class="spinner">
+                  <svg>
+                    <use href="${(0, _iconsSvgDefault.default)}#icon-loader"></use>
+                  </svg>
+            </div>
+            `;
+        this._clear();
+        this._parentElement.insertAdjacentHTML("afterbegin", markup);
+    }
+    //   RENDER ERROR (default message info)
+    renderError(message = this._errMessage) {
+        const markup = `
+    <div class="error">
+        <div>
+            <svg>
+                <use href="${(0, _iconsSvgDefault.default)}#icon-alert-triangle"></use>
+            </svg>
+        </div>
+        <p>${message}</p>
+    </div>`;
+        this._clear();
+        this._parentElement.insertAdjacentHTML("afterbegin", markup);
+    }
+    //   RENDER SUCCESS MES (default message info)
+    renderSuccess(message = this._sucMessage) {
+        const markup = `
+        <div class="message">
+            <div>
+                <svg>
+                    <use href="${(0, _iconsSvgDefault.default)}#icon-smile"></use>
+                </svg>
+            </div>
+            <p>${message}</p>
+        </div>`;
+        this._clear();
+        this._parentElement.insertAdjacentHTML("afterbegin", markup);
+    }
+}
+exports.default = View;
+
+},{"url:../../img/icons.svg":"loVOp","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"loVOp":[function(require,module,exports) {
+module.exports = require("./helpers/bundle-url").getBundleURL("hWUTQ") + "icons.dfd7a6db.svg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"lgJ39"}],"lgJ39":[function(require,module,exports) {
+"use strict";
+var bundleURL = {};
+function getBundleURLCached(id) {
+    var value = bundleURL[id];
+    if (!value) {
+        value = getBundleURL();
+        bundleURL[id] = value;
+    }
+    return value;
+}
+function getBundleURL() {
+    try {
+        throw new Error();
+    } catch (err) {
+        var matches = ("" + err.stack).match(/(https?|file|ftp|(chrome|moz|safari-web)-extension):\/\/[^)\n]+/g);
+        if (matches) // The first two stack frames will be this function and getBundleURLCached.
+        // Use the 3rd one, which will be a runtime in the original bundle.
+        return getBaseURL(matches[2]);
+    }
+    return "/";
+}
+function getBaseURL(url) {
+    return ("" + url).replace(/^((?:https?|file|ftp|(chrome|moz|safari-web)-extension):\/\/.+)\/[^/]+$/, "$1") + "/";
+} // TODO: Replace uses with `new URL(url).origin` when ie11 is no longer supported.
+function getOrigin(url) {
+    var matches = ("" + url).match(/(https?|file|ftp|(chrome|moz|safari-web)-extension):\/\/[^/]+/);
+    if (!matches) throw new Error("Origin not found");
+    return matches[0];
+}
+exports.getBundleURL = getBundleURLCached;
+exports.getBaseURL = getBaseURL;
+exports.getOrigin = getOrigin;
+
+},{}],"3SU56":[function(require,module,exports) {
+/*
+fraction.js
+A Javascript fraction library.
+
+Copyright (c) 2009  Erik Garrison <erik@hypervolu.me>
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+*/ /* Fractions */ /* 
+ *
+ * Fraction objects are comprised of a numerator and a denomenator.  These
+ * values can be accessed at fraction.numerator and fraction.denomenator.
+ *
+ * Fractions are always returned and stored in lowest-form normalized format.
+ * This is accomplished via Fraction.normalize.
+ *
+ * The following mathematical operations on fractions are supported:
+ *
+ * Fraction.equals
+ * Fraction.add
+ * Fraction.subtract
+ * Fraction.multiply
+ * Fraction.divide
+ *
+ * These operations accept both numbers and fraction objects.  (Best results
+ * are guaranteed when the input is a fraction object.)  They all return a new
+ * Fraction object.
+ *
+ * Usage:
+ *
+ * TODO
+ *
+ */ /*
+ * The Fraction constructor takes one of:
+ *   an explicit numerator (integer) and denominator (integer),
+ *   a string representation of the fraction (string),
+ *   or a floating-point number (float)
+ *
+ * These initialization methods are provided for convenience.  Because of
+ * rounding issues the best results will be given when the fraction is
+ * constructed from an explicit integer numerator and denomenator, and not a
+ * decimal number.
+ *
+ *
+ * e.g. new Fraction(1, 2) --> 1/2
+ *      new Fraction('1/2') --> 1/2
+ *      new Fraction('2 3/4') --> 11/4  (prints as 2 3/4)
+ *
+ */ Fraction = function(numerator, denominator) {
+    /* double argument invocation */ if (typeof numerator !== "undefined" && denominator) {
+        if (typeof numerator === "number" && typeof denominator === "number") {
+            this.numerator = numerator;
+            this.denominator = denominator;
+        } else if (typeof numerator === "string" && typeof denominator === "string") {
+            // what are they?
+            // hmm....
+            // assume they are ints?
+            this.numerator = parseInt(numerator);
+            this.denominator = parseInt(denominator);
+        }
+    /* single-argument invocation */ } else if (typeof denominator === "undefined") {
+        num = numerator; // swap variable names for legibility
+        if (typeof num === "number") {
+            this.numerator = num;
+            this.denominator = 1;
+        } else if (typeof num === "string") {
+            var a, b; // hold the first and second part of the fraction, e.g. a = '1' and b = '2/3' in 1 2/3
+            // or a = '2/3' and b = undefined if we are just passed a single-part number
+            var arr = num.split(" ");
+            if (arr[0]) a = arr[0];
+            if (arr[1]) b = arr[1];
+            /* compound fraction e.g. 'A B/C' */ //  if a is an integer ...
+            if (a % 1 === 0 && b && b.match("/")) return new Fraction(a).add(new Fraction(b));
+            else if (a && !b) {
+                /* simple fraction e.g. 'A/B' */ if (typeof a === "string" && a.match("/")) {
+                    // it's not a whole number... it's actually a fraction without a whole part written
+                    var f = a.split("/");
+                    this.numerator = f[0];
+                    this.denominator = f[1];
+                /* string floating point */ } else if (typeof a === "string" && a.match(".")) return new Fraction(parseFloat(a));
+                else {
+                    this.numerator = parseInt(a);
+                    this.denominator = 1;
+                }
+            } else return undefined; // could not parse
+        }
+    }
+    this.normalize();
+};
+Fraction.prototype.clone = function() {
+    return new Fraction(this.numerator, this.denominator);
+};
+/* pretty-printer, converts fractions into whole numbers and fractions */ Fraction.prototype.toString = function() {
+    if (this.denominator === "NaN") return "NaN";
+    var wholepart = this.numerator / this.denominator > 0 ? Math.floor(this.numerator / this.denominator) : Math.ceil(this.numerator / this.denominator);
+    var numerator = this.numerator % this.denominator;
+    var denominator = this.denominator;
+    var result = [];
+    if (wholepart != 0) result.push(wholepart);
+    if (numerator != 0) result.push((wholepart === 0 ? numerator : Math.abs(numerator)) + "/" + denominator);
+    return result.length > 0 ? result.join(" ") : 0;
+};
+/* destructively rescale the fraction by some integral factor */ Fraction.prototype.rescale = function(factor) {
+    this.numerator *= factor;
+    this.denominator *= factor;
+    return this;
+};
+Fraction.prototype.add = function(b) {
+    var a = this.clone();
+    if (b instanceof Fraction) b = b.clone();
+    else b = new Fraction(b);
+    td = a.denominator;
+    a.rescale(b.denominator);
+    b.rescale(td);
+    a.numerator += b.numerator;
+    return a.normalize();
+};
+Fraction.prototype.subtract = function(b) {
+    var a = this.clone();
+    if (b instanceof Fraction) b = b.clone(); // we scale our argument destructively, so clone
+    else b = new Fraction(b);
+    td = a.denominator;
+    a.rescale(b.denominator);
+    b.rescale(td);
+    a.numerator -= b.numerator;
+    return a.normalize();
+};
+Fraction.prototype.multiply = function(b) {
+    var a = this.clone();
+    if (b instanceof Fraction) {
+        a.numerator *= b.numerator;
+        a.denominator *= b.denominator;
+    } else if (typeof b === "number") a.numerator *= b;
+    else return a.multiply(new Fraction(b));
+    return a.normalize();
+};
+Fraction.prototype.divide = function(b) {
+    var a = this.clone();
+    if (b instanceof Fraction) {
+        a.numerator *= b.denominator;
+        a.denominator *= b.numerator;
+    } else if (typeof b === "number") a.denominator *= b;
+    else return a.divide(new Fraction(b));
+    return a.normalize();
+};
+Fraction.prototype.equals = function(b) {
+    if (!(b instanceof Fraction)) b = new Fraction(b);
+    // fractions that are equal should have equal normalized forms
+    var a = this.clone().normalize();
+    var b = b.clone().normalize();
+    return a.numerator === b.numerator && a.denominator === b.denominator;
+};
+/* Utility functions */ /* Destructively normalize the fraction to its smallest representation. 
+ * e.g. 4/16 -> 1/4, 14/28 -> 1/2, etc.
+ * This is called after all math ops.
+ */ Fraction.prototype.normalize = function() {
+    var isFloat = function(n) {
+        return typeof n === "number" && (n > 0 && n % 1 > 0 && n % 1 < 1 || n < 0 && n % -1 < 0 && n % -1 > -1);
+    };
+    var roundToPlaces = function(n, places) {
+        if (!places) return Math.round(n);
+        else {
+            var scalar = Math.pow(10, places);
+            return Math.round(n * scalar) / scalar;
+        }
+    };
+    return function() {
+        // XXX hackish.  Is there a better way to address this issue?
+        //
+        /* first check if we have decimals, and if we do eliminate them
+         * multiply by the 10 ^ number of decimal places in the number
+         * round the number to nine decimal places
+         * to avoid js floating point funnies
+         */ if (isFloat(this.denominator)) {
+            var rounded = roundToPlaces(this.denominator, 9);
+            var scaleup = Math.pow(10, rounded.toString().split(".")[1].length);
+            this.denominator = Math.round(this.denominator * scaleup); // this !!! should be a whole number
+            //this.numerator *= scaleup;
+            this.numerator *= scaleup;
+        }
+        if (isFloat(this.numerator)) {
+            var rounded = roundToPlaces(this.numerator, 9);
+            var scaleup = Math.pow(10, rounded.toString().split(".")[1].length);
+            this.numerator = Math.round(this.numerator * scaleup); // this !!! should be a whole number
+            //this.numerator *= scaleup;
+            this.denominator *= scaleup;
+        }
+        var gcf = Fraction.gcf(this.numerator, this.denominator);
+        this.numerator /= gcf;
+        this.denominator /= gcf;
+        if (this.numerator < 0 && this.denominator < 0 || this.numerator > 0 && this.denominator < 0) {
+            this.numerator *= -1;
+            this.denominator *= -1;
+        }
+        return this;
+    };
+}();
+/* Takes two numbers and returns their greatest common factor.
+ */ Fraction.gcf = function(a, b) {
+    var common_factors = [];
+    var fa = Fraction.primeFactors(a);
+    var fb = Fraction.primeFactors(b);
+    // for each factor in fa
+    // if it's also in fb
+    // put it into the common factors
+    fa.forEach(function(factor) {
+        var i = fb.indexOf(factor);
+        if (i >= 0) {
+            common_factors.push(factor);
+            fb.splice(i, 1); // remove from fb
+        }
+    });
+    if (common_factors.length === 0) return 1;
+    var gcf = function() {
+        var r = common_factors[0];
+        var i;
+        for(i = 1; i < common_factors.length; i++)r = r * common_factors[i];
+        return r;
+    }();
+    return gcf;
+};
+// Adapted from: 
+// http://www.btinternet.com/~se16/js/factor.htm
+Fraction.primeFactors = function(n) {
+    var num1 = Math.abs(n);
+    var factors = [];
+    var _factor = 2; // first potential prime factor
+    while(_factor * _factor <= num1)if (num1 % _factor === 0) {
+        factors.push(_factor); // so keep it
+        num1 = num1 / _factor; // and divide our search point by it
+    } else _factor++; // and increment
+    if (num1 != 1) factors.push(num1); //    so it too should be recorded
+    return factors; // Return the prime factors
+};
+module.exports.Fraction = Fraction;
+
+},{}],"9OQAM":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _viewJs = require("./view.js");
+var _viewJsDefault = parcelHelpers.interopDefault(_viewJs);
+// 這個是只有 searchbar
+class SearchView extends (0, _viewJsDefault.default) {
+    _parentElement = document.querySelector(".search");
+    getQuery() {
+        const query = this._parentElement.querySelector(".search__field").value;
+        this.clearInput();
+        return query;
+    }
+    clearInput() {
+        this._parentElement.querySelector(".search__field").value = "";
+    }
+    _addHandlerSearch(handler) {
+        this._parentElement.addEventListener("submit", function(e) {
+            e.preventDefault();
+            handler();
+        });
+    }
+}
+exports.default = new SearchView();
+
+},{"./view.js":"bWlJ9","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"f70O5":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+// 利用 parcel 來導入 icon 的新位置
+var _iconsSvg = require("url:../../img/icons.svg");
+var _iconsSvgDefault = parcelHelpers.interopDefault(_iconsSvg);
+var _viewJs = require("./view.js");
+var _viewJsDefault = parcelHelpers.interopDefault(_viewJs);
+class ResultView extends (0, _viewJsDefault.default) {
+    _parentElement = document.querySelector(".results");
+    _errMessage = `No recipes found for your query :(`;
+    _sucMessage = `Great!`;
+    // GENERATE HTML!!!
+    _generateMarkup() {
+        console.log(this._data);
+        return this._data.map((data)=>this._markupPreview(data)).join("");
+    }
+    _markupPreview(data) {
+        const id = window.location.hash.slice(1);
+        return `
+    <li class="preview">
+        <a class="preview__link ${data.id === id ? "preview__link--active" : ""}" href="#${data.id}">
+            <figure class="preview__fig">
+                <img src="${data.image}" alt="${data.title}" />
+            </figure>
+            <div class="preview__data">
+                <h4 class="preview__title">${data.title}</h4>
+                 <p class="preview__publisher">${data.publisher}</p>
+            </div>
+        </a>
+    </li>
+`;
+    }
+}
+exports.default = new ResultView();
+
+},{"url:../../img/icons.svg":"loVOp","./view.js":"bWlJ9","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"6z7bi":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+// VIEW 是產生前端畫面的 HTML ，讓資料可以顯示出來給使用者，負責的就是『畫面』的部分 !!!
+var _viewJs = require("./view.js");
+var _viewJsDefault = parcelHelpers.interopDefault(_viewJs);
+// 利用 parcel 來導入 icon 的新位置
+var _iconsSvg = require("url:../../img/icons.svg");
+var _iconsSvgDefault = parcelHelpers.interopDefault(_iconsSvg);
+class PaginationView extends (0, _viewJsDefault.default) {
+    _parentElement = document.querySelector(".pagination");
+    _errMessage = `Can't find data`;
+    _sucMessage = `Great!`;
+    //   GENERATE HTML!!!
+    _generateMarkup() {
+        const curPage = this._data.page;
+        const totalPage = this._data.totalPage;
+        // 1. current page === 1 and total page ===1
+        if (curPage === 1 && totalPage === 1) return "";
+        // 2. current page === 1 and total page > 1
+        if (curPage === 1 && totalPage > 1) return this._markupPageRight(curPage);
+        // 3. current page >1 and total page >1
+        if (curPage < totalPage && curPage > 1) return `${this._markupPageLeft(curPage)} ${this._markupPageRight(curPage)}`;
+        // 4. current page >1 and current page === total page
+        if (totalPage === curPage) return `${this._markupPageLeft(curPage)}${this._markupPageRight(curPage)} `;
+    }
+    _markupPageLeft(page) {
+        return `
+    <button data-goto="${page - 1}" class="btn--inline pagination__btn--prev">
+        <svg class="search__icon">
+              <use href="${0, _iconsSvgDefault.default}#icon-arrow-left"></use>
+        </svg>
+        <span> Page ${page - 1}</span>
+    </button>
+    `;
+    }
+    _markupPageRight(page) {
+        return `
+    <button data-goto="${page + 1 > this._data.totalPage ? 1 : page + 1}" class="btn--inline pagination__btn--next">
+        <span> Page ${page + 1 > this._data.totalPage ? 1 : page + 1}</span>
+        <svg class="search__icon">
+            <use href="${0, _iconsSvgDefault.default}#icon-arrow-right"></use>
+        </svg>
+    </button>
+    `;
+    }
+    _addHandlerPagination(handler) {
+        this._parentElement.addEventListener("click", function(e) {
+            const btn = e.target.closest(".btn--inline");
+            if (!btn) return;
+            const gotoPage = +btn.dataset.goto;
+            handler(gotoPage);
+        });
+    }
+}
+exports.default = new PaginationView();
+
+},{"./view.js":"bWlJ9","url:../../img/icons.svg":"loVOp","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dXNgZ":[function(require,module,exports) {
 /**
  * Copyright (c) 2014-present, Facebook, Inc.
  *
@@ -2349,722 +3024,6 @@ try {
     else Function("r", "regeneratorRuntime = r")(runtime);
 }
 
-},{}],"k5Hzs":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "API_URL", ()=>API_URL);
-parcelHelpers.export(exports, "TIME_OUT", ()=>TIME_OUT);
-parcelHelpers.export(exports, "RES_PER_PAGE", ()=>RES_PER_PAGE);
-const API_URL = `https://forkify-api.herokuapp.com/api/v2/recipes`;
-const TIME_OUT = 10;
-const RES_PER_PAGE = 10;
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gkKU3":[function(require,module,exports) {
-exports.interopDefault = function(a) {
-    return a && a.__esModule ? a : {
-        default: a
-    };
-};
-exports.defineInteropFlag = function(a) {
-    Object.defineProperty(a, "__esModule", {
-        value: true
-    });
-};
-exports.exportAll = function(source, dest) {
-    Object.keys(source).forEach(function(key) {
-        if (key === "default" || key === "__esModule" || dest.hasOwnProperty(key)) return;
-        Object.defineProperty(dest, key, {
-            enumerable: true,
-            get: function() {
-                return source[key];
-            }
-        });
-    });
-    return dest;
-};
-exports.export = function(dest, destName, get) {
-    Object.defineProperty(dest, destName, {
-        enumerable: true,
-        get: get
-    });
-};
-
-},{}],"lVRAz":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "getJSON", ()=>getJSON);
-// 包含許多函數，我們可以在整個程式當中重複使用
-// 像是獲取 WEB API
-// 設定時間 產生錯誤捕捉
-var _config = require("./config");
-const timeout = function(s) {
-    return new Promise(function(_, reject) {
-        setTimeout(function() {
-            reject(new Error(`Request took too long! Timeout after ${s} second`));
-        }, s * 1000);
-    });
-};
-const getJSON = async function(url) {
-    try {
-        // 使用 fetch 來取得遠端的 WebAPI
-        // 利用 Promise.race 來進行時間的競賽，利用[]來包住 promise1,promise2
-        const res = await Promise.race([
-            fetch(url),
-            timeout((0, _config.TIME_OUT))
-        ]);
-        // 將 response 轉換為 json 格式的資料
-        const data = await res.json();
-        // 建立程式中的 error 語句，來讓 catch 捕捉
-        // 如果 response 中的 ok 是 false 就傳送 error 語句
-        if (!res.ok) throw new Error(`You got ${data.status} (${res.status})`);
-        console.log(res, data);
-        // 需要回傳 promise 回去給其他資料使用 !!! 非常重要 !!!
-        return data;
-    } catch (err) {
-        // 這邊要將 error 丟出去成為一個新的 promise
-        throw err;
-    }
-};
-
-},{"./config":"k5Hzs","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"7Olh7":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-////// 這個資料夾是 render "VIEW"
-/* 在這個資料夾中，不會去 import 任何 controller 中的 function，所以你不能在這裡 call controller 中的 function
-view 不知道 controller 中的資料（不知情的），所以不能讀取其中的 data，只能由 controller 來取得 view 的 data */ //////// IMPORT
-var _viewJs = require("./view.js");
-var _viewJsDefault = parcelHelpers.interopDefault(_viewJs);
-var _iconsSvg = require("url:../../img/icons.svg");
-var _iconsSvgDefault = parcelHelpers.interopDefault(_iconsSvg);
-//數字轉換的 npm
-var _fractional = require("fractional");
-// 可以使用 CLASS 來建構，因為之後還會建構一個父層的 VIEW class ，讓子層來繼承
-class RecipeView extends (0, _viewJsDefault.default) {
-    // 建立父層 DOM element
-    _parentElement = document.querySelector(".recipe");
-    _data;
-    _errorMsg = `No recipes found for your query. Please try again!`;
-    _successMsg = ``;
-    // 建立監聽事件後的執行函式，handlerFunction 作為一個 callback function，是在controller 中的 function
-    addHandlerRender(handlerFunction) {
-        const active = [
-            "hashchange",
-            "load"
-        ];
-        active.forEach((ev)=>window.addEventListener(ev, handlerFunction));
-    }
-    //建立點擊增加與減少的事件
-    addHandlerServings(handlerFunction) {
-        this._parentElement.addEventListener("click", function(e) {
-            e.preventDefault();
-            const btn = e.target.closest(".btn--increase-servings");
-            if (!btn) return;
-            // 在 HTMl 當中增加 data-attribute ， 來表示 serving 的數量
-            const servingCount = +btn.dataset.servings;
-            // 如果 count >0 才能繼續往下減少
-            if (servingCount > 0 && servingCount <= 10) handlerFunction(servingCount);
-        });
-    }
-    // 建立 recipe 的 render
-    _generateMarkup() {
-        return `
-      <figure class="recipe__fig">
-            <img src="${this._data.image}" alt="${this._data.title}" class="recipe__img" />
-            <h1 class="recipe__title">
-              <span>${this._data.title}</span>
-            </h1>
-          </figure>
-  
-          <div class="recipe__details">
-            <div class="recipe__info">
-              <svg class="recipe__info-icon">
-                <use href="${0, _iconsSvgDefault.default}#icon-clock"></use>
-              </svg>
-              <span class="recipe__info-data recipe__info-data--minutes">${this._data.cookingTime}</span>
-              <span class="recipe__info-text">minutes</span>
-            </div>
-            <div class="recipe__info">
-              <svg class="recipe__info-icon">
-                <use href="${0, _iconsSvgDefault.default}#icon-users"></use>
-              </svg>
-              <span class="recipe__info-data recipe__info-data--people">${this._data.servings}</span>
-              <span class="recipe__info-text">servings</span>
-  
-              <div class="recipe__info-buttons">
-                <button class="btn--tiny btn--increase-servings" data-servings="${this._data.servings - 1}">
-                  <svg>
-                    <use href="${0, _iconsSvgDefault.default}#icon-minus-circle"></use>
-                  </svg>
-                </button>
-                <button class="btn--tiny btn--increase-servings" data-servings="${this._data.servings + 1}">
-                  <svg>
-                    <use href="${0, _iconsSvgDefault.default}#icon-plus-circle"></use>
-                  </svg>
-                </button>
-              </div>
-            </div>
-  
-            <div class="recipe__user-generated">
-            </div>
-            <button class="btn--round">
-              <svg class="">
-                <use href="${0, _iconsSvgDefault.default}#icon-bookmark-fill"></use>
-              </svg>
-            </button>
-          </div>
-  
-          <div class="recipe__ingredients">
-            <h2 class="heading--2">Recipe ingredients</h2>
-            <ul class="recipe__ingredient-list">
-            ${this._data.ingredients.map((ing)=>this._generateMarkupIngredient(ing)).join("")}
-            </ul>
-          </div>
-  
-          <div class="recipe__directions">
-            <h2 class="heading--2">How to cook it</h2>
-            <p class="recipe__directions-text">
-              This recipe was carefully designed and tested by
-              <span class="recipe__publisher">${this._data.publisher}</span>. Please check out
-              directions at their website.
-            </p>
-            <a
-              class="btn--small recipe__btn"
-              href="${this._data.sourceUrl}"
-              target="_blank"
-            >
-              <span>Directions</span>
-              <svg class="search__icon">
-                <use href="${0, _iconsSvgDefault.default}#icon-arrow-right"></use>
-              </svg>
-            </a>
-          </div>
-    `;
-    }
-    //建立數字的轉換
-    _generateMarkupIngredient(ing) {
-        return ` <li class="recipe__ingredient">
-    <svg class="recipe__icon">
-      <use href="${0, _iconsSvgDefault.default}#icon-check"></use>
-    </svg>
-    <div class="recipe__quantity">${ing.quantity ? new (0, _fractional.Fraction)(ing.quantity).toString() : ""}</div>
-    <div class="recipe__description">
-      <span class="recipe__unit">${ing.unit}</span>
-      ${ing.description}
-    </div>
-  </li>`;
-    }
-}
-//不要匯出整個 class ，而是匯出一個 default object
-exports.default = new RecipeView();
-
-},{"./view.js":"4wVyX","url:../../img/icons.svg":"loVOp","fractional":"3SU56","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"4wVyX":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _iconsSvg = require("url:../../img/icons.svg");
-var _iconsSvgDefault = parcelHelpers.interopDefault(_iconsSvg);
-class View {
-    _data;
-    render(data) {
-        if (!data || Array.isArray(data) && data.length === 0) return this.renderError();
-        console.log(data);
-        this._data = data;
-        const markup = this._generateMarkup();
-        this._clear();
-        this._parentElement.insertAdjacentHTML("afterbegin", markup);
-    }
-    //只要 update 一小部分的頁面
-    update(data) {
-        if (!data || Array.isArray(data) && data.length === 0) return this.renderError(`Search something 😄`);
-        this._data = data;
-        const newMarkup = this._generateMarkup();
-        // createRange()/createContextualFragment(碎片)，取得 node 的上下文範圍 list
-        const newDOM = document.createRange().createContextualFragment(newMarkup); //產生一個 document-fragment
-        // 選取全部 DOM 中的 elements，記得轉成 array 才能使用 forEach()
-        const newElements = Array.from(newDOM.querySelectorAll("*"));
-        // oldElement 就是 parent element 的 DOM elements
-        const oldElements = Array.from(this._parentElement.querySelectorAll("*"));
-        newElements.forEach((newEl, i)=>{
-            // 找回原有的 elements
-            const oldEl = oldElements[i];
-            // 使用 isEqualNode 來做 node list 的比較
-            // nodeValue 如果遇到 text 屬性，就會回傳 Content of the text node，確認他是否不是 空白
-            if (!newEl.isEqualNode(oldEl) && newEl.firstChild.nodeValue.trim() !== "") oldEl.textContent = newEl.textContent;
-            // 設定新的 data value
-            if (!newEl.isEqualNode(oldEl)) {
-                // log 出 node list 中的 attribute
-                const attributes = Array.from(newEl.attributes);
-                attributes.forEach((attr)=>{
-                    // 將原有的 attribute 設定成 新的 attribute
-                    oldEl.setAttribute(attr.name, attr.value);
-                });
-            }
-        });
-    }
-    // 清除父層中的 html
-    _clear() {
-        this._parentElement.innerHTML = "";
-    }
-    //建立 loading 的轉圈效果
-    renderSpinner() {
-        const html = ` 
-      <div class="spinner">
-        <svg>
-          <use href="${(0, _iconsSvgDefault.default)}#icon-loader"></use>
-        </svg>
-      </div>`;
-        this._clear();
-        this._parentElement.insertAdjacentHTML("afterbegin", html);
-    }
-    // 建立 Success message, 傳入一個 message 參數
-    renderError(message = this._successMsg) {
-        const html = `
-        <div class="message">
-            <div>
-              <svg>
-                <use href="${(0, _iconsSvgDefault.default)}#icon-smile"></use>
-              </svg>
-            </div>
-            <p>${message}</p>
-        </div>`;
-        this._clear();
-        this._parentElement.insertAdjacentHTML("afterbegin", html);
-    }
-    // 建立 Error catcher, 傳入一個 message 參數
-    renderError(errorMsg = this._errorMsg) {
-        const html = `
-        <div class="error">
-            <div>
-              <svg>
-                <use href="${(0, _iconsSvgDefault.default)}#icon-alert-triangle"></use>
-              </svg>
-            </div>
-            <p>${errorMsg}</p>
-        </div>`;
-        this._clear();
-        this._parentElement.insertAdjacentHTML("afterbegin", html);
-    }
-}
-exports.default = View;
-
-},{"url:../../img/icons.svg":"loVOp","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"loVOp":[function(require,module,exports) {
-module.exports = require("./helpers/bundle-url").getBundleURL("hWUTQ") + "icons.dfd7a6db.svg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"lgJ39"}],"lgJ39":[function(require,module,exports) {
-"use strict";
-var bundleURL = {};
-function getBundleURLCached(id) {
-    var value = bundleURL[id];
-    if (!value) {
-        value = getBundleURL();
-        bundleURL[id] = value;
-    }
-    return value;
-}
-function getBundleURL() {
-    try {
-        throw new Error();
-    } catch (err) {
-        var matches = ("" + err.stack).match(/(https?|file|ftp|(chrome|moz|safari-web)-extension):\/\/[^)\n]+/g);
-        if (matches) // The first two stack frames will be this function and getBundleURLCached.
-        // Use the 3rd one, which will be a runtime in the original bundle.
-        return getBaseURL(matches[2]);
-    }
-    return "/";
-}
-function getBaseURL(url) {
-    return ("" + url).replace(/^((?:https?|file|ftp|(chrome|moz|safari-web)-extension):\/\/.+)\/[^/]+$/, "$1") + "/";
-} // TODO: Replace uses with `new URL(url).origin` when ie11 is no longer supported.
-function getOrigin(url) {
-    var matches = ("" + url).match(/(https?|file|ftp|(chrome|moz|safari-web)-extension):\/\/[^/]+/);
-    if (!matches) throw new Error("Origin not found");
-    return matches[0];
-}
-exports.getBundleURL = getBundleURLCached;
-exports.getBaseURL = getBaseURL;
-exports.getOrigin = getOrigin;
-
-},{}],"3SU56":[function(require,module,exports) {
-/*
-fraction.js
-A Javascript fraction library.
-
-Copyright (c) 2009  Erik Garrison <erik@hypervolu.me>
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
-
-*/ /* Fractions */ /* 
- *
- * Fraction objects are comprised of a numerator and a denomenator.  These
- * values can be accessed at fraction.numerator and fraction.denomenator.
- *
- * Fractions are always returned and stored in lowest-form normalized format.
- * This is accomplished via Fraction.normalize.
- *
- * The following mathematical operations on fractions are supported:
- *
- * Fraction.equals
- * Fraction.add
- * Fraction.subtract
- * Fraction.multiply
- * Fraction.divide
- *
- * These operations accept both numbers and fraction objects.  (Best results
- * are guaranteed when the input is a fraction object.)  They all return a new
- * Fraction object.
- *
- * Usage:
- *
- * TODO
- *
- */ /*
- * The Fraction constructor takes one of:
- *   an explicit numerator (integer) and denominator (integer),
- *   a string representation of the fraction (string),
- *   or a floating-point number (float)
- *
- * These initialization methods are provided for convenience.  Because of
- * rounding issues the best results will be given when the fraction is
- * constructed from an explicit integer numerator and denomenator, and not a
- * decimal number.
- *
- *
- * e.g. new Fraction(1, 2) --> 1/2
- *      new Fraction('1/2') --> 1/2
- *      new Fraction('2 3/4') --> 11/4  (prints as 2 3/4)
- *
- */ Fraction = function(numerator, denominator) {
-    /* double argument invocation */ if (typeof numerator !== "undefined" && denominator) {
-        if (typeof numerator === "number" && typeof denominator === "number") {
-            this.numerator = numerator;
-            this.denominator = denominator;
-        } else if (typeof numerator === "string" && typeof denominator === "string") {
-            // what are they?
-            // hmm....
-            // assume they are ints?
-            this.numerator = parseInt(numerator);
-            this.denominator = parseInt(denominator);
-        }
-    /* single-argument invocation */ } else if (typeof denominator === "undefined") {
-        num = numerator; // swap variable names for legibility
-        if (typeof num === "number") {
-            this.numerator = num;
-            this.denominator = 1;
-        } else if (typeof num === "string") {
-            var a, b; // hold the first and second part of the fraction, e.g. a = '1' and b = '2/3' in 1 2/3
-            // or a = '2/3' and b = undefined if we are just passed a single-part number
-            var arr = num.split(" ");
-            if (arr[0]) a = arr[0];
-            if (arr[1]) b = arr[1];
-            /* compound fraction e.g. 'A B/C' */ //  if a is an integer ...
-            if (a % 1 === 0 && b && b.match("/")) return new Fraction(a).add(new Fraction(b));
-            else if (a && !b) {
-                /* simple fraction e.g. 'A/B' */ if (typeof a === "string" && a.match("/")) {
-                    // it's not a whole number... it's actually a fraction without a whole part written
-                    var f = a.split("/");
-                    this.numerator = f[0];
-                    this.denominator = f[1];
-                /* string floating point */ } else if (typeof a === "string" && a.match(".")) return new Fraction(parseFloat(a));
-                else {
-                    this.numerator = parseInt(a);
-                    this.denominator = 1;
-                }
-            } else return undefined; // could not parse
-        }
-    }
-    this.normalize();
-};
-Fraction.prototype.clone = function() {
-    return new Fraction(this.numerator, this.denominator);
-};
-/* pretty-printer, converts fractions into whole numbers and fractions */ Fraction.prototype.toString = function() {
-    if (this.denominator === "NaN") return "NaN";
-    var wholepart = this.numerator / this.denominator > 0 ? Math.floor(this.numerator / this.denominator) : Math.ceil(this.numerator / this.denominator);
-    var numerator = this.numerator % this.denominator;
-    var denominator = this.denominator;
-    var result = [];
-    if (wholepart != 0) result.push(wholepart);
-    if (numerator != 0) result.push((wholepart === 0 ? numerator : Math.abs(numerator)) + "/" + denominator);
-    return result.length > 0 ? result.join(" ") : 0;
-};
-/* destructively rescale the fraction by some integral factor */ Fraction.prototype.rescale = function(factor) {
-    this.numerator *= factor;
-    this.denominator *= factor;
-    return this;
-};
-Fraction.prototype.add = function(b) {
-    var a = this.clone();
-    if (b instanceof Fraction) b = b.clone();
-    else b = new Fraction(b);
-    td = a.denominator;
-    a.rescale(b.denominator);
-    b.rescale(td);
-    a.numerator += b.numerator;
-    return a.normalize();
-};
-Fraction.prototype.subtract = function(b) {
-    var a = this.clone();
-    if (b instanceof Fraction) b = b.clone(); // we scale our argument destructively, so clone
-    else b = new Fraction(b);
-    td = a.denominator;
-    a.rescale(b.denominator);
-    b.rescale(td);
-    a.numerator -= b.numerator;
-    return a.normalize();
-};
-Fraction.prototype.multiply = function(b) {
-    var a = this.clone();
-    if (b instanceof Fraction) {
-        a.numerator *= b.numerator;
-        a.denominator *= b.denominator;
-    } else if (typeof b === "number") a.numerator *= b;
-    else return a.multiply(new Fraction(b));
-    return a.normalize();
-};
-Fraction.prototype.divide = function(b) {
-    var a = this.clone();
-    if (b instanceof Fraction) {
-        a.numerator *= b.denominator;
-        a.denominator *= b.numerator;
-    } else if (typeof b === "number") a.denominator *= b;
-    else return a.divide(new Fraction(b));
-    return a.normalize();
-};
-Fraction.prototype.equals = function(b) {
-    if (!(b instanceof Fraction)) b = new Fraction(b);
-    // fractions that are equal should have equal normalized forms
-    var a = this.clone().normalize();
-    var b = b.clone().normalize();
-    return a.numerator === b.numerator && a.denominator === b.denominator;
-};
-/* Utility functions */ /* Destructively normalize the fraction to its smallest representation. 
- * e.g. 4/16 -> 1/4, 14/28 -> 1/2, etc.
- * This is called after all math ops.
- */ Fraction.prototype.normalize = function() {
-    var isFloat = function(n) {
-        return typeof n === "number" && (n > 0 && n % 1 > 0 && n % 1 < 1 || n < 0 && n % -1 < 0 && n % -1 > -1);
-    };
-    var roundToPlaces = function(n, places) {
-        if (!places) return Math.round(n);
-        else {
-            var scalar = Math.pow(10, places);
-            return Math.round(n * scalar) / scalar;
-        }
-    };
-    return function() {
-        // XXX hackish.  Is there a better way to address this issue?
-        //
-        /* first check if we have decimals, and if we do eliminate them
-         * multiply by the 10 ^ number of decimal places in the number
-         * round the number to nine decimal places
-         * to avoid js floating point funnies
-         */ if (isFloat(this.denominator)) {
-            var rounded = roundToPlaces(this.denominator, 9);
-            var scaleup = Math.pow(10, rounded.toString().split(".")[1].length);
-            this.denominator = Math.round(this.denominator * scaleup); // this !!! should be a whole number
-            //this.numerator *= scaleup;
-            this.numerator *= scaleup;
-        }
-        if (isFloat(this.numerator)) {
-            var rounded = roundToPlaces(this.numerator, 9);
-            var scaleup = Math.pow(10, rounded.toString().split(".")[1].length);
-            this.numerator = Math.round(this.numerator * scaleup); // this !!! should be a whole number
-            //this.numerator *= scaleup;
-            this.denominator *= scaleup;
-        }
-        var gcf = Fraction.gcf(this.numerator, this.denominator);
-        this.numerator /= gcf;
-        this.denominator /= gcf;
-        if (this.numerator < 0 && this.denominator < 0 || this.numerator > 0 && this.denominator < 0) {
-            this.numerator *= -1;
-            this.denominator *= -1;
-        }
-        return this;
-    };
-}();
-/* Takes two numbers and returns their greatest common factor.
- */ Fraction.gcf = function(a, b) {
-    var common_factors = [];
-    var fa = Fraction.primeFactors(a);
-    var fb = Fraction.primeFactors(b);
-    // for each factor in fa
-    // if it's also in fb
-    // put it into the common factors
-    fa.forEach(function(factor) {
-        var i = fb.indexOf(factor);
-        if (i >= 0) {
-            common_factors.push(factor);
-            fb.splice(i, 1); // remove from fb
-        }
-    });
-    if (common_factors.length === 0) return 1;
-    var gcf = function() {
-        var r = common_factors[0];
-        var i;
-        for(i = 1; i < common_factors.length; i++)r = r * common_factors[i];
-        return r;
-    }();
-    return gcf;
-};
-// Adapted from: 
-// http://www.btinternet.com/~se16/js/factor.htm
-Fraction.primeFactors = function(n) {
-    var num1 = Math.abs(n);
-    var factors = [];
-    var _factor = 2; // first potential prime factor
-    while(_factor * _factor <= num1)if (num1 % _factor === 0) {
-        factors.push(_factor); // so keep it
-        num1 = num1 / _factor; // and divide our search point by it
-    } else _factor++; // and increment
-    if (num1 != 1) factors.push(num1); //    so it too should be recorded
-    return factors; // Return the prime factors
-};
-module.exports.Fraction = Fraction;
-
-},{}],"blwqv":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-class SearchView {
-    _parentElement = document.querySelector(".search");
-    getQuery() {
-        const query = this._parentElement.querySelector(".search__field").value;
-        this._clearInput();
-        return query;
-    }
-    _clearInput() {
-        this._parentElement.querySelector(".search__field").value = "";
-    }
-    addHandlerSearch(handlerFunction) {
-        // 因為是 form 所以可以使用 submit
-        this._parentElement.addEventListener("submit", function(e) {
-            e.preventDefault();
-            handlerFunction();
-        });
-    }
-}
-exports.default = new SearchView();
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"i3HJw":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _view = require("./view");
-var _viewDefault = parcelHelpers.interopDefault(_view);
-var _iconsSvg = require("url:../../img/icons.svg");
-var _iconsSvgDefault = parcelHelpers.interopDefault(_iconsSvg);
-class ResultView extends (0, _viewDefault.default) {
-    _parentElement = document.querySelector(".results");
-    _errorMsg = `No recipes found for your query. Please try again!`;
-    _successMsg = ``;
-    _generateMarkup() {
-        return this._data.map(this._generateMarkupPreview).join("");
-    }
-    _generateMarkupPreview(result) {
-        const id = window.location.hash.slice(1);
-        return `
-        <li class="preview">
-            <a class="preview__link ${id === result.id ? "preview__link--active" : " "}" href="#${result.id}">
-              <figure class="preview__fig">
-                <img src="${result.image}" alt="Test" />
-              </figure>
-              <div class="preview__data">
-                <h4 class="preview__title">${result.title}</h4>
-                <p class="preview__publisher">${result.publisher}</p>
-              </div>
-            </a>
-          </li>
-    `;
-    }
-}
-exports.default = new ResultView();
-
-},{"./view":"4wVyX","url:../../img/icons.svg":"loVOp","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"9Reww":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _viewJs = require("./view.js");
-var _viewJsDefault = parcelHelpers.interopDefault(_viewJs);
-var _iconsSvg = require("url:../../img/icons.svg");
-var _iconsSvgDefault = parcelHelpers.interopDefault(_iconsSvg);
-// 子層繼承父層的 CLASS
-class PaginationView extends (0, _viewJsDefault.default) {
-    // 建立父層 DOM element
-    _parentElement = document.querySelector(".pagination");
-    addHandlerClick(handler) {
-        this._parentElement.addEventListener("click", function(e) {
-            e.preventDefault();
-            const btn = e.target.closest(".btn--inline");
-            if (!btn) return;
-            const goToPage = +btn.dataset.goto;
-            console.log(goToPage);
-            //這裡的 handler 是在 controller 中的 callback function
-            handler(goToPage);
-        });
-    }
-    _generateMarkup() {
-        const curPage = this._data.page;
-        // 計算出有幾頁
-        const resultPage = Math.ceil(this._data.searchResult.length / this._data.resultPerPage);
-        console.log("一共的頁數 : " + resultPage);
-        // 為每一個 btn 添加 data Attribute 以跳轉至該頁面
-        // 1. 如果只有一頁
-        if (resultPage === 1) return ``;
-        // 2. 如果在第一頁，還有其他頁數
-        if (curPage === 1 && curPage < resultPage) return `
-        <button data-goto="${curPage + 1}" class="btn--inline pagination__btn--next">
-            <span>Page ${curPage + 1}</span>
-            <svg class="search__icon">
-                <use href="${0, _iconsSvgDefault.default}#icon-arrow-right"></use>
-            </svg>
-        </button>
-        `;
-        // 3. 如果在最後一頁
-        if (curPage === resultPage && resultPage > 1) return `
-        <button data-goto="${curPage - 1}" class="btn--inline pagination__btn--prev">
-            <svg class="search__icon">
-                <use href="${0, _iconsSvgDefault.default}#icon-arrow-left"></use>
-            </svg>
-            <span>Page ${curPage - 1}</span>
-        </button>
-        <button data-goto="1" class="btn--inline pagination__btn--next">
-            <span>Back 1</span>
-            <svg class="search__icon">
-                <use href="${0, _iconsSvgDefault.default}#icon-arrow-right"></use>
-            </svg>
-        </button>
-        `;
-        // 4. 如果在其他頁，且還有其他頁
-        if (curPage > 1 && curPage < resultPage) return `
-        <button data-goto="${curPage - 1}" class="btn--inline pagination__btn--prev">
-            <svg class="search__icon">
-                <use href="${0, _iconsSvgDefault.default}#icon-arrow-left"></use>
-            </svg>
-            <span>Page ${curPage - 1}</span>
-        </button>
-        <button data-goto="${curPage + 1}" class="btn--inline pagination__btn--next">
-            <span>Page ${curPage + 1}</span>
-            <svg class="search__icon">
-            <use href="${0, _iconsSvgDefault.default}#icon-arrow-right"></use>
-            </svg>
-        </button>
-        `;
-    }
-}
-exports.default = new PaginationView();
-
-},{"./view.js":"4wVyX","url:../../img/icons.svg":"loVOp","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["fA0o9","aenu9"], "aenu9", "parcelRequireb5a2")
+},{}]},["fA0o9","aenu9"], "aenu9", "parcelRequireb5a2")
 
 //# sourceMappingURL=index.e37f48ea.js.map

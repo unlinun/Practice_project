@@ -22,6 +22,10 @@ const controlRecipe = async function () {
     // 利用 API load recipe
     //  在 load 之前，會先呈現 spinner
     recipeView.renderSpinner();
+
+    // 呈現已經選擇到的菜單(在最初的時候先 render)
+    resultView.update(model.getSearchPage());
+
     // get recipe data
     await model.getData(id);
     // render recipe view
@@ -56,9 +60,16 @@ const controlPagination = function (gotoPage) {
   // render Pagination
   paginationView.render(model.state.searchRecipe);
 };
+
+const controlServings = function (servings) {
+  model.getRecipeServings(servings);
+  recipeView.update(model.state.recipe);
+};
+
 // ADD handler function
 const init = function () {
   recipeView._addHandlerRender(controlRecipe);
+  recipeView._addHandlerServings(controlServings);
   searchView._addHandlerSearch(controlSearchRecipe);
   paginationView._addHandlerPagination(controlPagination);
 };
