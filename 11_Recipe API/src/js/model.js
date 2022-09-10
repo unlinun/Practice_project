@@ -14,6 +14,7 @@ export const state = {
     page: 1,
     totalPage: 1,
   },
+  bookmarks: [],
 };
 
 // GET API DATA
@@ -32,6 +33,13 @@ export const getData = async function (id) {
       cookingTime: recipe.cooking_time,
       ingredients: recipe.ingredients,
     };
+
+    //Check if bookmarked
+    if (state.bookmarks.some((bookmark) => bookmark.id === id)) {
+      state.recipe.bookmarked = true;
+    } else {
+      state.recipe.bookmarked = false;
+    }
     console.log(state.recipe);
   } catch (err) {
     throw err;
@@ -51,11 +59,13 @@ export const getSearchData = async function (query) {
         image: recipe.image_url,
       };
     });
+    state.searchRecipe.page = 1;
   } catch (err) {
     throw err;
   }
 };
 
+//get search page number
 export const getSearchPage = function (page = state.searchRecipe.page) {
   //get current page
   state.searchRecipe.page = page;
@@ -68,6 +78,7 @@ export const getSearchPage = function (page = state.searchRecipe.page) {
   return state.searchRecipe.result.slice(start, end);
 };
 
+// change servings
 export const getRecipeServings = function (servings) {
   const newServings = servings;
   state.recipe.ingredients.forEach((ing) => {
@@ -75,3 +86,30 @@ export const getRecipeServings = function (servings) {
   });
   state.recipe.servings = newServings;
 };
+
+const storeBookmark = function () {
+  localStorage.setItem("bookmark", JSON.stringify(state.bookmarks));
+};
+// add bookmark
+export const addBookmarkResult = function (recipe) {
+  state.bookmarks.push(recipe);
+  if (recipe.id === state.recipe.id) state.recipe.bookmarked = true;
+  storeBookmark();
+};
+
+//remove bookmark
+export const removeBookmarkResult = function (id) {
+  // find index of bookmark
+  const index = state.bookmarks.findIndex((bookmark) => {
+    return bookmark.id === id;
+  });
+  state.bookmarks.splice(index, 1);
+  state.recipe.bookmarked = false;
+  storeBookmark();
+};
+
+const init = function () {
+  const storage = localStorage.getItem("bookmark");
+  if (storage) state.bookmarks = JSON.parse(storage);
+};
+init();

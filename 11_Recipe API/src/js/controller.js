@@ -5,9 +5,11 @@ import recipeView from "../js/views/recipeView.js";
 import searchView from "../js/views/searchView.js";
 import resultView from "../js/views/resultView.js";
 import paginationView from "../js/views/paginationView.js";
+import bookmarkView from "../js/views/bookmarkView.js";
 
 import "core-js/stable";
 import "regenerator-runtime/runtime";
+import bookmarkView from "./views/bookmarkView.js";
 
 // if (module.hot) {
 //   module.hot.accept();
@@ -23,9 +25,9 @@ const controlRecipe = async function () {
     //  在 load 之前，會先呈現 spinner
     recipeView.renderSpinner();
 
-    // 呈現已經選擇到的菜單(在最初的時候先 render)
+    // 呈現已經選擇到的菜單(在最初的時候先 render，包含 bookmark 中的)
     resultView.update(model.getSearchPage());
-
+    bookmarkView.update(model.state.bookmarks);
     // get recipe data
     await model.getData(id);
     // render recipe view
@@ -66,9 +68,25 @@ const controlServings = function (servings) {
   recipeView.update(model.state.recipe);
 };
 
+const controlBookmark = function () {
+  if (!model.state.recipe.bookmarked) {
+    model.addBookmarkResult(model.state.recipe);
+  } else {
+    model.removeBookmarkResult(model.state.recipe.id);
+  }
+  recipeView.update(model.state.recipe);
+  bookmarkView.render(model.state.bookmarks);
+};
+
+const controlBookmarkDefault = function () {
+  bookmarkView.render(model.state.bookmarks);
+};
+
 // ADD handler function
 const init = function () {
+  bookmarkView._addHandlerRender(controlBookmarkDefault);
   recipeView._addHandlerRender(controlRecipe);
+  recipeView._addHandlerBookmark(controlBookmark);
   recipeView._addHandlerServings(controlServings);
   searchView._addHandlerSearch(controlSearchRecipe);
   paginationView._addHandlerPagination(controlPagination);

@@ -27,10 +27,15 @@ export default class View {
 
     newElements.forEach((newEl, i) => {
       const currentEl = currentElements[i];
+      if (
+        !newEl.isEqualNode(currentEl) &&
+        // trim?
+        newEl.firstChild?.nodeValue.trim() !== ""
+      ) {
+        currentEl.textContent = newEl.textContent;
+      }
       if (!newEl.isEqualNode(currentEl)) {
-        currentEl.firstChild.textContent = newEl.firstChild.textContent;
         const attribute = Array.from(newEl.attributes);
-        console.log(attribute);
         attribute.forEach((att) => {
           currentEl.setAttribute(att.name, att.value);
         });
