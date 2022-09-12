@@ -1,5 +1,6 @@
 // VIEW 是產生前端畫面的 HTML ，讓資料可以顯示出來給使用者，負責的就是『畫面』的部分 !!!
 import View from "./view.js";
+import icons from "url:../../img/icons.svg";
 
 class PreviewView extends View {
   _parentElement = "";
@@ -18,6 +19,13 @@ class PreviewView extends View {
             <div class="preview__data">
                 <h4 class="preview__title">${data.title}</h4>
                  <p class="preview__publisher">${data.publisher}</p>
+                 <div class="preview__user-generated ${
+                   data.key ? "" : "hidden"
+                 }">
+                  <svg>
+                    <use href="${icons}#icon-user"></use>
+                  </svg>
+                </div>
             </div>
         </a>
     </li>

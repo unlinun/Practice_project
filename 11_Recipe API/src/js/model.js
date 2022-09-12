@@ -1,6 +1,9 @@
-import { getJSON } from "./helper";
+// import { getJSON, postJSON } from "./helper";
+import { AJAX } from "./helper";
 import { API_URL } from "./config";
 import { PAGE_NUM } from "./config";
+import { API_KEY } from "./config";
+import { async } from "regenerator-runtime";
 // model 主要是用來接收 WEB API 的資料，負責 data
 // API -- https://forkify-api.herokuapp.com/v2
 
@@ -17,23 +20,30 @@ export const state = {
   bookmarks: [],
 };
 
+// Create Recipe
+
+const createRecipe = function (data) {
+  const { recipe } = data.data;
+  return {
+    id: recipe.id,
+    title: recipe.title,
+    publisher: recipe.publisher,
+    sourceUrl: recipe.source_url,
+    image: recipe.image_url,
+    servings: recipe.servings,
+    cookingTime: recipe.cooking_time,
+    ingredients: recipe.ingredients,
+    // 確認如果有 key 的話，回傳 key:recipe.key
+    ...(recipe.key && { key: recipe.key }),
+  };
+};
+
 // GET API DATA
 export const getData = async function (id) {
   try {
-    const data = await getJSON(`${API_URL}${id}`);
+    const data = await AJAX(`${API_URL}${id}?key=${API_KEY}`);
     // 新增一個 recipe 變數
-    const { recipe } = data.data;
-    state.recipe = {
-      id: recipe.id,
-      title: recipe.title,
-      publisher: recipe.publisher,
-      sourceUrl: recipe.source_url,
-      image: recipe.image_url,
-      servings: recipe.servings,
-      cookingTime: recipe.cooking_time,
-      ingredients: recipe.ingredients,
-    };
-
+    state.recipe = createRecipe(data);
     //Check if bookmarked
     if (state.bookmarks.some((bookmark) => bookmark.id === id)) {
       state.recipe.bookmarked = true;
@@ -49,7 +59,7 @@ export const getData = async function (id) {
 export const getSearchData = async function (query) {
   try {
     state.searchRecipe.query = query;
-    const data = await getJSON(`${API_URL}?search=${query}`);
+    const data = await AJAX(`${API_URL}?search=${query}&key=${API_KEY}`);
     // 將 search 的 data 儲存在 state 當中
     state.searchRecipe.result = data.data.recipes.map((recipe) => {
       return {
@@ -57,6 +67,7 @@ export const getSearchData = async function (query) {
         title: recipe.title,
         publisher: recipe.publisher,
         image: recipe.image_url,
+        ...(recipe.key && { key: recipe.key }),
       };
     });
     state.searchRecipe.page = 1;
@@ -97,7 +108,7 @@ export const addBookmarkResult = function (recipe) {
   storeBookmark();
 };
 
-//remove bookmark
+// remove bookmark
 export const removeBookmarkResult = function (id) {
   // find index of bookmark
   const index = state.bookmarks.findIndex((bookmark) => {
@@ -108,8 +119,56 @@ export const removeBookmarkResult = function (id) {
   storeBookmark();
 };
 
-const init = function () {
+const initBookmark = function () {
   const storage = localStorage.getItem("bookmark");
   if (storage) state.bookmarks = JSON.parse(storage);
 };
-init();
+initBookmark();
+
+const clearBookmark = function () {
+  localStorage.clear("bookmark");
+};
+
+// convert ingredient to object
+const getRecipeIng = function (newRecipe) {
+  const newRecipeArr = Object.entries(newRecipe);
+  const ingredient = newRecipeArr
+    .filter((entry) => entry[0].startsWith("ingredient") && entry[1] !== "")
+    // 利用 replaceAll 來取代空白的地方， 並利用 split 來分隔
+    .map((ing) => {
+      const ingArr = ing[1].split(",").map((element) => element.trim());
+      if (ingArr.length !== 3)
+        throw new Error(
+          `Wrong ingredient format, please enter correct format!`
+        );
+      const [quantity, unit, description] = ingArr;
+      return {
+        quantity: quantity ? +quantity : null,
+        unit,
+        description,
+      };
+    });
+  return ingredient;
+};
+
+// Add new recipe
+export const addNewRecipe = async function (newRecipe) {
+  try {
+    const ingredient = getRecipeIng(newRecipe);
+    const recipe = {
+      title: newRecipe.title,
+      publisher: newRecipe.publisher,
+      source_url: newRecipe.sourceUrl,
+      image_url: newRecipe.image,
+      servings: +newRecipe.servings,
+      cooking_time: +newRecipe.cookingTime,
+      ingredients: ingredient,
+    };
+    const data = await AJAX(`${API_URL}?key=${API_KEY}`, recipe);
+    state.recipe = createRecipe(data);
+    addBookmarkResult(state.recipe);
+    console.log(state.recipe);
+  } catch (err) {
+    throw err;
+  }
+};
