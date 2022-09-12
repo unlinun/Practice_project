@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Frontend Mentor | Interactive pricing component</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="bgc"></div>
+    <div class="container">
+      <header class="header">
+        <h1>Simple, traffic-based pricing</h1>
+        <h3>Sign-up for our 30-day trial.</h3>
+        <h3>No credit card required</h3>
+      </header>
+      <main class="card">
+        <div class="card__price-info">
+          <div class="card__info">Pageviews</div>
+          <div class="card__range">
+            <input type="range" name="range" id="range" />
+          </div>
+          <div class="card__price">$ /month</div>
+          <div class="card__payment">
+            <label for="monthly"> Monthly Billing</label>
+            <input type="radio" name="payment" id="monthly" />
+            <input type="radio" name="payment" id="yearly" />
+            <label for="yearly">Yearly Billing</label>
+            <div class="card__payment__slider"></div>
+            <div class="card__payment__discount">25% discount</div>
+          </div>
+        </div>
+        <div class="card__benefit">
+          <ul class="card__benefit__list">
+            <li>Unlimited websites</li>
+            <li>100% data ownership</li>
+            <li>Email reports Start my trial</li>
+          </ul>
+          <button class="card__benefit__btn">Start my trial</button>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>
