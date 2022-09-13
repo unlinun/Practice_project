@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Frontend Mentor | Interactive comments section</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <script defer src="js/script.js"></script>
+  </head>
+  <body>
+    <header class="header">
+      <nav class="header__nav">
+        <div class="header__logo">GO COMMENT</div>
+        <div class="header__user"></div>
+      </nav>
+    </header>
+    <main class="container comment">
+      <div class="comment__box">
+        <div class="comment__info info">
+          <div class="info__image"></div>
+          <div class="info__name info__name--active">justin</div>
+          <div class="info__date">1 month ago</div>
+        </div>
+        <div class="comment__content">
+          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptas
+          pariatur quibusdam deleniti nihil alias. Necessitatibus molestiae
+          mollitia beatae natus saepe, fugit, nam culpa nesciunt ut id possimus
+          atque tempora quisquam.
+        </div>
+        <div class="comment__likes likes">
+          <button class="likes__icon likes__icon--plus"></button>
+          <span class="likes__number"></span>
+          <button class="likes__icon likes__icon--minus"></button>
+        </div>
+        <div class="comment__function function">
+          <div class="function__icon function__icon--reply"></div>
+          <div class="function__icon function__icon--delete">delete</div>
+          <div class="function__icon function__icon--edit">edit</div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
