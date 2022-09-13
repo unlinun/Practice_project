@@ -24,12 +24,19 @@
       </header>
       <main class="card">
         <div class="card__price-info">
-          <div class="card__info">Pageviews</div>
+          <div class="card__info">0k Pageviews</div>
           <div class="card__range">
-            <input type="range" name="range" id="range" />
+            <input
+              type="range"
+              name="range"
+              id="range"
+              min="0"
+              max="100"
+              value="0"
+            />
           </div>
           <div class="card__price">
-            <span class="card__price card__price--big">$16.00</span> /month
+            <span class="card__price card__price--big">$0</span> /month
           </div>
           <div class="card__payment">
             <label for="monthly"> Monthly Billing</label>
@@ -39,7 +46,7 @@
               <div class="payment__slider"></div>
             </div>
             <label for="yearly">Yearly Billing</label>
-            <div class="payment__discount">-25%</div>
+            <div class="payment__discount"></div>
           </div>
         </div>
         <div class="card__benefit">
