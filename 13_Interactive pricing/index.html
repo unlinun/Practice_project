@@ -13,7 +13,9 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div class="bgc"></div>
+    <div class="bgc">
+      <div class="img"></div>
+    </div>
     <div class="container">
       <header class="header">
         <h1>Simple, traffic-based pricing</h1>
@@ -26,25 +28,39 @@
           <div class="card__range">
             <input type="range" name="range" id="range" />
           </div>
-          <div class="card__price">$ /month</div>
+          <div class="card__price">
+            <span class="card__price card__price--big">$16.00</span> /month
+          </div>
           <div class="card__payment">
             <label for="monthly"> Monthly Billing</label>
-            <input type="radio" name="payment" id="monthly" />
-            <input type="radio" name="payment" id="yearly" />
+            <div class="payment__toggle">
+              <input type="radio" name="payment" id="monthly" />
+              <input type="radio" name="payment" id="yearly" />
+              <div class="payment__slider"></div>
+            </div>
             <label for="yearly">Yearly Billing</label>
-            <div class="card__payment__slider"></div>
-            <div class="card__payment__discount">25% discount</div>
+            <div class="payment__discount">-25%</div>
           </div>
         </div>
         <div class="card__benefit">
-          <ul class="card__benefit__list">
-            <li>Unlimited websites</li>
-            <li>100% data ownership</li>
-            <li>Email reports Start my trial</li>
+          <ul class="benefit__list">
+            <li>
+              <div class="benefit__icon"></div>
+              Unlimited websites
+            </li>
+            <li>
+              <div class="benefit__icon"></div>
+              100% data ownership
+            </li>
+            <li>
+              <div class="benefit__icon"></div>
+              Email reports Start my trial
+            </li>
+            <li><button class="benefit__btn">Start my trial</button></li>
           </ul>
-          <button class="card__benefit__btn">Start my trial</button>
         </div>
       </main>
     </div>
+    <script src="script.js"></script>
   </body>
 </html>
