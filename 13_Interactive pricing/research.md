@@ -20,4 +20,5 @@
 
 ### 補充資訊
 
-1.
+1. 修改 range 樣式 -- https://dev.to/richiksc/standardizing-input-type-range-styling-3lkl
+2. `addEventListener('input')` : 利用監聽 input 的變化，來得到 range 的數據 -- https://codepen.io/juanbrujo/pen/KKNGJX
