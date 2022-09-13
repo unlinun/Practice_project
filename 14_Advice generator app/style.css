@@ -59,9 +59,10 @@ body {
   margin-bottom: 2.5rem;
   width: 100%;
   height: 1rem;
-  background-image: url("/images/pattern-divider-desktop.svg");
-  background-size: cover;
+  background-image: url("/images/pattern-divider-mobile.svg");
+  background-size: auto;
   background-position: center;
+  background-repeat: no-repeat;
 }
 
 .card__btn {
@@ -84,4 +85,13 @@ body {
 
 .card__btn:hover {
   box-shadow: 0 0 2rem var(--primary-green-color);
+}
+
+@media (min-width: 1200px) {
+  .card {
+    width: 37.5rem;
+  }
+  .advice__divide {
+    background-image: url("/images/pattern-divider-desktop.svg");
+  }
 }
