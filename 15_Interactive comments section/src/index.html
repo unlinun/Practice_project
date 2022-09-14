@@ -21,27 +21,131 @@
       </nav>
     </header>
     <main class="container comment">
-      <div class="comment__box">
-        <div class="comment__info info">
-          <div class="info__image"></div>
-          <div class="info__name info__name--active">justin</div>
-          <div class="info__date">1 month ago</div>
+      <div class="comment__type comment__type--main">
+        <div class="comment__box">
+          <div class="comment__info info">
+            <div class="info__image info__image--user"></div>
+            <div class="info__name info__name--user">juliusono</div>
+            <div class="info__date">1 month ago</div>
+          </div>
+          <div class="comment__content content">
+            <p class="content__text">
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptas
+              pariatur quibusdam deleniti nihil alias. Necessitatibus molestiae
+              mollitia beatae natus saepe, fugit, nam culpa nesciunt ut id
+              possimus atque tempora quisquam.
+            </p>
+          </div>
+          <div class="comment__likes likes">
+            <div class="likes__box">
+              <button class="likes__btn likes__btn--plus"></button>
+              <span class="likes__number">12</span>
+              <button class="likes__btn likes__btn--minus"></button>
+            </div>
+          </div>
+          <div class="comment__function function">
+            <!-- <button class="function__btn function__btn--alert">
+            <div class="function__icon function__icon--reply"></div>
+            Reply
+          </button> -->
+            <button class="function__btn function__btn--alert">
+              <div class="function__icon function__icon--delete"></div>
+              Delete
+            </button>
+            <button class="function__btn">
+              <div class="function__icon function__icon--edit"></div>
+              Edit
+            </button>
+          </div>
         </div>
-        <div class="comment__content">
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptas
-          pariatur quibusdam deleniti nihil alias. Necessitatibus molestiae
-          mollitia beatae natus saepe, fugit, nam culpa nesciunt ut id possimus
-          atque tempora quisquam.
+      </div>
+      <div class="comment__type comment__type--reply">
+        <div class="comment__box comment__box--reply">
+          <div class="comment__info info">
+            <div class="info__image info__image--user"></div>
+            <div class="info__name info__name--user">juliusono</div>
+            <div class="info__date">1 month ago</div>
+          </div>
+          <div class="comment__content content">
+            <p class="content__text">
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptas
+              pariatur quibusdam deleniti nihil alias. Necessitatibus molestiae
+              mollitia beatae natus saepe, fugit, nam culpa nesciunt ut id
+              possimus atque tempora quisquam.
+            </p>
+          </div>
+          <div class="comment__likes likes">
+            <div class="likes__box">
+              <button class="likes__btn likes__btn--plus"></button>
+              <span class="likes__number">12</span>
+              <button class="likes__btn likes__btn--minus"></button>
+            </div>
+          </div>
+          <div class="comment__function function">
+            <!-- <button class="function__btn function__btn--alert">
+            <div class="function__icon function__icon--reply"></div>
+            Reply
+          </button> -->
+            <button class="function__btn function__btn--alert">
+              <div class="function__icon function__icon--delete"></div>
+              Delete
+            </button>
+            <button class="function__btn">
+              <div class="function__icon function__icon--edit"></div>
+              Edit
+            </button>
+          </div>
         </div>
-        <div class="comment__likes likes">
-          <button class="likes__icon likes__icon--plus"></button>
-          <span class="likes__number"></span>
-          <button class="likes__icon likes__icon--minus"></button>
+        <div class="comment__box comment__box--reply">
+          <div class="comment__info info">
+            <div class="info__image info__image--user"></div>
+            <div class="info__name info__name--user">juliusono</div>
+            <div class="info__date">1 month ago</div>
+          </div>
+          <div class="comment__content content">
+            <p class="content__text">
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptas
+              pariatur quibusdam deleniti nihil alias. Necessitatibus molestiae
+              mollitia beatae natus saepe, fugit, nam culpa nesciunt ut id
+              possimus atque tempora quisquam.
+            </p>
+          </div>
+          <div class="comment__likes likes">
+            <div class="likes__box">
+              <button class="likes__btn likes__btn--plus"></button>
+              <span class="likes__number">12</span>
+              <button class="likes__btn likes__btn--minus"></button>
+            </div>
+          </div>
+          <div class="comment__function function">
+            <!-- <button class="function__btn function__btn--alert">
+            <div class="function__icon function__icon--reply"></div>
+            Reply
+          </button> -->
+            <button class="function__btn function__btn--alert">
+              <div class="function__icon function__icon--delete"></div>
+              Delete
+            </button>
+            <button class="function__btn">
+              <div class="function__icon function__icon--edit"></div>
+              Edit
+            </button>
+          </div>
         </div>
-        <div class="comment__function function">
-          <div class="function__icon function__icon--reply"></div>
-          <div class="function__icon function__icon--delete">delete</div>
-          <div class="function__icon function__icon--edit">edit</div>
+      </div>
+      <div class="comment__type comment__type--send">
+        <div class="comment__box comment__box--send">
+          <form class="comment__send send">
+            <textarea
+              class="send__text"
+              name="send"
+              cols="30"
+              rows="6"
+              placeholder="Type something..."
+            ></textarea>
+            <div class="send__image"></div>
+            <input class="send__btn" type="button" value="send" />
+          </form>
         </div>
       </div>
     </main>

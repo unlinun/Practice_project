@@ -1,0 +1,39 @@
+@use "../util/" as *;
+
+.likes {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  &__box {
+    width: rem(80);
+    height: rem(32);
+    padding: 0 rem(8);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: rem(12);
+    background-color: var(--white-gray-color);
+    border-radius: rem(8);
+  }
+  &__btn {
+    width: rem(16);
+    height: rem(16);
+    border: none;
+    background-color: var(--white-gray-color);
+    background-size: auto;
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+    &--plus {
+      background-image: url("../../assets/svg/icon-plus.svg");
+    }
+    &--minus {
+      background-image: url("../../assets/svg/icon-minus.svg");
+    }
+  }
+  &__number {
+    font-size: rem(14);
+    font-weight: 500;
+    color: var(--main-blue-color);
+  }
+}

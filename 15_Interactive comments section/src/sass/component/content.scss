@@ -1,0 +1,9 @@
+@use "../util/" as *;
+
+.content {
+  &__text {
+    font-size: rem(14);
+    line-height: 1.5;
+    color: var(--gray-blue-color);
+  }
+}
