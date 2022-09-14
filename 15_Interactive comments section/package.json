@@ -3,11 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "default": "index.html",
-  "author": "",
-  "license": "ISC",
   "scripts": {
     "build:sass": "sass  --no-source-map src/sass:public/css",
-    "copy:js": "copyfiles -u 1 ./src/js/**/* public",
+    "copy:js": "copyfiles -u 1 ./src/js/* public",
     "copy:assets": "copyfiles -u 1 ./src/assets/**/* public",
     "copy:html": "copyfiles -u 1 ./src/*.html public",
     "copy": "npm-run-all --parallel copy:*",
@@ -21,6 +19,8 @@
     "build": "npm-run-all copy:html build:*",
     "postbuild": "postcss public/css/*.css -u autoprefixer cssnano -r --no-map"
   },
+  "author": "unlin",
+  "license": "ISC",
   "dependencies": {
     "autoprefixer": "^10.4.2",
     "browser-sync": "^2.27.7",

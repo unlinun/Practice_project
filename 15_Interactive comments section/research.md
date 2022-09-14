@@ -12,16 +12,17 @@
 
 ## Solution 架構問題整體
 
-### 顯示當前使用者
+### 在 JS 當中讀取 JSON 檔案
 
-1.
+1. 在 JavaScript 中使用 fetch() 函式載入 JSON 檔案 -- https://chinese.freecodecamp.org/news/how-to-read-json-file-in-javascript/
+
+### 顯示當前使用者
 
 ### 建立留言
 
 1. 使用者自己建立的留言
-2. 他人的留言(json 格式)，如何導入 js?
 
-### 回覆他人的留言
+### 回覆他人的留言，如何使用 ＠ tag 他人
 
 ### 編輯留言
 
@@ -30,3 +31,12 @@
 1. 利用 `e.target` ，並配合 `closest` 來找到當前要刪除的留言
 
 ### 補充資訊
+
+1. 變更 svg 的顏色 -- https://stackoverflow.com/questions/22252472/how-to-change-the-color-of-an-svg-element
+2. svg Loading 動畫 -- https://codepen.io/nikhil8krishnan/pen/rVoXJa
+3. 在 JS module 中導入 JSON 文件 -- https://www.stefanjudis.com/snippets/how-to-import-json-files-in-es-modules/
+
+   ```
+   import data from "./data.json" assert { type: "json" };
+
+   ```

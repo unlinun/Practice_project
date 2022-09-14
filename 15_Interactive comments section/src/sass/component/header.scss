@@ -20,9 +20,9 @@
     color: var(--alert-red-color);
   }
   &__user {
-    width: rem(32);
-    height: rem(32);
-    background-image: url("../../assets/avatars/image-juliusomo.png");
+    width: rem(28);
+    height: rem(28);
+    background-image: url("../assets/avatars/image-juliusomo.png");
     background-size: cover;
     cursor: pointer;
     @include breakpoint-up(medium) {

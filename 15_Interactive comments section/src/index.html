@@ -11,7 +11,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="css/style.css" />
-    <script defer src="js/script.js"></script>
+    <script type="module" defer src="js/controller.js"></script>
   </head>
   <body>
     <div class="container">
@@ -23,8 +23,11 @@
       </header>
     </div>
     <main class="comment">
+      <!-- COMMENT START -->
       <div class="comment__type comment__type--main">
-        <div class="comment__box">
+        <!-- <div class="spinner"></div> -->
+
+        <!-- <div class="comment__box">
           <div class="comment__info info">
             <div class="info__image info__image--user"></div>
             <div class="info__name info__name--user">juliusono</div>
@@ -46,10 +49,6 @@
             </div>
           </div>
           <div class="comment__function function">
-            <!-- <button class="function__btn function__btn--alert">
-            <div class="function__icon function__icon--reply"></div>
-            Reply
-          </button> -->
             <button class="function__btn function__btn--alert">
               <div class="function__icon function__icon--delete"></div>
               Delete
@@ -59,10 +58,12 @@
               Edit
             </button>
           </div>
-        </div>
+        </div> -->
       </div>
+      <!-- COMMENT END -->
+      <!-- REPLY START -->
       <div class="comment__type comment__type--reply">
-        <div class="comment__box comment__box--margin">
+        <!-- <div class="comment__box comment__box--margin">
           <div class="comment__info info">
             <div class="info__image info__image--other"></div>
             <div class="info__name info__name--other">juliusono</div>
@@ -106,46 +107,12 @@
               value="reply"
             />
           </form>
-        </div>
-        <div class="comment__box comment__box--margin">
-          <div class="comment__info info">
-            <div class="info__image info__image--user"></div>
-            <div class="info__name info__name--user">juliusono</div>
-            <div class="info__date">1 month ago</div>
-          </div>
-          <div class="comment__content content">
-            <p class="content__text">
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptas
-              pariatur quibusdam deleniti nihil alias. Necessitatibus molestiae
-              mollitia beatae natus saepe, fugit, nam culpa nesciunt ut id
-              possimus atque tempora quisquam.
-            </p>
-          </div>
-          <div class="comment__likes likes">
-            <div class="likes__box">
-              <button class="likes__btn likes__btn--plus"></button>
-              <span class="likes__number">12</span>
-              <button class="likes__btn likes__btn--minus"></button>
-            </div>
-          </div>
-          <div class="comment__function function">
-            <!-- <button class="function__btn function__btn--alert">
-            <div class="function__icon function__icon--reply"></div>
-            Reply
-          </button> -->
-            <button class="function__btn function__btn--alert">
-              <div class="function__icon function__icon--delete"></div>
-              Delete
-            </button>
-            <button class="function__btn">
-              <div class="function__icon function__icon--edit"></div>
-              Edit
-            </button>
-          </div>
-        </div>
+        </div> -->
       </div>
+      <!-- REPLY END -->
+      <!-- SEND START -->
       <div class="comment__type comment__type--send">
-        <div class="comment__box comment__box--single">
+        <!-- <div class="comment__box comment__box--single">
           <form class="comment__send send">
             <textarea
               class="send__text"
@@ -154,15 +121,20 @@
               rows="6"
               placeholder="Type something..."
             ></textarea>
-            <div class="send__image"></div>
+            <img
+              src="./src/assets/avatars/image-juliusomo.png"
+              alt="username"
+              class="send__image"
+            />
             <input
               class="send__btn send__btn--send"
               type="button"
               value="send"
             />
           </form>
-        </div>
+        </div> -->
       </div>
+      <!-- SEND END -->
     </main>
   </body>
 </html>
