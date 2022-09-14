@@ -15,6 +15,9 @@
     background-color: var(--white-color);
     color: var(--dark-blue-color);
     cursor: pointer;
+    &:hover {
+      opacity: 0.8;
+    }
     &--alert {
       color: var(--alert-red-color);
     }

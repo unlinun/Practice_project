@@ -14,13 +14,15 @@
     <script defer src="js/script.js"></script>
   </head>
   <body>
-    <header class="header">
-      <nav class="header__nav">
-        <div class="header__logo">GO COMMENT</div>
-        <div class="header__user"></div>
-      </nav>
-    </header>
-    <main class="container comment">
+    <div class="container">
+      <header class="header">
+        <nav class="header__nav">
+          <div class="header__logo">GO COMMENT</div>
+          <div class="header__user"></div>
+        </nav>
+      </header>
+    </div>
+    <main class="comment">
       <div class="comment__type comment__type--main">
         <div class="comment__box">
           <div class="comment__info info">
@@ -60,10 +62,10 @@
         </div>
       </div>
       <div class="comment__type comment__type--reply">
-        <div class="comment__box comment__box--reply">
+        <div class="comment__box comment__box--margin">
           <div class="comment__info info">
-            <div class="info__image info__image--user"></div>
-            <div class="info__name info__name--user">juliusono</div>
+            <div class="info__image info__image--other"></div>
+            <div class="info__name info__name--other">juliusono</div>
             <div class="info__date">1 month ago</div>
           </div>
           <div class="comment__content content">
@@ -82,21 +84,30 @@
             </div>
           </div>
           <div class="comment__function function">
-            <!-- <button class="function__btn function__btn--alert">
-            <div class="function__icon function__icon--reply"></div>
-            Reply
-          </button> -->
-            <button class="function__btn function__btn--alert">
-              <div class="function__icon function__icon--delete"></div>
-              Delete
-            </button>
-            <button class="function__btn">
-              <div class="function__icon function__icon--edit"></div>
-              Edit
+            <button class="function__btn "">
+              <div class="function__icon function__icon--reply"></div>
+              Reply
             </button>
           </div>
         </div>
-        <div class="comment__box comment__box--reply">
+        <div class="comment__box comment__box--margin">
+          <form class="comment__send send">
+            <textarea
+              class="send__text"
+              name="send"
+              cols="30"
+              rows="6"
+              placeholder="Type something..."
+            ></textarea>
+            <div class="send__image"></div>
+            <input
+              class="send__btn send__btn--reply"
+              type="button"
+              value="reply"
+            />
+          </form>
+        </div>
+        <div class="comment__box comment__box--margin">
           <div class="comment__info info">
             <div class="info__image info__image--user"></div>
             <div class="info__name info__name--user">juliusono</div>
@@ -134,7 +145,7 @@
         </div>
       </div>
       <div class="comment__type comment__type--send">
-        <div class="comment__box comment__box--send">
+        <div class="comment__box comment__box--single">
           <form class="comment__send send">
             <textarea
               class="send__text"
@@ -144,7 +155,11 @@
               placeholder="Type something..."
             ></textarea>
             <div class="send__image"></div>
-            <input class="send__btn" type="button" value="send" />
+            <input
+              class="send__btn send__btn--send"
+              type="button"
+              value="send"
+            />
           </form>
         </div>
       </div>

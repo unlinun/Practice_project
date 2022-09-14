@@ -10,6 +10,7 @@
     padding: rem(8);
     // margin-bottom: rem(16);
     border: 1px solid var(--light-gray-color);
+    border-radius: rem(5);
     resize: none;
   }
   &__text:focus {
@@ -36,5 +37,8 @@
     background-color: var(--main-blue-color);
     color: var(--white-color);
     cursor: pointer;
+    &:hover {
+      opacity: 0.8;
+    }
   }
 }

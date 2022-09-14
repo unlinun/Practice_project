@@ -1,6 +1,6 @@
 @use "../util/" as *;
 
 .container {
-  width: rem(820);
+  min-width: rem(320);
   margin: 0 auto;
 }

@@ -2,7 +2,15 @@
 
 .comment {
   margin: rem(40) auto;
+  padding: 0 rem(12);
   width: rem(320);
+
+  @include breakpoint-up(medium) {
+    width: rem(600);
+  }
+  @include breakpoint-up(large) {
+    width: rem(800);
+  }
   &__type {
     &--reply {
       border-left: 1px solid var(--light-blue-color);
@@ -18,10 +26,18 @@
 
     background-color: var(--white-color);
     border-radius: rem(10);
-    &--reply {
-      margin-left: rem(24);
+
+    @include breakpoint-up(medium) {
+      grid-template-columns: auto 1fr auto;
+      grid-template-rows: auto auto;
+      column-gap: rem(20);
     }
-    &--send {
+    &--margin {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto;
+      margin-left: rem(20);
+    }
+    &--single {
       grid-template-columns: 1fr;
       grid-template-rows: auto;
       gap: 0;
@@ -29,18 +45,34 @@
   }
   &__info {
     grid-column: 1/3;
+    @include breakpoint-up(medium) {
+      grid-column: 2/3;
+      grid-row: 1/2;
+    }
   }
   &__content {
     grid-column: 1/3;
     grid-row: 2/3;
+    @include breakpoint-up(medium) {
+      grid-column: 2/4;
+      grid-row: 2/3;
+    }
   }
   &__likes {
     grid-column: 1/2;
     grid-row: 3/4;
+    @include breakpoint-up(medium) {
+      grid-column: 1/2;
+      grid-row: 1/3;
+    }
   }
   &__function {
     grid-column: 2/3;
     grid-row: 3/4;
+    @include breakpoint-up(medium) {
+      grid-column: 3/4;
+      grid-row: 1/2;
+    }
   }
   &__add {
     grid-column: 1/3;

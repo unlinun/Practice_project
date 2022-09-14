@@ -4,16 +4,18 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
+
   &__box {
-    width: rem(80);
-    height: rem(32);
-    padding: 0 rem(8);
+    padding: rem(4) rem(8);
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: rem(12);
+    gap: rem(8);
     background-color: var(--white-gray-color);
     border-radius: rem(8);
+    @include breakpoint-up(medium) {
+      flex-direction: column;
+    }
   }
   &__btn {
     width: rem(16);
@@ -24,6 +26,9 @@
     background-repeat: no-repeat;
     background-position: center;
     cursor: pointer;
+    &:hover {
+      opacity: 0.6;
+    }
     &--plus {
       background-image: url("../../assets/svg/icon-plus.svg");
     }
