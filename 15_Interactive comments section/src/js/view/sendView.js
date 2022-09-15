@@ -23,11 +23,12 @@ class SendView extends View {
      </div>
     `;
   }
-  _addHandlerSendView(handler) {
+  _addHandlerSendViewInput(handler) {
     window.addEventListener("load", function () {
       handler();
     });
   }
+  // _addHandlerSendValue;
 }
 
 export default new SendView();

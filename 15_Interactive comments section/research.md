@@ -38,5 +38,9 @@
 
    ```
    import data from "./data.json" assert { type: "json" };
+   // 針對 chrome, 目前還不支援 safari
 
    ```
+
+4. 建置開發環境 -- Set up a build environment using Babel and Webpack
+   https://medium.com/@codingstorytime/set-up-a-build-environment-using-babel-and-webpack-172110681b1

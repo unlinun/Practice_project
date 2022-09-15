@@ -1,12 +1,11 @@
-import { API_URL } from "./config.js";
-import data from "../assets/data/data.json" assert { type: "json" };
+import config from "../js/config.js";
 
 export const state = {
   user: {},
   comments: [],
 };
 
-const dataObj = data;
+const dataObj = config;
 export const getUser = function () {
   state.user = dataObj.currentUser;
   console.log(state.user);
