@@ -1,0 +1,26 @@
+@use "../util/" as *;
+
+.header {
+  height: rem(80);
+  margin-bottom: rem(40);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--white-gray-color);
+  border-bottom-left-radius: rem(20);
+  border-bottom-right-radius: rem(20);
+  @include breakpoint-up(medium) {
+    margin-bottom: rem(80);
+  }
+  &__nav {
+    width: rem(240);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  &__logo {
+    font-size: rem(20);
+    font-weight: 800;
+    color: var(--alert-red-color);
+  }
+}

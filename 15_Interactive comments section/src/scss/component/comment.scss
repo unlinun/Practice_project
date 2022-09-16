@@ -1,4 +1,12 @@
+@use "../util/" as *;
+
 .comment {
+  &__box {
+    padding: rem(24);
+    margin-bottom: rem(10);
+    border-radius: rem(5);
+    background-color: var(--white-color);
+  }
   &--reply {
     padding-left: 20px;
     border-left: 1px solid #999;
