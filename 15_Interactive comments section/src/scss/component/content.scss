@@ -1,5 +1,12 @@
+@use "../util/" as *;
+
 .content {
   &__edit {
-    display: none;
+    padding: rem(10);
+    width: 100%;
+    resize: none;
+    border: 1px solid var(--light-gray-color);
+    border-radius: rem(5);
+    // display: none;
   }
 }

@@ -1,0 +1,25 @@
+@use "../util/" as *;
+
+.user {
+  display: flex;
+  align-items: center;
+  gap: rem(12);
+  font-size: rem(14);
+  color: var(--dark-blue-color);
+  &__name {
+    &--current {
+      &::after {
+        content: "you";
+        display: inline-block;
+        margin-left: rem(8);
+        padding: rem(2) rem(4);
+        background-color: var(--main-blue-color);
+        font-size: rem(12);
+        color: var(--white-color);
+      }
+    }
+  }
+  &__date {
+    color: var(--gray-blue-color);
+  }
+}

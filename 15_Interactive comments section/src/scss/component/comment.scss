@@ -2,20 +2,53 @@
 
 .comment {
   &__box {
-    padding: rem(24);
+    padding: rem(20);
     margin-bottom: rem(10);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto 1fr auto;
+    gap: rem(12);
+
     border-radius: rem(5);
     background-color: var(--white-color);
+
+    @include breakpoint-up(medium) {
+      grid-template-columns: auto 1fr auto;
+      grid-template-rows: auto 1fr;
+      column-gap: rem(20);
+    }
   }
   &--reply {
     padding-left: 20px;
-    border-left: 1px solid #999;
+    border-left: 1px solid var(--light-blue-color);
+  }
+  &__user {
+    grid-column: 1/3;
+
+    @include breakpoint-up(medium) {
+      grid-column: 2/3;
+    }
   }
   &__content {
-    &--edit {
-      border: 1px solid #999;
-      border-radius: 10px;
-      cursor: text;
+    grid-column: 1/3;
+    font-size: rem(16);
+    line-height: 1.5;
+    color: var(--gray-blue-color);
+    @include breakpoint-up(medium) {
+      grid-column: 2/4;
+      grid-row: 2/3;
+    }
+  }
+  &__likes {
+    @include breakpoint-up(medium) {
+      grid-column: 1/2;
+      grid-row: 1/3;
+    }
+  }
+  &__function {
+    @include breakpoint-up(medium) {
+      grid-column: 3/4;
+      grid-row: 1/2;
     }
   }
 }

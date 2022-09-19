@@ -1,5 +1,12 @@
 @use "../util/" as *;
 
 .main {
+  margin: 0 auto;
   width: rem(320);
+  @include breakpoint-up(medium) {
+    width: rem(600);
+  }
+  @include breakpoint-up(large) {
+    width: rem(800);
+  }
 }

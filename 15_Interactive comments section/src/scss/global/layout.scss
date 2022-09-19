@@ -1,6 +1,15 @@
 @use "../util/" as *;
 
 .container {
-  width: rem(320);
+  width: 100vw;
   margin: 0 auto;
+}
+
+.image {
+  width: rem(32);
+  height: rem(32);
+}
+
+.hidden {
+  display: none;
 }

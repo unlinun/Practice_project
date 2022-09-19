@@ -1,0 +1,41 @@
+@use "../util/" as *;
+
+.likes {
+  display: flex;
+  align-items: center;
+  &__box {
+    padding: rem(6) rem(10);
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: rem(12);
+
+    background-color: var(--white-gray-color);
+    border-radius: rem(8);
+
+    @include breakpoint-up(medium) {
+      flex-direction: column;
+    }
+  }
+  &__btn {
+    width: rem(10);
+    height: rem(10);
+    background-color: var(--white-gray-color);
+    background-size: auto;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    &--plus {
+      background-image: url("~/public/assets/svg/icon-plus.svg");
+    }
+    &--minus {
+      background-image: url("~/public/assets/svg/icon-minus.svg");
+    }
+  }
+
+  &__number {
+    font-size: rem(14);
+    font-weight: 500;
+    color: var(--main-blue-color);
+  }
+}

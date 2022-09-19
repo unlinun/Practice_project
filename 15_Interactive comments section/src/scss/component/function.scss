@@ -1,0 +1,39 @@
+@use "../util/" as *;
+
+.function {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: rem(8);
+  &__box {
+    display: flex;
+    align-items: center;
+    gap: rem(4);
+  }
+  &__btn {
+    width: rem(24);
+    height: rem(24);
+    border: none;
+    background-color: var(--white-color);
+    background-size: auto;
+    background-repeat: no-repeat;
+    background-position: center;
+    &--reply {
+      background-image: url("~/public/assets/svg/icon-reply.svg");
+    }
+    &--delete {
+      background-image: url("~/public/assets/svg/icon-delete.svg");
+    }
+    &--edit {
+      background-image: url("~/public/assets/svg/icon-edit.svg");
+    }
+  }
+  &__text {
+    font-size: rem(14);
+    font-weight: 500;
+    color: var(--main-blue-color);
+    &--red {
+      color: var(--alert-red-color);
+    }
+  }
+}

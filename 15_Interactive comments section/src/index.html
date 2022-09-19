@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Frontend Mentor | Interactive comments section</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./main.css" />
+    <script type="module" defer src="./main.bundle.js"></script>
+  </head>
+  <body>
+    <header class="header">
+      <div class="header__nav">
+        <div class="header__logo">GO COMMENT</div>
+        <div class="header__image image"></div>
+      </div>
+    </header>
+    <div class="container">
+      <main class="main">
+        <div class="main__comment comment">
+          <div class="comment__box">
+            <div class="comment__user user user">
+              <img
+                class="user__image image"
+                src="./assets/avatars/image-juliusomo.png"
+                alt="juliusomo"
+              />
+              <div class="user__name user__name--current">username</div>
+              <div class="user__date">2 weeks ago</div>
+            </div>
+            <div class="comment__content">
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Asperiores aliquid, quae architecto quos ea odit nam non,
+                voluptatibus assumenda eveniet voluptatem harum labore aliquam
+                praesentium debitis officiis, quasi velit vel.
+              </p>
+              <div class="comtent__form form hidden">
+                <form class="form__box form__box--edit">
+                  <textarea
+                    class="form__content form__content--edit"
+                    name="reply"
+                    cols="30"
+                    rows="6"
+                    placeholder="Type something..."
+                  ></textarea>
+                  <button class="form__btn form__btn--update">update</button>
+                </form>
+              </div>
+            </div>
+            <div class="comment__likes likes">
+              <div class="likes__box">
+                <button class="likes__btn likes__btn--plus"></button>
+                <span class="likes__number">12</span>
+                <button class="likes__btn likes__btn--minus"></button>
+              </div>
+            </div>
+            <div class="comment__function function">
+              <div class="function__box">
+                <!-- <button class="function__btn function__btn--reply">
+                </button>
+                <span class="function__text">Reply</span> -->
+              </div>
+              <div class="function__box">
+                <button class="function__btn function__btn--delete"></button>
+                <span class="function__text function__text--red">Delete</span>
+              </div>
+              <div class="function__box">
+                <button class="function__btn function__btn--edit"></button>
+                <span class="function__text">Edit</span>
+              </div>
+            </div>
+          </div>
+          <div class="comment__form form">
+            <form class="form__box">
+              <textarea
+                class="form__content"
+                name="reply"
+                cols="30"
+                rows="6"
+                placeholder="Type something..."
+              ></textarea>
+              <img
+                class="form__image image"
+                src="./assets/avatars/image-juliusomo.png"
+                alt="juliusomo"
+              />
+              <button class="form__btn form__btn--reply">reply</button>
+            </form>
+          </div>
+        </div>
+        <div class="main__comment comment comment--reply">
+          <div class="comment__box">
+            <div class="comment__user user">
+              <img
+                class="user__image image"
+                src="./assets/avatars/image-juliusomo.png"
+                alt="juliusomo"
+              />
+              <div class="user__name">username</div>
+              <div class="user__date">2 weeks ago</div>
+            </div>
+            <div class="comment__content content">
+              <p class="content__text">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Asperiores aliquid, quae architecto quos ea odit nam non,
+                voluptatibus assumenda eveniet voluptatem harum labore aliquam
+                praesentium debitis officiis, quasi velit vel.
+              </p>
+              <div class="comtent__form form hidden">
+                <form class="form__box form__box--edit">
+                  <textarea
+                    class="form__content form__content--edit"
+                    name="reply"
+                    cols="30"
+                    rows="6"
+                    placeholder="Type something..."
+                  ></textarea>
+                  <button class="form__btn form__btn--update">update</button>
+                </form>
+              </div>
+            </div>
+            <div class="comment__likes likes">
+              <div class="likes__box">
+                <button class="likes__btn likes__btn--plus"></button>
+                <span class="likes__number">12</span>
+                <button class="likes__btn likes__btn--minus"></button>
+              </div>
+            </div>
+            <div class="comment__function function">
+              <div class="function__box">
+                <!-- <button class="function__btn function__btn--reply">
+                </button>
+                <span class="function__text">Reply</span> -->
+              </div>
+              <div class="function__box">
+                <button class="function__btn function__btn--delete"></button>
+                <span class="function__text function__text--red">Delete</span>
+              </div>
+              <div class="function__box">
+                <button class="function__btn function__btn--edit"></button>
+                <span class="function__text">Edit</span>
+              </div>
+            </div>
+          </div>
+          <div class="comment__form form">
+            <form class="form__box">
+              <textarea
+                class="form__content"
+                name="reply"
+                cols="30"
+                rows="6"
+                placeholder="Type something..."
+              ></textarea>
+              <img
+                class="form__image image"
+                src="./assets/avatars/image-juliusomo.png"
+                alt="juliusomo"
+              />
+              <button class="form__btn form__btn--reply">reply</button>
+            </form>
+          </div>
+        </div>
+        <div class="main__comment comment comment--send">
+          <div class="comment__form form">
+            <form class="form__box">
+              <textarea
+                class="form__content"
+                name="reply"
+                cols="30"
+                rows="6"
+                placeholder="Type something..."
+              ></textarea>
+              <img
+                class="form__image image"
+                src="./assets/avatars/image-juliusomo.png"
+                alt="juliusomo"
+              />
+              <button class="form__btn form__btn--send">send</button>
+            </form>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>
