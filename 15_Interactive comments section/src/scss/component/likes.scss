@@ -25,6 +25,9 @@
     background-repeat: no-repeat;
     background-position: center;
     border: none;
+
+    cursor: pointer;
+
     &--plus {
       background-image: url("~/public/assets/svg/icon-plus.svg");
     }

@@ -10,19 +10,23 @@
       href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;800&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="./main.css" />
-    <script type="module" defer src="./main.bundle.js"></script>
+    <link rel="stylesheet" href="main.css" />
+    <script type="module" defer src="main.bundle.js"></script>
   </head>
   <body>
+    <!-- HEADER start -->
     <header class="header">
       <div class="header__nav">
         <div class="header__logo">GO COMMENT</div>
-        <div class="header__image image"></div>
+        <img class="image" src="./assets/avatars/image-juliusomo.png" alt="" />
       </div>
     </header>
+    <!-- HEADER end -->
+    <!-- MAIN start -->
     <div class="container">
       <main class="main">
-        <div class="main__comment comment">
+        <!-- MAIN COMMENT -->
+        <!-- <div class="main__comment comment comment--main">
           <div class="comment__box">
             <div class="comment__user user user">
               <img
@@ -40,7 +44,7 @@
                 voluptatibus assumenda eveniet voluptatem harum labore aliquam
                 praesentium debitis officiis, quasi velit vel.
               </p>
-              <div class="comtent__form form hidden">
+              <div class="comment__form form hidden">
                 <form class="form__box form__box--edit">
                   <textarea
                     class="form__content form__content--edit"
@@ -62,11 +66,6 @@
             </div>
             <div class="comment__function function">
               <div class="function__box">
-                <!-- <button class="function__btn function__btn--reply">
-                </button>
-                <span class="function__text">Reply</span> -->
-              </div>
-              <div class="function__box">
                 <button class="function__btn function__btn--delete"></button>
                 <span class="function__text function__text--red">Delete</span>
               </div>
@@ -75,32 +74,16 @@
                 <span class="function__text">Edit</span>
               </div>
             </div>
-          </div>
-          <div class="comment__form form">
-            <form class="form__box">
-              <textarea
-                class="form__content"
-                name="reply"
-                cols="30"
-                rows="6"
-                placeholder="Type something..."
-              ></textarea>
-              <img
-                class="form__image image"
-                src="./assets/avatars/image-juliusomo.png"
-                alt="juliusomo"
-              />
-              <button class="form__btn form__btn--reply">reply</button>
-            </form>
-          </div>
-        </div>
-        <div class="main__comment comment comment--reply">
-          <div class="comment__box">
+          </div> -->
+
+        <!-- REPLY -->
+        <!-- <div class="comment comment--reply">
+            <div class="comment__box">
             <div class="comment__user user">
               <img
                 class="user__image image"
-                src="./assets/avatars/image-juliusomo.png"
-                alt="juliusomo"
+                src="./assets/avatars/image-maxblagun.png"
+                alt="maxblagun"
               />
               <div class="user__name">username</div>
               <div class="user__date">2 weeks ago</div>
@@ -134,39 +117,15 @@
             </div>
             <div class="comment__function function">
               <div class="function__box">
-                <!-- <button class="function__btn function__btn--reply">
-                </button>
-                <span class="function__text">Reply</span> -->
-              </div>
-              <div class="function__box">
-                <button class="function__btn function__btn--delete"></button>
-                <span class="function__text function__text--red">Delete</span>
-              </div>
-              <div class="function__box">
-                <button class="function__btn function__btn--edit"></button>
-                <span class="function__text">Edit</span>
+                <button class="function__btn function__btn--reply"></button>
+                <span class="function__text">Reply</span>
               </div>
             </div>
           </div>
-          <div class="comment__form form">
-            <form class="form__box">
-              <textarea
-                class="form__content"
-                name="reply"
-                cols="30"
-                rows="6"
-                placeholder="Type something..."
-              ></textarea>
-              <img
-                class="form__image image"
-                src="./assets/avatars/image-juliusomo.png"
-                alt="juliusomo"
-              />
-              <button class="form__btn form__btn--reply">reply</button>
-            </form>
           </div>
-        </div>
-        <div class="main__comment comment comment--send">
+        </div> -->
+        <!-- SEND COMMENT -->
+        <!-- <div class="main__comment comment comment--send">
           <div class="comment__form form">
             <form class="form__box">
               <textarea
@@ -184,8 +143,9 @@
               <button class="form__btn form__btn--send">send</button>
             </form>
           </div>
-        </div>
+        </div> -->
       </main>
     </div>
+    <!-- MAIN end -->
   </body>
 </html>
