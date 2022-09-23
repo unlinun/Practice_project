@@ -1,87 +1,106 @@
-import View from "./view.js";
-
-class CommentView extends View {
+class CommentView {
+  _data;
   _parentElement = document.querySelector(".main");
-
-  _generateMarkup() {
-    return this._data.comments
-      .map((comment) => {
-        return this._commentMarkup(comment);
-      })
-      .join("");
+  //   獲取到 model 的 data
+  renderData(data) {
+    if (!data) return;
+    this._data = data;
+    this._clearParent();
+    // 產生 html
+    this._generateMarkup();
   }
-  _commentMarkup(data) {
+  _clearParent() {
+    this._parentElement.innerHTML = "";
+  }
+  //   產生 comment html
+  _generateMarkup() {
+    const markup = `
+        <div class="main__comment comment comment--main">
+        ${this._data.comments
+          .map((comment) => {
+            return this._commentBoxMarkup(comment);
+          })
+          .join("")}
+        </div>
+    `;
+    this._parentElement.insertAdjacentHTML("afterbegin", markup);
+  }
+  _commentBoxMarkup(data) {
+    console.log(this._data);
     return `
-    <div class="main__comment comment comment--main" data-id ="${data.id}">
-        <div class="comment__box">
+        <div class="comment__box" data-id="${data.id}">
             <div class="comment__user user">
-              <img
+                <img
                 class="user__image image"
                 src="${data.user.image.png}"
                 alt="${data.user.username}"
-              />
-              <div class="user__name ${
-                data.user.username === this._data.user.username
-                  ? "user__name-current"
-                  : ""
-              }">${data.user.username}</div>
-              <div class="user__date">${data.createdAt}</div>
+                />
+                <div class="user__name ${
+                  this._data.user.username === data.user.username
+                    ? "user__name--current"
+                    : ""
+                }">${data.user.username}</div>
+                <div class="user__date">${data.createdAt}</div>
             </div>
             <div class="comment__content">
-              <p>
-               ${data.content}
-              </p>
-              <div class="comment__form form hidden">
+                <p>
+                ${data.content}
+                </p>
+                <div class="content__form form hidden">
                 <form class="form__box form__box--edit">
-                  <textarea
+                    <textarea
                     class="form__content form__content--edit"
                     name="reply"
                     cols="30"
                     rows="6"
                     placeholder="Type something..."
-                  >${data.content}</textarea>
-                  <button class="form__btn form__btn--update" data-btn ="update">update</button>
+                    ></textarea>
+                    <button type="submit" class="form__btn">update</button>
                 </form>
-              </div>
+                </div>
             </div>
             <div class="comment__likes likes">
-              <div class="likes__box">
+                <div class="likes__box">
                 <button class="likes__btn likes__btn--plus"></button>
-                <span class="likes__number">${data.score}</span>
+                <span class="likes__number">12</span>
                 <button class="likes__btn likes__btn--minus"></button>
-              </div>
+                </div>
             </div>
             <div class="comment__function function">
-            ${this._functionMarkup(data)}
+                ${this._commentFunctionMarkup(data)}
             </div>
         </div>
-    </div>
-    `;
+        `;
   }
-  _functionMarkup(data) {
-    if (data.user.username !== this._data.user.username) {
+
+  //   判斷 function 中的 btn
+  _commentFunctionMarkup(data) {
+    if (this._data.user.username === data.user.username) {
       return `
-        <button class="function__box" data-btn ="reply">
-            <div class="function__btn function__btn--reply">
-            </div>
-            <span class="function__text">Reply</span>
+        <button class="function__btn" data-btn="delete">
+            <div class="function__icon function__icon--delete"></div>
+            <span class="function__text function__text--red">Delete</span>
+        </button>
+        <button class="function__btn" data-btn="edit">
+            <div class="function__icon function__icon--edit"></div>
+            <span class="function__text">Edit</span>
         </button>
         `;
     } else {
       return `
-        <button class="function__box" data-btn ="delete">
-            <div class="function__btn function__btn--delete"></div>
-            <span class="function__text function__text--red">Delete</span>
+        <button class="function__btn" data-btn="reply">
+            <div class="function__icon function__icon--reply"></div>
+            <span class="function__text">reply</span>
         </button>
-        <button class="function__box" data-btn ="edit">
-            <div class="function__btn function__btn--edit"></div>
-            <span class="function__text">Edit</span>
-        </button>`;
+        `;
     }
   }
 
-  addEventLoadComment(handler) {
-    window.addEventListener("load", handler);
+  //   event handler
+  addHandlerWindowLoad(handler) {
+    window.addEventListener("load", function () {
+      handler();
+    });
   }
 }
 

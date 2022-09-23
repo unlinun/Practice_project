@@ -1,30 +1,45 @@
-import View from "./view.js";
-
-class SendView extends View {
+class SendView {
+  _data;
   _parentElement = document.querySelector(".main");
-
+  renderData(data) {
+    if (!data) return;
+    this._data = data;
+    // 產生 html
+    this._generateMarkup();
+  }
   _generateMarkup() {
-    return `
+    const markup = `
     <div class="main__comment comment comment--send">
-      <div class="comment__form form">
+        ${this._formMarkup(this._data)}
+    </div>
+    `;
+    this._parentElement.insertAdjacentHTML("beforeend", markup);
+  }
+  _formMarkup(data) {
+    return `
+    <div class="comment__form form">
         <form class="form__box">
             <textarea
-            class="form__content"
-            name="reply"
-            cols="30"
-            rows="6"
-            placeholder="Type something..."
+                class="form__content"
+                name="reply"
+                cols="30"
+                rows="6"
+                placeholder="Type something..."
             ></textarea>
             <img
-            class="form__image image"
-            src="./assets/avatars/image-juliusomo.png"
-            alt="juliusomo"
+                class="form__image image"
+                src="${data.user.image.png}"
+                alt="${data.user.username}"
             />
-            <button class="form__btn form__btn--send" data-btn="send">send</button>
+            <button type="submit" class="form__btn">send</button>
         </form>
-    </div>
-  </div>
+     </div>
     `;
+  }
+  addHandlerSendForm(handler) {
+    window.addEventListener("load", function () {
+      handler();
+    });
   }
 }
 
