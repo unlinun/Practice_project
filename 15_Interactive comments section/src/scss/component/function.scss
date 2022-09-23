@@ -5,7 +5,7 @@
   align-items: center;
   justify-content: flex-end;
   gap: rem(8);
-  &__box {
+  &__btn {
     background-color: var(--white-color);
     display: flex;
     align-items: center;
@@ -13,9 +13,10 @@
     border: none;
     cursor: pointer;
   }
-  &__btn {
+  &__icon {
     width: rem(24);
     height: rem(24);
+    border: 0;
 
     background-color: var(--white-color);
     background-size: auto;
