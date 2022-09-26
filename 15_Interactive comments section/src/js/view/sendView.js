@@ -1,11 +1,29 @@
 class SendView {
   _data;
   _parentElement = document.querySelector(".main");
+  constructor() {}
   renderData(data) {
     if (!data) return;
     this._data = data;
     // 產生 html
     this._generateMarkup();
+  }
+  getData(e) {
+    e.preventDefault();
+    const btn = e.target.closest("button");
+    if (!btn) return;
+    if (btn.dataset.btn === "send") {
+      const parent = btn.closest(".form");
+      const textBox = parent.querySelector(".form__content");
+      return {
+        content: textBox,
+        createdAt: new Date().getDate(),
+        user: {
+          image: this._data.user.image,
+          username: this._data.user.username,
+        },
+      };
+    }
   }
   _generateMarkup() {
     const markup = `
@@ -31,7 +49,7 @@ class SendView {
                 src="${data.user.image.png}"
                 alt="${data.user.username}"
             />
-            <button type="submit" class="form__btn">send</button>
+            <button type="submit" class="form__btn" data-btn="send">send</button>
         </form>
      </div>
     `;
