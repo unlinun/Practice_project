@@ -96,7 +96,6 @@ class FormView {
     return data;
   }
   getLikeBtn(btn, type) {
-    // console.log(btn, type);
     if (type !== "plus" && type !== "minus") return;
     const currentBox = btn.closest(".comment__box");
     this._likesID = currentBox.dataset.id;

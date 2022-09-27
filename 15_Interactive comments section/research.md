@@ -44,3 +44,18 @@
 
 4. 建置開發環境 -- Set up a build environment using Babel and Webpack
    https://medium.com/@codingstorytime/set-up-a-build-environment-using-babel-and-webpack-172110681b1
+5. 取消 textarea 的拖拉功能
+
+   ```
+   textarea {
+   resize : none;
+   }
+
+   ```
+
+6. 取消 textarea:focus 時的外框色：
+   ```
+   textarea{
+   outline: none;
+   }
+   ```
