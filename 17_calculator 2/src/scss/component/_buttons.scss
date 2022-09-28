@@ -1,0 +1,50 @@
+@use "../util/" as *;
+
+.buttons {
+  gap: rem(16);
+  &__button {
+    width: 100%;
+    height: rem(50);
+    border: 0;
+    background-color: var(--white-color);
+    border-radius: rem(15);
+    font-size: rem(14);
+    font-weight: 600;
+    color: var(--primary-black-color);
+    cursor: pointer;
+    transition: all 0.2s;
+    &--number {
+      color: var(--secondary-blue-color);
+    }
+    &--plus {
+      grid-row: 1/2;
+      grid-column: 4/5;
+    }
+    &--minus {
+      grid-row: 2/3;
+      grid-column: 4/5;
+    }
+    &--multi {
+      grid-row: 3/4;
+      grid-column: 4/5;
+    }
+    &--total {
+      grid-row: 5/6;
+      grid-column: 3/5;
+      color: var(--white-color);
+      background-color: var(--point-red-color);
+    }
+
+    &--del {
+      color: var(--white-color);
+      background-color: var(--secondary-blue-color);
+    }
+    &--reset {
+      color: var(--white-color);
+      background-color: var(--secondary-blue-color);
+    }
+    &:hover {
+      transform: scale(0.96);
+    }
+  }
+}

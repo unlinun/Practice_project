@@ -1,0 +1,31 @@
+@use "../util/" as *;
+
+.screen {
+  border-radius: rem(5);
+  padding: rem(8);
+  background-color: var(--white-color);
+  &__operator {
+    grid-column: 1/2;
+    grid-row: 1/3;
+    color: var(--secondary-blue-color);
+  }
+  &__calculating {
+    grid-column: 2/3;
+    grid-row: 1/2;
+    justify-self: flex-end;
+    color: var(--secondary-gray-color);
+    p {
+      font-size: rem(12);
+      font-weight: 400;
+    }
+  }
+  &__total {
+    justify-self: flex-end;
+    letter-spacing: rem(1.5);
+    color: var(--secondary-blue-color);
+    p {
+      font-size: rem(24);
+      font-weight: 600;
+    }
+  }
+}

@@ -1,0 +1,20 @@
+// 導入 scss 中的 math module (有點類似 JS 的 module)
+@use "sass:math";
+
+//create rem function
+@function rem($pixel) {
+  @if math.is-unitless($pixel) {
+    @return math.div($pixel, 16) + rem;
+  } @else {
+    @error 'Please don\'t use unit, when you are using rem() function!';
+  }
+}
+
+//create em function
+@function em($pixel) {
+  @if math.is-unitless($pixel) {
+    @return math.div($pixel, 16) + em;
+  } @else {
+    @error 'Please don\'t use unit, when you are using em() function!';
+  }
+}
