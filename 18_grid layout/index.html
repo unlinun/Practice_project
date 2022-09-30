@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>grid layout</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- HEADER START -->
+    <header class="header">
+      <div class="header__logo">
+        <div class="img img--logo"></div>
+        <h1 class="logo__title">Come-u</h1>
+      </div>
+      <button class="icon icon--menu"></button>
+      <nav class="header__nav">
+        <div class="nav__setting">
+          <ul class="list list--setting">
+            <li class="list__item">
+              <a href="#">
+                <div class="icon icon--home"></div>
+                <p class="item__title">home</p>
+              </a>
+            </li>
+            <li class="list__item">
+              <a href="#">
+                <div class="icon icon--profile"></div>
+                <p class="item__title">Profile</p>
+              </a>
+            </li>
+            <li class="list__item">
+              <a href="#">
+                <div class="icon icon--message"></div>
+                <p class="item__title">message</p>
+              </a>
+            </li>
+            <li class="list__item">
+              <a href="#">
+                <div class="icon icon--history"></div>
+                <p class="item__title">history</p>
+              </a>
+            </li>
+            <li class="list__item">
+              <a href="#">
+                <div class="icon icon--tasks"></div>
+                <p class="item__title">tasks</p>
+              </a>
+            </li>
+            <li class="list__item">
+              <a href="#">
+                <div class="icon icon--communities"></div>
+                <p class="item__title">communities</p>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="nav__logout">
+          <ul class="list list--logout">
+            <li class="list__item">
+              <a href="#">
+                <div class="icon icon--setting"></div>
+                <p class="item__title">setting</p>
+              </a>
+            </li>
+            <li class="list__item">
+              <a href="#">
+                <div class="icon icon--support"></div>
+                <p class="item__title">support</p>
+              </a>
+            </li>
+            <li class="list__item">
+              <a href="#">
+                <div class="icon icon--privacy"></div>
+                <p class="item__title">privacy</p>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <!-- HEADER END -->
+    <!-- ASIDE START -->
+    <aside class="aside">
+      <div class="aside__search">
+        <input
+          type="search"
+          name="search"
+          id="search"
+          class="input input--search"
+        />
+        <div class="icon icon--search"></div>
+      </div>
+      <div class="aside__notification">
+        <div class="icon icon--notification"></div>
+        <div class="img img--user"></div>
+        <h3 class="notification__username">unlin (@unlin9)</h3>
+      </div>
+      <div class="aside__user">
+        <div class="img img--user-big"></div>
+        <div class="user__info">
+          <p class="info__gretting">welcome!</p>
+          <h2 class="info__username">unlin</h2>
+        </div>
+      </div>
+      <div class="aside__function">
+        <button class="btn btn--function">news</button>
+        <button class="btn btn--function">upload</button>
+        <button class="btn btn--function">share</button>
+      </div>
+    </aside>
+    <!-- ASIDE END -->
+    <!-- MAIN START -->
+    <main class="main">
+      <section class="main__projects">
+        <h3 class="main__title">projects</h3>
+        <div class="projects">
+          <div class="project__box">
+            <p class="project__title">project title</p>
+            <p class="project__content">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores,
+              repellendus. Labore provident, expedita obcaecati quibusdam
+              officia excepturi quasi tempora!
+            </p>
+            <div class="project__icons">
+              <div class="icon icon--fav"></div>
+              <div class="icon icon--look"></div>
+              <div class="icon icon--share"></div>
+            </div>
+          </div>
+          <div class="project__box">
+            <p class="project__title">project title</p>
+            <p class="project__content">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores,
+              repellendus. Labore provident, expedita obcaecati quibusdam
+              officia excepturi quasi tempora!
+            </p>
+            <div class="project__icons">
+              <div class="icon icon--fav"></div>
+              <div class="icon icon--look"></div>
+              <div class="icon icon--share"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="main__announcement">
+        <h3 class="main__title">announcement</h3>
+        <div class="announcement">
+          <div class="announcement__box">
+            <p class="announcement__title">announcement title</p>
+            <p class="announcement__content">
+              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolores,
+              omnis nesciunt? Soluta, aut, veritatis a perferendis distinctio
+              inventore repudiandae temporibus !
+            </p>
+          </div>
+        </div>
+      </section>
+      <section class="main__trending">
+        <h3 class="main__title">trending</h3>
+        <div class="trending">
+          <div class="trending__box">
+            <div class="img img--user1"></div>
+            <div class="trending__info">
+              <p class="info__title">@apple</p>
+              <p class="info__content">Calculator</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <!-- MAIN END -->
+  </body>
+</html>
