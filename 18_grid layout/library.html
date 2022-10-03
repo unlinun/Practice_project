@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>grid layout</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="stylesheet" href="./css/library.css" />
+    <script defer src="./js/script.js"></script>
+  </head>
+  <body>
+    <!-- HEADER START -->
+    <header class="header">
+      <a href="./index.html" class="header__logo">
+        <div class="img img--logo"></div>
+        <h1 class="logo__title">Comment</h1>
+      </a>
+      <button class="icon icon--menu"></button>
+      <nav class="header__nav">
+        <div class="nav__setting">
+          <ul class="list list--setting">
+            <li class="list__item">
+              <a href="./index.html">
+                <div class="icon icon--home"></div>
+                <p class="item__title">home</p>
+              </a>
+            </li>
+            <li class="list__item">
+              <a href="#">
+                <div class="icon icon--profile"></div>
+                <p class="item__title">Profile</p>
+              </a>
+            </li>
+            <li class="list__item">
+              <a href="#">
+                <div class="icon icon--message"></div>
+                <p class="item__title">message</p>
+              </a>
+            </li>
+            <li class="list__item">
+              <a href="#">
+                <div class="icon icon--history"></div>
+                <p class="item__title">library</p>
+              </a>
+            </li>
+            <li class="list__item">
+              <a href="#">
+                <div class="icon icon--tasks"></div>
+                <p class="item__title">tasks</p>
+              </a>
+            </li>
+            <li class="list__item">
+              <a href="#">
+                <div class="icon icon--communities"></div>
+                <p class="item__title">communities</p>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="nav__logout">
+          <ul class="list list--logout">
+            <li class="list__item">
+              <a href="#">
+                <div class="icon icon--setting"></div>
+                <p class="item__title">setting</p>
+              </a>
+            </li>
+            <li class="list__item">
+              <a href="#">
+                <div class="icon icon--support"></div>
+                <p class="item__title">support</p>
+              </a>
+            </li>
+            <li class="list__item">
+              <a href="#">
+                <div class="icon icon--privacy"></div>
+                <p class="item__title">privacy</p>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <!-- HEADER END -->
+    <!-- ASIDE START -->
+    <aside class="aside">
+      <div class="aside__search">
+        <input
+          type="search"
+          name="search"
+          id="search"
+          class="input input--search"
+        />
+        <div class="icon icon--search"></div>
+      </div>
+      <div class="aside__notification">
+        <div class="icon icon--notification"></div>
+        <div class="img img--user"></div>
+        <h3 class="notification__username">unlin (@unlin9)</h3>
+      </div>
+      <div class="aside__user">
+        <div class="img img--user-big"></div>
+        <div class="user__info">
+          <p class="info__gretting">welcome!</p>
+          <h2 class="info__username">unlin</h2>
+        </div>
+      </div>
+      <div class="aside__function">
+        <button class="btn btn--function" data-btn="add">new book</button>
+        <button class="btn btn--function" data-btn="favorite">favorite</button>
+        <button class="btn btn--function" data-btn="share">share</button>
+      </div>
+    </aside>
+    <!-- ASIDE END -->
+    <!-- MAIN START -->
+    <main class="main">
+      <div class="add__container">
+        <div class="add__overlay"></div>
+        <form class="add__form">
+          <div class="btn btn--function btn--close" data-btn="close">X</div>
+          <div class="input__box">
+            <label for="title" class="input__label">title</label>
+            <input type="text" name="title" id="title" class="input__title" />
+          </div>
+          <div class="input__box">
+            <label for="author" class="input__label">author</label>
+            <input
+              type="text"
+              name="author"
+              id="author"
+              class="input__author"
+            />
+          </div>
+          <div class="input__box">
+            <label for="pages" class="input__label">pages</label>
+            <input type="text" name="pages" id="pages" class="input__pages" />
+          </div>
+          <div class="input__box">
+            <label for="read" class="input__label">have you read?</label>
+            <input type="checkbox" name="read" id="read" class="input__read" />
+          </div>
+          <input type="submit" value="submit" class="submit" />
+        </form>
+      </div>
+      <section class="main__books">
+        <h3 class="main__title">books</h3>
+        <div class="books">
+          <div class="books__alert">
+            <p>No books yet, try add one!</p>
+          </div>
+          <!-- <div class="books__box books__box--read">
+            <p class="books__title">books title</p>
+            <p class="books__author">write by :</p>
+            <p class="books__pages">total pages :</p>
+            <div class="books__icons">
+              <div
+                class="icon icon--check icon--checked"
+                data-btn="check"
+              ></div>
+              <div class="icon icon--delete" data-btn="delete"></div>
+            </div>
+          </div> -->
+        </div>
+      </section>
+    </main>
+    <!-- MAIN END -->
+  </body>
+</html>

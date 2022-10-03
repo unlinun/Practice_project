@@ -7,7 +7,7 @@
   --dark-color: #565254;
   --gray-color: #f0f3f5;
   --white-color: #fffffb;
-  --hint-color: #6d2e46;
+  --hint-color: #bfa5a5;
 
   --main-radius: 0.5rem;
   --second-radius: 0.25rem;
@@ -31,7 +31,7 @@ body {
   height: 100vh;
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: auto;
+  grid-template-rows: auto 1fr 1fr;
 }
 li {
   list-style: none;
@@ -49,33 +49,33 @@ a:link {
   cursor: pointer;
 }
 .img--logo {
-  background-image: url(image/box.svg);
+  background-image: url(../image/box.svg);
 }
 .img--user {
   width: 3rem;
   height: 3rem;
-  background-image: url(./image/member-01.svg);
+  background-image: url(../image/member-01.svg);
   background-color: var(--main-color);
   border-radius: 50%;
 }
 .img--user1 {
   min-width: 5em;
   height: 5rem;
-  background-image: url(./image/member-02.svg);
+  background-image: url(../image/member-02.svg);
   background-color: var(--third-color);
   border-radius: 50%;
 }
 .img--user2 {
   min-width: 5em;
   height: 5rem;
-  background-image: url(./image/member-03.svg);
+  background-image: url(../image/member-03.svg);
   background-color: var(--dark-color);
   border-radius: 50%;
 }
 .img--user3 {
   min-width: 5em;
   height: 5rem;
-  background-image: url(./image/member-04.svg);
+  background-image: url(../image/member-04.svg);
   background-color: var(--second-color);
   border-radius: 50%;
 }
@@ -85,7 +85,7 @@ a:link {
   border-radius: 50%;
 
   background-color: var(--main-color);
-  background-image: url(./image/member-01.svg);
+  background-image: url(../image/member-01.svg);
 }
 
 .icon {
@@ -96,46 +96,55 @@ a:link {
   cursor: pointer;
 }
 .icon--home {
-  background-image: url(./image/globe.svg);
+  background-image: url(../image/globe.svg);
 }
 .icon--profile {
-  background-image: url(./image/user.svg);
+  background-image: url(../image/user.svg);
 }
 .icon--message {
-  background-image: url(./image/message.svg);
+  background-image: url(../image/message.svg);
 }
 .icon--history {
-  background-image: url(./image/history.svg);
+  background-image: url(../image/history.svg);
 }
 .icon--tasks {
-  background-image: url(./image/tasks.svg);
+  background-image: url(../image/tasks.svg);
 }
 .icon--communities {
-  background-image: url(./image/communities.svg);
+  background-image: url(../image/communities.svg);
 }
 .icon--setting {
-  background-image: url(./image/settings.svg);
+  background-image: url(../image/settings.svg);
 }
 .icon--support {
-  background-image: url(./image/support.svg);
+  background-image: url(../image/support.svg);
 }
 .icon--privacy {
-  background-image: url(./image/privacy.svg);
+  background-image: url(../image/privacy.svg);
 }
 .icon--search {
-  background-image: url(./image/search.svg);
+  background-image: url(../image/search.svg);
 }
 .icon--notification {
-  background-image: url(./image/notification.svg);
+  background-image: url(../image/notification.svg);
 }
 .icon--fav {
-  background-image: url(./image/bookmark.svg);
+  background-image: url(../image/bookmark.svg);
 }
 .icon--look {
-  background-image: url(./image/compass.svg);
+  background-image: url(../image/compass.svg);
 }
 .icon--share {
-  background-image: url(./image/media.svg);
+  background-image: url(../image/media.svg);
+}
+.icon--delete {
+  background-image: url(../image/delete.svg);
+}
+.icon--check {
+  background-image: url(../image/checkmark-circle-outline.svg);
+}
+.icon--checked {
+  background-image: url(../image/checkmark-circle.svg);
 }
 /* HEADER START */
 .header {
@@ -207,7 +216,7 @@ button.icon--menu {
   right: 3rem;
   border: none;
   background-color: transparent;
-  background-image: url(./image/align-justify.svg);
+  background-image: url(../image/align-justify.svg);
   cursor: pointer;
   z-index: 2;
 }
@@ -417,7 +426,7 @@ button.icon--menu:focus-within + .header__nav:focus-within {
   body {
     grid-template-columns: auto 1fr;
     grid-template-rows: auto 1fr;
-    column-gap: 1rem;
+    /* column-gap: 1rem; */
   }
   .header {
     margin: 0;
