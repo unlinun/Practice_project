@@ -13,13 +13,16 @@ const inputs = addForm.querySelectorAll("input");
 const booksContainer = document.querySelector(".books");
 
 let library = [];
-const Book = function (title, author, pages, read, id) {
-  this.id = id;
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.read = read;
-};
+
+class Book {
+  constructor(title, author, pages, read, id) {
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.read = read;
+    this.id = id;
+  }
+}
 
 //////////// EVENT HANDLER
 addNewBtn.addEventListener("click", showForm);
@@ -33,7 +36,6 @@ submitBtn.addEventListener("click", function (e) {
   let pages = addForm.querySelector(".input__pages").value;
   let read = addForm.querySelector(".input__read").checked;
   let id = library.length + 1;
-  console.log(id);
   if (!title || !author || !pages) return;
   const book = new Book(title, author, pages, read, id);
   library.push(book);
@@ -65,44 +67,6 @@ function addNewBook() {
   bookCards.forEach((book) => {
     booksContainer.appendChild(book);
   });
-}
-
-function createBookCard(book) {
-  const bookBox = document.createElement("div");
-  const bookTitle = document.createElement("p");
-  const bookAuthor = document.createElement("p");
-  const bookPages = document.createElement("p");
-  const bookBoxIcons = document.createElement("div");
-  const iconCheck = document.createElement("div");
-  const iconDelete = document.createElement("div");
-
-  bookBox.classList.add("books__box");
-  bookBox.setAttribute("data-id", `${book.id}`);
-  bookTitle.classList.add("books__title");
-  bookAuthor.classList.add("books__author");
-  bookPages.classList.add("books__pages");
-  bookBoxIcons.classList.add("books__icons");
-  iconCheck.classList.add("icon");
-  iconCheck.classList.add("icon--check");
-  iconCheck.setAttribute("data-btn", "check");
-  iconDelete.classList.add("icon");
-  iconDelete.classList.add("icon--delete");
-  iconDelete.setAttribute("data-btn", "delete");
-
-  //   add text content
-  bookTitle.textContent = `Title : ${book.title}`;
-  bookAuthor.textContent = `Written by : ${book.author}`;
-  bookPages.textContent = `Total pages : ${book.pages}`;
-
-  bookBoxIcons.appendChild(iconCheck);
-  bookBoxIcons.appendChild(iconDelete);
-  bookBox.appendChild(bookTitle);
-  bookBox.appendChild(bookAuthor);
-  bookBox.appendChild(bookPages);
-  bookBox.appendChild(bookBoxIcons);
-  console.log(bookBox);
-
-  return bookBox;
 }
 
 function setReadBook(e) {
