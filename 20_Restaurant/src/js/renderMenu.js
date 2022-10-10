@@ -1,39 +1,46 @@
-const parentElement = document.querySelector("#container");
+import ContentView from "./contentView";
 
-const createMenuTitle = function () {
-  const menuTitle = document.createElement("div");
-  menuTitle.classList.add("title");
-  menuTitle.textContent = `GO! GET EATTTTT!`;
-  return menuTitle;
-};
+class RenderMenu extends ContentView {
+  _parentElement = document.querySelector("#container");
 
-const createMenu = function () {
-  const menu = document.createElement("main");
-  const menuNav = document.createElement("nav");
-  menu.classList.add("menu");
-  menuNav.classList.add("menu__nav");
-  menuNav.appendChild(createMenuNav("NEW"));
-  menuNav.appendChild(createMenuNav("SPECIAL"));
-  menuNav.appendChild(createMenuNav("FOOD"));
-  const first = menuNav.querySelector(".nav__item:first-child");
-  first.classList.add("nav__item--active");
-  menu.appendChild(menuNav);
-  return menu;
-};
+  //   create title
+  createMenuTitle = function () {
+    const menuTitle = document.createElement("div");
+    menuTitle.classList.add("title");
+    menuTitle.textContent = `GO! GET EATTTTT!`;
+    return menuTitle;
+  };
 
-const createMenuNav = function (title) {
-  const navItem = document.createElement("div");
-  const navTitle = document.createElement("p");
-  navItem.classList.add("nav__item");
-  navTitle.classList.add("nav__title");
-  navTitle.textContent = `${title}`;
-  navItem.appendChild(navTitle);
-  return navItem;
-};
+  // create navbar
+  createMenuNav(title) {
+    const navItem = document.createElement("div");
+    const navTitle = document.createElement("p");
+    navItem.classList.add("nav__item");
+    navTitle.classList.add("nav__title");
+    navTitle.textContent = `${title}`;
+    navItem.setAttribute("data-type", `${title}`);
+    navItem.appendChild(navTitle);
+    return navItem;
+  }
+  //create menu
+  createMenu(type) {
+    const menu = document.createElement("main");
+    const menuNav = document.createElement("nav");
+    menu.classList.add("menu");
+    menuNav.classList.add("menu__nav");
+    menuNav.appendChild(this.createMenuNav("new"));
+    menuNav.appendChild(this.createMenuNav("special"));
+    menuNav.appendChild(this.createMenuNav("food"));
+    const activeMenu = menuNav.querySelector(`.nav__item[data-type="${type}"]`);
+    activeMenu.classList.add("nav__item--active");
+    menu.appendChild(menuNav);
+    return menu;
+  }
 
-const renderMenu = function () {
-  parentElement.appendChild(createMenuTitle());
-  parentElement.appendChild(createMenu());
-};
+  renderMenu(type) {
+    this._parentElement.appendChild(this.createMenuTitle());
+    this._parentElement.appendChild(this.createMenu(type));
+  }
+}
 
-export { renderMenu };
+export default new RenderMenu();

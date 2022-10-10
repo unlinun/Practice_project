@@ -2,17 +2,24 @@ import _ from "lodash";
 import "./style.css";
 import { data } from "./js/model";
 import contentView from "./js/contentView";
-import { addHandlerWindowLoad } from "./js/renderLanding";
-import { renderMenu } from "./js/renderMenu";
-import renderContentNew from "./js/renderContentNew";
+import renderLanding from "./js/renderLanding";
+import renderMenu from "./js/renderMenu";
+import renderContent from "./js/renderContent";
 
 const controlLanding = function () {
-  renderContentNew.renderData(data);
-  renderMenu();
-  renderContentNew.renderNewContent("new");
+  renderContent.renderData(data);
+  renderMenu.renderMenu("new");
+  renderContent.renderNewContent("new");
+};
+
+const controlChangeMenu = function (type) {
+  renderMenu.renderMenu(type);
+  renderContent.renderNewContent(type);
+  console.log("click");
 };
 
 function init() {
-  addHandlerWindowLoad(controlLanding);
+  renderLanding.addHandlerWindowLoad(controlLanding);
+  renderContent.addHandlerClickMenu(controlChangeMenu);
 }
 init();

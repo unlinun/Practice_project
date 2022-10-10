@@ -1,4 +1,4 @@
-export default class contentView {
+export default class ContentView {
   _data;
 
   renderData = function (data) {
@@ -12,16 +12,4 @@ export default class contentView {
     mark.textContent = `${item.mark}`;
     return mark;
   };
-
-  renderNewContent(type) {
-    const content = document.createElement("div");
-    content.classList.add("content");
-    this._data[type].forEach((item) => {
-      console.log(item);
-      const items = this.createContentNew(item);
-      console.log(items);
-      content.appendChild(items);
-    });
-    this._parentElement.appendChild(content);
-  }
 }

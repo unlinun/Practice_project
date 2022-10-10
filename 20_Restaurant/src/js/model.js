@@ -44,35 +44,35 @@ const data = {
   ],
   food: [
     {
-      title: "sushi",
+      title: "Gunkan - sushi",
       image: "./0572b4db15afccdd288f.png",
     },
     {
-      title: "sushi",
+      title: "Gunkan - sushi",
       image: "./ac529333e1d252d657e6.png",
     },
     {
-      title: "sushi",
+      title: "Maki - sushi",
       image: "./39604f06ff27fdb64ccc.png",
     },
     {
-      title: "sushi",
+      title: "Nigiri - sushi",
       image: "./accbad237c65a7646d03.png",
     },
     {
-      title: "sushi",
+      title: "Maki - sushi",
       image: "./6d4c97d5f69729cc63db.png",
     },
     {
-      title: "sushi",
+      title: "Maki - sushi",
       image: "/768f8730a83c93ccfbc6.png",
     },
     {
-      title: "sushi",
+      title: "Nigiri - sushi",
       image: "./7f0bb9b6a926bf2d955c.png",
     },
     {
-      title: "sushi",
+      title: "Maki - sushi",
       image: "./c7aaabc788dc7c4c69c7.png",
     },
   ],
