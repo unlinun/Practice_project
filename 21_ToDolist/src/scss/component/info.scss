@@ -23,4 +23,35 @@
     background-image: url("../assets/user.svg");
     border-radius: 50%;
   }
+  &__theme {
+    padding: 0rem 0.25rem;
+    border: 1px solid var(--gray-color);
+    border-radius: 1rem;
+    & > input {
+      opacity: 0;
+      cursor: pointer;
+    }
+  }
+}
+.theme {
+  position: relative;
+  &__toggle {
+    width: calc(100% / 2);
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: scale(0.8);
+    background-color: var(--gray-color);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+  }
+}
+#theme__dark:checked ~ .theme__toggle {
+  left: 0;
+}
+#theme__white:checked ~ .theme__toggle {
+  left: 50%;
+  background-color: var(--third-color);
 }

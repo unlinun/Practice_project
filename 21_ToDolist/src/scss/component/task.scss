@@ -1,10 +1,14 @@
 .task {
   font-size: 0.875rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   &__box {
+    width: 100%;
     padding: 1rem 0.5rem;
     margin-bottom: 1.5rem;
     display: grid;
-    grid-template-columns: 1fr 1fr 3fr 1fr 1fr;
+    grid-template-columns: 0.5fr 1fr 3fr 1fr 1fr;
     align-items: center;
     justify-items: center;
     background-color: var(--white-color);
@@ -12,6 +16,12 @@
     box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
     &[data-priority="1"] {
       border-left: 3px solid var(--low-level-color);
+    }
+    &[data-priority="2"] {
+      border-left: 3px solid var(--medium-level-color);
+    }
+    &[data-priority="3"] {
+      border-left: 3px solid var(--high-level-color);
     }
   }
   &__time {
@@ -44,5 +54,11 @@
       border: 1px solid var(--main-color);
       color: var(--main-color);
     }
+  }
+  &__alert {
+    margin-top: 3rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--dark-color);
   }
 }

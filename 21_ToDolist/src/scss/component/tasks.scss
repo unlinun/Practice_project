@@ -4,4 +4,27 @@
     justify-content: space-between;
     margin-bottom: 0.5rem;
   }
+  &__form {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s;
+  }
+  &__overlay {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: var(--third-color);
+    opacity: 0.5;
+  }
+}
+.hidden {
+  display: none;
 }
