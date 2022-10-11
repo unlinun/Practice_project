@@ -30,12 +30,13 @@
               <li class="nav__item">All tasks</li>
               <li class="nav__item">todays task</li>
               <li class="nav__item">upcoming</li>
+              <li class="nav__item">completed</li>
               <li class="nav__item">trash</li>
             </ul>
             <ul class="nav__list list" id="list__projects">
               <li class="nav__item nav__item--title">projects</li>
-              <li class="nav__item nav__item--projects">home</li>
-              <li class="nav__item nav__item--projects">job</li>
+              <!-- <li class="nav__item nav__item--projects">home</li>
+              <li class="nav__item nav__item--projects">job</li> -->
             </ul>
           </div>
         </nav>
@@ -46,9 +47,60 @@
           <div class="info__user">
             <p class="info__name">Hi ! UNLIN</p>
             <div class="info__image"></div>
+            <fieldset class="info__theme theme">
+              <input type="radio" name="theme" id="theme__dark" />
+              <input type="radio" name="theme" id="theme__white" />
+              <div class="theme__toggle"></div>
+            </fieldset>
           </div>
         </section>
         <section class="main__tasks tasks">
+          <div class="tasks__form hidden">
+            <div class="tasks__overlay"></div>
+            <form class="form">
+              <h3>Add your task</h3>
+              <div class="form__input">
+                <label for="input__date">Date</label>
+                <input type="date" name="input__date" id="input__date" />
+              </div>
+              <div class="form__input">
+                <label for="input__task">task</label>
+                <input type="text" name="input__task" id="input__task" />
+              </div>
+              <div class="form__input">
+                <label for="input__project">project</label>
+                <input type="text" name="input__project"  id="input__project">
+                 
+              </div>
+              <div class="form__input">
+                <label for="input__priority">priority</label>
+                <input
+                  type="radio"
+                  class="input__priority"
+                  name="input__priority"
+                  id="low"
+                  value="1"
+                />
+                <input
+                  type="radio"
+                  class="input__priority"
+                  name="input__priority"
+                  id="medium"
+                  value="2"
+                />
+                <input
+                  type="radio"
+                  class="input__priority"
+                  name="input__priority"
+                  id="high"
+                  value="3"
+                />
+              </div>
+              <div class="form__input">
+                <input class="form__button" type="button" value="Add task" />
+              </div>
+            </form>
+          </div>
           <div class="tasks__function function">
             <button class="function__btn function__btn--select">
               select all
@@ -57,13 +109,14 @@
             <button class="function__btn function__btn--add">+</button>
           </div>
           <div class="tasks__titles titles">
-            <div class="titles__item">choose</div>
+            <div class="titles__item">select</div>
             <div class="titles__item">time</div>
             <div class="titles__item">tasks</div>
             <div class="titles__item">projects</div>
           </div>
           <div class="tasks__task task">
-            <div class="task__box" data-priority="1">
+            <div class="task__alert">NO TASK YET</div>
+            <!-- <div class="task__box" data-priority="1">
               <input type="checkbox" name="task__check" id="task__check" />
               <div class="task__time">
                 <div class="task__date">08</div>
@@ -74,20 +127,7 @@
               <div class="task__btns">
                 <button class="task__btn task__btn--edit">Edit</button>
                 <button class="task__btn task__btn--ok">Ok</button>
-              </div>
-            </div>
-            <div class="task__box" data-priority="1">
-              <input type="checkbox" name="task__check" id="task__check" />
-              <div class="task__time">
-                <div class="task__date">08</div>
-                <div class="task__day">THU</div>
-              </div>
-              <p class="task__title">完成 javascript 專案</p>
-              <div class="task__project">home</div>
-              <div class="task__btns">
-                <button class="task__btn task__btn--edit">Edit</button>
-                <button class="task__btn task__btn--ok">Ok</button>
-              </div>
+              </div> -->
             </div>
           </div>
         </section>
