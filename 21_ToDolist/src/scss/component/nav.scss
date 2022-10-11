@@ -1,0 +1,64 @@
+.nav {
+  &__menu {
+    width: 1.875rem;
+    height: 1.875rem;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-image: url("../assets/align-justify.svg");
+    cursor: pointer;
+    opacity: 0.8;
+    &:hover {
+      transform: scale(0.9);
+      opacity: 0.7;
+    }
+  }
+  &__lists {
+    height: 100vh;
+    width: 90%;
+    padding: 1rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--second-color);
+    transform: translateX(-100%);
+    transition: all 0.3s;
+  }
+  &__list {
+    width: calc(100% - 5rem);
+    list-style: none;
+    margin-bottom: 1rem;
+    color: var(--white-color);
+    text-transform: uppercase;
+    font-weight: 600;
+    cursor: pointer;
+
+    &:first-child {
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--third-color);
+    }
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  &__item {
+    padding: 0.75rem;
+    &--projects {
+      font-size: 0.875rem;
+      margin-left: 1rem;
+    }
+    &:hover {
+      color: var(--third-color);
+    }
+  }
+  &__menu:hover + &__lists {
+    transform: translateX(0rem);
+  }
+  &__lists:hover {
+    transform: translateX(0rem);
+  }
+}

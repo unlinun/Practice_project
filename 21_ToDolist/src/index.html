@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="white">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GO TASK</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <header class="header">
+        <div class="header__logo"></div>
+        <h1 class="header__title">GO TASK!</h1>
+        <nav class="header__nav nav">
+          <div class="nav__menu"></div>
+          <div class="nav__lists">
+            <ul class="nav__list" id="list__tasks">
+              <li class="nav__item">All tasks</li>
+              <li class="nav__item">todays task</li>
+              <li class="nav__item">upcoming</li>
+              <li class="nav__item">trash</li>
+            </ul>
+            <ul class="nav__list list" id="list__projects">
+              <li class="nav__item nav__item--title">projects</li>
+              <li class="nav__item nav__item--projects">home</li>
+              <li class="nav__item nav__item--projects">job</li>
+            </ul>
+          </div>
+        </nav>
+      </header>
+      <main class="main">
+        <section class="main__info info">
+          <h3 class="info__title">Todays task</h3>
+          <div class="info__user">
+            <p class="info__name">Hi ! UNLIN</p>
+            <div class="info__image"></div>
+          </div>
+        </section>
+        <section class="main__tasks tasks">
+          <div class="tasks__function function">
+            <button class="function__btn function__btn--select">
+              select all
+            </button>
+            <button class="function__btn function__btn--delete">delete</button>
+            <button class="function__btn function__btn--add">+</button>
+          </div>
+          <div class="tasks__titles titles">
+            <div class="titles__item">choose</div>
+            <div class="titles__item">time</div>
+            <div class="titles__item">tasks</div>
+            <div class="titles__item">projects</div>
+          </div>
+          <div class="tasks__task task">
+            <div class="task__box" data-priority="1">
+              <input type="checkbox" name="task__check" id="task__check" />
+              <div class="task__time">
+                <div class="task__date">08</div>
+                <div class="task__day">THU</div>
+              </div>
+              <p class="task__title">完成 javascript 專案</p>
+              <div class="task__project">home</div>
+              <div class="task__btns">
+                <button class="task__btn task__btn--edit">Edit</button>
+                <button class="task__btn task__btn--ok">Ok</button>
+              </div>
+            </div>
+            <div class="task__box" data-priority="1">
+              <input type="checkbox" name="task__check" id="task__check" />
+              <div class="task__time">
+                <div class="task__date">08</div>
+                <div class="task__day">THU</div>
+              </div>
+              <p class="task__title">完成 javascript 專案</p>
+              <div class="task__project">home</div>
+              <div class="task__btns">
+                <button class="task__btn task__btn--edit">Edit</button>
+                <button class="task__btn task__btn--ok">Ok</button>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>
