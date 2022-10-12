@@ -4,7 +4,7 @@
     height: 1.875rem;
     background-size: cover;
     background-repeat: no-repeat;
-    background-image: url("../assets/align-justify.svg");
+    background-image: var(--menu);
     cursor: pointer;
     opacity: 0.8;
     &:hover {
@@ -37,17 +37,17 @@
     font-weight: 600;
     cursor: pointer;
 
-    &:first-child {
-      padding-bottom: 1rem;
-      border-bottom: 1px solid var(--third-color);
-    }
     &:last-child {
       margin-bottom: 0;
+    }
+    &--projects {
+      border-bottom: 0;
     }
   }
   &__item {
     padding: 0.75rem;
     &--projects {
+      padding: 0.5rem;
       font-size: 0.875rem;
       margin-left: 1rem;
     }
@@ -61,4 +61,9 @@
   &__lists:hover {
     transform: translateX(0rem);
   }
+}
+
+#list__tasks {
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--white-color);
 }

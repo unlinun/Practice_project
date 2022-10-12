@@ -7,7 +7,7 @@
   &__logo {
     width: 1.875rem;
     height: 1.875rem;
-    background-image: url("../assets/logo.svg");
+    background-image: var(--logo);
     background-repeat: no-repeat;
     background-size: cover;
     opacity: 0.8;
