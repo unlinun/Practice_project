@@ -9,14 +9,15 @@ const addNewTaskView = (function () {
   const inputTime = form.querySelector("#input__date");
   const inputTask = form.querySelector("#input__task");
   const inputProject = form.querySelector("#input__project");
-  const inputPriority = form.querySelector(".input__priority");
+  const inputPriority = form.querySelectorAll(".input__priority");
 
+  let edit = false;
   ////// function //////
   const clearValue = function () {
     inputTime.value = "";
     inputTask.value = "";
     inputProject.value = "";
-    inputPriority.value = "";
+    inputPriority.checked = false;
   };
   const showTaskForm = function () {
     taskForm.classList.remove("hidden");
@@ -31,10 +32,12 @@ const addNewTaskView = (function () {
 
   const addHandlerAddTaskData = function (handler) {
     submitBtn.addEventListener("click", function (e) {
+      if (edit) return;
       const time = inputTime.value;
       const task = inputTask.value;
       const project = inputProject.value;
-      const priority = inputPriority.value;
+      const priority = inputPriority.checked.value;
+      console.log(inputPriority);
       console.log(time, task, priority, project);
       if (!time || !task || !project || !priority) return;
       const data = {
@@ -49,6 +52,9 @@ const addNewTaskView = (function () {
     });
   };
   return {
+    edit,
+    showTaskForm,
+    hideTaskForm,
     addHandlerAddTaskData,
   };
 })();
