@@ -3,11 +3,13 @@
 
   --main-color: #8aa2a9;
   --second-color: #e6e6e6;
-  --third-color: #d7d7d7;
+  --third-color: #cdcdcd;
   --dark-color: #565254;
   --gray-color: #f0f3f5;
   --white-color: #fffffb;
-  --hint-color: #bfa5a5;
+  --hint-color: #ce7e7e;
+  --error-color: #ee5a1b;
+  --success-color: #3dab8d;
 
   --main-radius: 0.5rem;
   --second-radius: 0.25rem;

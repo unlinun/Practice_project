@@ -38,7 +38,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 1.25rem;
+  gap: 1.875rem;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -58,6 +58,7 @@ body {
   justify-content: space-between;
   align-items: center;
   gap: 2rem;
+  position: relative;
 }
 .input__box > .input__read {
   flex: 4;
@@ -69,6 +70,19 @@ body {
   outline: none;
   border-radius: var(--main-radius);
   color: var(--dark-color);
+}
+.input__message {
+  position: absolute;
+  bottom: -1rem;
+  left: 0;
+  color: var(--third-color);
+  font-size: 0.75rem;
+}
+input.input--error {
+  border: 1px solid var(--error-color);
+}
+input.input--success {
+  border: 1px solid var(--success-color);
 }
 
 .submit {

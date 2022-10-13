@@ -12,6 +12,12 @@ const addForm = document.querySelector(".add__form");
 const inputs = addForm.querySelectorAll("input");
 const booksContainer = document.querySelector(".books");
 
+const inputTitle = addForm.querySelector(".input__title");
+const inputAuthor = addForm.querySelector(".input__author");
+const inputPages = addForm.querySelector(".input__pages");
+const inputRead = addForm.querySelector(".input__read");
+const inputMsg = addForm.querySelectorAll(".input__message");
+
 let library = [];
 
 class Book {
@@ -30,14 +36,18 @@ closeForm.addEventListener("click", hideForm);
 overlay.addEventListener("click", hideForm);
 // add new book submit click!
 submitBtn.addEventListener("click", function (e) {
+  console.log("click");
   e.preventDefault();
-  let title = addForm.querySelector(".input__title").value;
-  let author = addForm.querySelector(".input__author").value;
-  let pages = addForm.querySelector(".input__pages").value;
-  let read = addForm.querySelector(".input__read").checked;
+  let title = inputTitle.value;
+  let author = inputAuthor.value;
+  let pages = inputPages.value;
+  let read = inputRead.checked;
   let id = library.length + 1;
-  if (!title || !author || !pages) return;
+  console.log(checkValue(title, author, pages));
+  if (!checkValue(title, author, pages)) return;
+
   const book = new Book(title, author, pages, read, id);
+  console.log(book);
   library.push(book);
   addNewBook(book);
   const bookReadBtn = booksContainer.querySelectorAll(
@@ -56,6 +66,7 @@ submitBtn.addEventListener("click", function (e) {
     return (input.value = "");
   });
   hideForm();
+  clearInputMessage();
 });
 
 function addNewBook() {
@@ -94,10 +105,87 @@ function setDeleteItem(e) {
   addNewBook();
 }
 
+function clearInputMessage() {
+  inputMsg.forEach((input) => {
+    input.textContent = "";
+  });
+}
+function checkValue(title, author, pages) {
+  if (!title) {
+    inputTitle.classList.add("input--error");
+    inputTitle.parentElement.querySelector(
+      ".input__message"
+    ).textContent = `error! please type something!`;
+  } else {
+    inputTitle.classList.remove("input--error");
+    inputTitle.parentElement.querySelector(".input__message").textContent = ``;
+  }
+  if (!author) {
+    inputAuthor.classList.add("input--error");
+    inputAuthor.parentElement.querySelector(
+      ".input__message"
+    ).textContent = `error! please type something!`;
+  } else {
+    inputAuthor.classList.remove("input--error");
+    inputAuthor.parentElement.querySelector(".input__message").textContent = ``;
+  }
+  if (!pages || +pages !== "number") {
+    inputPages.classList.add("input--error");
+    inputPages.parentElement.querySelector(
+      ".input__message"
+    ).textContent = `error! please type something!`;
+  } else {
+    inputPages.classList.remove("input--error");
+    inputPages.parentElement.querySelector(".input__message").textContent = ``;
+  }
+  if (title && author && pages) {
+    return true;
+  }
+}
+
+function createBookCard(book) {
+  const bookBox = document.createElement("div");
+  const bookTitle = document.createElement("p");
+  const bookAuthor = document.createElement("p");
+  const bookPages = document.createElement("p");
+  const bookBoxIcons = document.createElement("div");
+  const iconCheck = document.createElement("div");
+  const iconDelete = document.createElement("div");
+
+  bookBox.classList.add("books__box");
+  bookBox.setAttribute("data-id", `${book.id}`);
+  bookTitle.classList.add("books__title");
+  bookAuthor.classList.add("books__author");
+  bookPages.classList.add("books__pages");
+  bookBoxIcons.classList.add("books__icons");
+  iconCheck.classList.add("icon");
+  iconCheck.classList.add("icon--check");
+  iconCheck.setAttribute("data-btn", "check");
+  iconDelete.classList.add("icon");
+  iconDelete.classList.add("icon--delete");
+  iconDelete.setAttribute("data-btn", "delete");
+
+  //   add text content
+  bookTitle.textContent = `Title : ${book.title}`;
+  bookAuthor.textContent = `Written by : ${book.author}`;
+  bookPages.textContent = `Total pages : ${book.pages}`;
+
+  bookBoxIcons.appendChild(iconCheck);
+  bookBoxIcons.appendChild(iconDelete);
+  bookBox.appendChild(bookTitle);
+  bookBox.appendChild(bookAuthor);
+  bookBox.appendChild(bookPages);
+  bookBox.appendChild(bookBoxIcons);
+  console.log(bookBox);
+
+  return bookBox;
+}
+
 // show form container and hide form container
 function showForm() {
   addContainer.classList.add("show");
 }
 function hideForm() {
   addContainer.classList.remove("show");
+  clearInputMessage();
 }

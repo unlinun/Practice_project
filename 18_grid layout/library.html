@@ -127,7 +127,14 @@
           <div class="btn btn--function btn--close" data-btn="close">X</div>
           <div class="input__box">
             <label for="title" class="input__label">title</label>
-            <input type="text" name="title" id="title" class="input__title" />
+            <input
+              type="text"
+              name="title"
+              id="title"
+              class="input__title"
+              required
+            />
+            <small class="input__message"></small>
           </div>
           <div class="input__box">
             <label for="author" class="input__label">author</label>
@@ -136,11 +143,14 @@
               name="author"
               id="author"
               class="input__author"
+              required
             />
+            <small class="input__message"></small>
           </div>
           <div class="input__box">
             <label for="pages" class="input__label">pages</label>
             <input type="text" name="pages" id="pages" class="input__pages" />
+            <small class="input__message"></small>
           </div>
           <div class="input__box">
             <label for="read" class="input__label">have you read?</label>
