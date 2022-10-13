@@ -170,6 +170,8 @@ export const editTask = function (data) {
   state[index].time.day = data.day;
   state[index].task = data.title;
   state[index].project = data.project;
+  localStorage.clear();
+  setLocalStorage(state);
   return state;
 };
 

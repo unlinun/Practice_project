@@ -36,7 +36,11 @@ const addNewTaskView = (function () {
       const time = inputTime.value;
       const task = inputTask.value;
       const project = inputProject.value;
-      const priority = inputPriority.checked.value;
+      // 10/12 bug , needs to loop over an array to get value(checked === true)!
+      const [priorityElement] = Array.from(inputPriority).filter((input) => {
+        return input.checked;
+      });
+      const priority = priorityElement.value;
       console.log(inputPriority);
       console.log(time, task, priority, project);
       if (!time || !task || !project || !priority) return;
