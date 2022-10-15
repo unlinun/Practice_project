@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather API</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Overpass:wght@400;700&family=Varela+Round&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <header class="header">
+      <div class="input__control">
+        <input
+          type="search"
+          name="search"
+          id="search"
+          placeholder="search city"
+        />
+        <input type="button" value="search" id="search__btn" />
+      </div>
+      <div class="input__control">
+        <label for="button">Format</label>
+        <input type="button" value="C" id="format__btn" />
+      </div>
+    </header>
+    <main class="weather">
+      <div class="weather__location">
+        <h3 class="weather__city"></h3>
+        <p class="weather__time"></p>
+      </div>
+      <div class="weather__main">
+        <p class="weather__weather"></p>
+        <div class="weather__icon">
+          <svg><use href="icon.svg#cloud"></use></svg>
+        </div>
+      </div>
+      <div class="weather__temp">
+        <p class="weather__temperature">
+          0 <span class="weather__format">°C</span>
+        </p>
+        <div class="weather__range">
+          <p class="range__high">0<span class="weather__format">°C</span></p>
+          <p class="range__low">0<span class="weather__format">°C</span></p>
+        </div>
+        <p class="weather__feel">
+          body feel <span class="weather__format">°C</span>
+        </p>
+      </div>
+      <div class="weather__more">
+        <div class="more__box">
+          <p class="more__title">humidity</p>
+          <p id="humidity"></p>
+        </div>
+        <div class="more__box">
+          <p class="more__title">wind</p>
+          <p id="wind"></p>
+        </div>
+        <div class="more__box">
+          <p class="more__title">press</p>
+          <p id="press"></p>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
