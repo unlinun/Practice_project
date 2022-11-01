@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Practice</title>
+  </head>
+  <body>
+    <div id="container"></div>
+  </body>
+  <!-- 1. 引入 react 核心庫 -->
+  <script src="../js/react.development.js"></script>
+  <!-- 2. 引入 react-dom 用於支持 react 操作 DOM -->
+  <script src="../js/react-dom.development.js"></script>
+  <!-- 3. 引入 babel, 將 jsx 轉為 js -->
+  <script src="../js/babel.min.js"></script>
+  <!-- 4. 引入 prop-types, 使我們可以對 props 進行條件的限制 -->
+  <script src="../js/prop-types.js"></script>
+
+  <script type="text/babel">
+    // 建立表單
+    class App extends React.Component {
+      constructor() {
+        super();
+        this.state = {
+          task: { text: "", id: "" },
+          tasks: [],
+        };
+      }
+      random() {
+        return Math.random() * 10 + 1;
+      }
+
+      handleChange = (type) => {
+        return (e) => {
+          if (e.target.value.length <= 0) return;
+          this.setState({
+            [type]: { text: e.target.value, id: this.random() },
+          });
+        };
+      };
+
+      addNewTask = (e) => {
+        e.preventDefault;
+        const parent = e.target.parentElement;
+        const input = parent.querySelector("input");
+        if (this.state.task.text === "") return;
+        this.setState({
+          tasks: this.state.tasks.concat(this.state.task),
+          task: {
+            text: "",
+            id: "",
+          },
+        });
+        input.value = "";
+      };
+
+      render() {
+        return (
+          <div>
+            <form>
+              <input
+                onChange={this.handleChange("task")}
+                type="text"
+                placeholder="type task"
+              />
+              <button onClick={this.addNewTask} type="button">
+                ADD
+              </button>
+            </form>
+            <OverView tasks={this.state.tasks} />
+          </div>
+        );
+      }
+    }
+    class OverView extends React.Component {
+      constructor(props) {
+        super(props);
+      }
+      deleteItem = (e) => {
+        const item = e.target.parentElement;
+        const parentElement = item.parentElement;
+        const id = item.dataset.id;
+        parentElement.removeChild(item);
+      };
+      render() {
+        return (
+          <ul>
+            {this.props.tasks.map((task) => {
+              return (
+                <div key={task.id} data-id={task.id}>
+                  <li>{task.text}</li>
+                  <span onClick={this.deleteItem}>x</span>
+                </div>
+              );
+            })}
+          </ul>
+        );
+      }
+    }
+
+    ReactDOM.render(<App />, document.querySelector("#container"));
+  </script>
+</html>
