@@ -3,6 +3,7 @@ import { nanoid } from "nanoid";
 import "./index.css";
 
 export default class Header extends Component {
+  // 當鍵盤按下 enter 時發送 data
   handleSubmit = (e) => {
     const keyCode = e.keyCode;
     const value = e.target.value;
