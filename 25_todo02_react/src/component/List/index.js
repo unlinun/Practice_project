@@ -5,7 +5,8 @@ import "./index.css";
 
 export default class List extends Component {
   render() {
-    const { todoList, checkTodo, deleteTodo } = this.props;
+    const { todoList, checkTodo, deleteTodo, editTodo, addEditTodo } =
+      this.props;
     return (
       <section className="todo_list list">
         {todoList.map((todo) => {
@@ -15,6 +16,8 @@ export default class List extends Component {
               {...todo}
               checkTodo={checkTodo}
               deleteTodo={deleteTodo}
+              editTodo={editTodo}
+              addEditTodo={addEditTodo}
             />
           );
         })}

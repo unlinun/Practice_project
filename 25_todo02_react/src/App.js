@@ -11,9 +11,11 @@ export default class App extends Component {
       { id: "002", title: "Go to bed", done: true, edit: false },
       { id: "003", title: "Reading", done: false, edit: false },
     ],
+    edit: false,
   };
   // ADD new todo
   addTodo = (todoObj) => {
+    if (this.state.edit) return;
     const { todoList } = this.state;
     const newTodo = [todoObj, ...todoList];
     this.setState({ todoList: newTodo });
@@ -41,6 +43,28 @@ export default class App extends Component {
     this.setState({ todoList: newTodo });
   };
 
+  editTodo = (id) => {
+    const { todoList } = this.state;
+    const newTodo = todoList.map((todo) => {
+      if (todo.id === id) {
+        return { ...todo, edit: !todo.edit };
+      } else {
+        return todo;
+      }
+    });
+    this.setState({ todoList: newTodo });
+  };
+  addEditTodo = (id, value) => {
+    const { todoList } = this.state;
+    const newTodo = todoList.map((todo) => {
+      if (todo.id === id) {
+        return { ...todo, title: value };
+      } else {
+        return todo;
+      }
+    });
+    this.setState({ todoList: newTodo });
+  };
   //checkAllTodo
   checkAllTodo = (done) => {
     const { todoList } = this.state;
@@ -59,6 +83,8 @@ export default class App extends Component {
           todoList={todoList}
           checkTodo={this.checkTodo}
           deleteTodo={this.deleteTodo}
+          editTodo={this.editTodo}
+          addEditTodo={this.addEditTodo}
         />
         <Footer todoList={todoList} checkAllTodo={this.checkAllTodo} />
       </div>

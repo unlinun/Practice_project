@@ -17,8 +17,23 @@ export default class Item extends Component {
       }
     };
   };
+
+  // edit
+  handleEdit = (id) => {
+    return () => {
+      this.props.editTodo(id);
+    };
+  };
+
+  // new Edit
+  handleNewEdit = (id) => {
+    return (e) => {
+      this.props.addEditTodo(id, e.target.value);
+    };
+  };
+
   render() {
-    const { id, title, done } = this.props;
+    const { id, title, done, edit } = this.props;
     return (
       <div className="list__item">
         <input
@@ -28,9 +43,21 @@ export default class Item extends Component {
           checked={done ? true : false}
           onChange={this.handleChecked(id)}
         />
-        <p className="item__title">{title}</p>
+        {edit ? (
+          <input
+            type="text"
+            defaultValue={title}
+            onChange={this.handleNewEdit(id)}
+          />
+        ) : (
+          <p className="item__title">{title}</p>
+        )}
         <div className="item__btns">
-          <button type="button" className="item__btn item__btn--edit">
+          <button
+            type="button"
+            className="item__btn item__btn--edit"
+            onClick={this.handleEdit(id)}
+          >
             edit
           </button>
           <button
