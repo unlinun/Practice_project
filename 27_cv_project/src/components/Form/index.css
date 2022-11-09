@@ -39,8 +39,13 @@
   width: 100%;
   border: 1px solid #979b9d;
   border-radius: 0.25rem;
-  background-color: #f3f3f3;
+  background-color: #eeeeee;
   outline: none;
+}
+
+.form__input input:read-only,
+.form__input textarea:read-only {
+  background-color: #e4e9f1;
 }
 
 .form__input textarea {
