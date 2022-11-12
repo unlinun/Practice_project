@@ -1,0 +1,30 @@
+*,
+*::after,
+*::before {
+  padding: 0;
+  margin: 0;
+  box-sizing: inherit;
+}
+
+html {
+  font-size: 100%;
+  font-family: monospace;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  min-width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container {
+  min-height: 60rem;
+  min-width: 60rem;
+  /* border: 1px solid #333; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
