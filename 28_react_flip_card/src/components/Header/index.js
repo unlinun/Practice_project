@@ -1,30 +1,115 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { nanoid } from "nanoid";
+import Card from "../Card";
+import Score from "../Score";
+import Start from "../Start";
 import "./index.css";
 
 export default function Header() {
-  // 遊戲階級（卡片數量）
-  // 最高分
-  // 現在分數
-  // 重新開始
+  // 1. 當程式載入時，顯示最高分: 0, 當前得分: 0, 遊戲開始: false, 遊戲結束: true, level: null, 卡片列表: [], 選擇的卡片數: 0, 當前選擇的卡片: ""
+  const [highScore, setHighest] = useState(0);
+  const [yourScore, setYours] = useState(0);
+  const [gameStart, setStart] = useState(false);
+  const [level, setLevel] = useState();
+  const [cardList, setCardList] = useState([]);
+  const [clickedCard, setClickedCard] = useState([]);
+  const [clickNum, setClickNum] = useState(0);
+
+  // 2. 當玩家選擇 selector 中的 level (onChange) ，並按下 start 按鈕時，會觸發 onClick 的事件
+  function handleStart() {
+    // 如果玩家沒有選擇 level 則 gameStart 為 true
+    setStart(!level ? false : !gameStart);
+    setCardList(() => {
+      if (level) return randomCardList(level);
+      else return [];
+    });
+    setYours(0);
+    setLevel();
+  }
+  function handleLevel(e) {
+    setLevel(+e.target.value);
+  }
+
+  function getRandomIndex(length) {
+    return Math.floor(Math.random() * length + 1);
+  }
+  function randomCardList(num) {
+    const array = [];
+    for (let i = 0; i < num; i++) {
+      const randomNum = getRandomIndex(52);
+      array.push({
+        id: nanoid(),
+        img: `./images/card-${
+          randomNum >= 10 ? randomNum : `0${randomNum}`
+        }.png`,
+      });
+    }
+    return array;
+  }
+
+  function handleCardClick(id) {
+    // 確認點擊過的卡片列表中是否包含 id
+    const isSameId = clickedCard.includes(id);
+    // const isSameLength = clickNum === cardList.length ? true : false;
+    if (!isSameId) {
+      setGameContinue(id);
+    } else {
+      alert("over");
+      setGameOver();
+    }
+  }
+  function setGameContinue(id) {
+    // 如果沒點擊過則將點擊次數加一
+    setClickNum((clickNum) => clickNum + 1);
+    // 如果沒有點擊過則加一分
+    setYours((yourScore) => yourScore + 1);
+    //將點擊的卡片與以選擇卡片做比較，如果有，則存在選擇卡片列表中
+    setClickedCard((clickedCard) => {
+      const arr = [...clickedCard];
+      arr.push(id);
+      return arr;
+    });
+    //隨機產生新的卡片列表
+    setCardList((cardList) => {
+      return newRenderCardLIst(cardList);
+    });
+  }
+  function newRenderCardLIst(preCardList) {
+    const preArr = [...preCardList];
+    let newArr = [];
+    for (let i = 0; i < preCardList.length; i++) {
+      const random = getRandomIndex(preArr.length) - 1;
+      newArr.push(preArr[random]);
+      console.log(newArr);
+      preArr.splice(random, 1);
+    }
+    return newArr;
+  }
+
+  function setGameOver() {
+    // 遊戲結束返回預設
+    setClickNum(0);
+    setHighest((highScore) => {
+      if (yourScore > highScore) return yourScore;
+      else return highScore;
+    });
+    setYours(0);
+    setClickedCard([]);
+    setCardList([]);
+  }
+
   return (
-    <header className="header">
-      <div className="header__title title--big">Memory Card</div>
-      <div className="header__score">
-        <div className="score__box score__box--highest">
-          <h3 className="score__title title--medium">highest score</h3>
-          <p className="score__number">0</p>
-        </div>
-        <div className="score__box score__box--current">
-          <h3 className="score__title title--medium">your score</h3>
-          <p className="score__number">0</p>
-        </div>
-      </div>
-      <select name="header__selector">
-        <option value="8">Level 1</option>
-        <option value="16">Level 2</option>
-        <option value="24">Level 3</option>
-      </select>
-      <button className="header__btn btn--start">start</button>
-    </header>
+    <>
+      <header className="header">
+        <div className="header__title title--big">Memory Card</div>
+        <Score highScore={highScore} yourScore={yourScore} />
+        <Start
+          gameStart={gameStart}
+          handleStart={handleStart}
+          handleLevel={handleLevel}
+        />
+      </header>
+      <Card cardList={cardList} handleCardClick={handleCardClick} />
+    </>
   );
 }
