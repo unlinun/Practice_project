@@ -1,70 +1,46 @@
-# Getting Started with Create React App
+# React Flip Cards
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Project overview
 
-## Available Scripts
+1. 當載入畫面時，有選擇視窗讓人可以選擇 level
+2. 顯示最高得分與當前得分，如果得分高於最高得分，則取代最高得分成為新的最高得分
+3. 點擊卡片一下，會判斷是否跟上一張卡片一樣，如果一樣則遊戲結束，如果不一樣，則得分 +1
+4. 若點擊的卡片與上一張不一樣，則將卡片再隨機擺放位置
 
-In the project directory, you can run:
+## Project flow
 
-### `npm start`
+1. 當程式載入時，顯示最高分: 0, 當前得分: 0, 遊戲開始: false, 遊戲結束: true, level: null, 卡片列表: [], 選擇的卡片數: 0, 當前選擇的卡片: ""
+2. 首先載入畫面，會先呈現預設值
+3. 當玩家選擇 selector 中的 level (onChange) ，並按下 start 按鈕時，會觸發 onClick 的事件
+   1. 將遊戲開始的狀態改為 true
+   2. 將遊戲結束的狀態改為 false
+   3. 將 select 設為 disable
+   4. 將 level 設為 selector 的 value。
+   5. 取得 level 的值，使用 random 的方式來創建一組卡片陣列（包含 id, img）並儲存於卡片列表中
+4. 將卡片列表的數據傳給 Card 組件，Card 組件 render 出卡片列表
+5. 如果點擊卡片
+   1. 選擇的卡片數 +1
+   2. 判斷跟上一張卡片的 id 是否一樣
+      - 如果一樣，則判斷當前分數是否高於最高分，若高，則取代最高分數，並顯示遊戲結束視窗，遊戲結束設為 true, 遊戲開始設為 false, 將遊戲設定為預設值（但不能重設最高分）。
+      - 如果不一樣，則當前得分 +1
+   3. 判斷是否已經將所有卡片選完，如果沒有，將卡片列表再次隨機渲染，進行下一次選擇，如果已經選完，則遊戲結束
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### 補充資料
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+1. 如何將陣列中的物件隨機排列? 使用 `Array.splice()`
 
-### `npm test`
+   ```
+    const shuffleCards = (prevCards) => {
+    let cards = [...prevCards];
+    const length = cards.length;
+    let shuffled = [];
+    let r;
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+    for (let i = 0; i < length; i += 1) {
+    r = getRandomIndex(cards.length);
+    shuffled = [...shuffled, ...cards.splice(r, 1)];
+    }
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+    return shuffled;
+    };
+   ```
