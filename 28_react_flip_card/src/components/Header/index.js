@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { nanoid } from "nanoid";
 import Card from "../Card";
 import Score from "../Score";
@@ -13,7 +13,7 @@ export default function Header() {
   const [level, setLevel] = useState();
   const [cardList, setCardList] = useState([]);
   const [clickedCard, setClickedCard] = useState([]);
-  const [clickNum, setClickNum] = useState(0);
+  const [clickNum, setClickNum] = useState(1);
 
   // 2. 當玩家選擇 selector 中的 level (onChange) ，並按下 start 按鈕時，會觸發 onClick 的事件
   function handleStart() {
@@ -34,24 +34,42 @@ export default function Header() {
     return Math.floor(Math.random() * length + 1);
   }
   function randomCardList(num) {
-    const array = [];
-    for (let i = 0; i < num; i++) {
-      const randomNum = getRandomIndex(52);
-      array.push({
-        id: nanoid(),
-        img: `./images/card-${
-          randomNum >= 10 ? randomNum : `0${randomNum}`
-        }.png`,
-      });
+    const cardArr = [];
+    do {
+      // Generating random number
+      const randomNumber = getRandomIndex(52);
+      // Pushing into the array only
+      // if the array does not contain it
+      if (!cardArr.includes(randomNumber)) {
+        cardArr.push({
+          id: nanoid(),
+          img: `./images/card-${
+            randomNumber >= 10 ? randomNumber : `0${randomNumber}`
+          }.png`,
+        });
+      }
+    } while (cardArr.length < num);
+    return cardArr;
+  }
+
+  function newRenderCardLIst(preCardList) {
+    const preArr = [...preCardList];
+    let newArr = [];
+    for (let i = 0; i < preCardList.length; i++) {
+      const random = getRandomIndex(preArr.length) - 1;
+      newArr.push(preArr[random]);
+      preArr.splice(random, 1);
     }
-    return array;
+    return newArr;
   }
 
   function handleCardClick(id) {
+    // 如果沒點擊過則將點擊次數加一
+    setClickNum((clickNum) => clickNum + 1);
     // 確認點擊過的卡片列表中是否包含 id
     const isSameId = clickedCard.includes(id);
     // const isSameLength = clickNum === cardList.length ? true : false;
-    if (!isSameId) {
+    if (!isSameId && clickNum <= cardList.length) {
       setGameContinue(id);
     } else {
       alert("over");
@@ -59,8 +77,7 @@ export default function Header() {
     }
   }
   function setGameContinue(id) {
-    // 如果沒點擊過則將點擊次數加一
-    setClickNum((clickNum) => clickNum + 1);
+    console.log(yourScore);
     // 如果沒有點擊過則加一分
     setYours((yourScore) => yourScore + 1);
     //將點擊的卡片與以選擇卡片做比較，如果有，則存在選擇卡片列表中
@@ -74,21 +91,12 @@ export default function Header() {
       return newRenderCardLIst(cardList);
     });
   }
-  function newRenderCardLIst(preCardList) {
-    const preArr = [...preCardList];
-    let newArr = [];
-    for (let i = 0; i < preCardList.length; i++) {
-      const random = getRandomIndex(preArr.length) - 1;
-      newArr.push(preArr[random]);
-      console.log(newArr);
-      preArr.splice(random, 1);
-    }
-    return newArr;
-  }
 
   function setGameOver() {
+    console.log(yourScore);
     // 遊戲結束返回預設
-    setClickNum(0);
+    setStart(false);
+    setClickNum(1);
     setHighest((highScore) => {
       if (yourScore > highScore) return yourScore;
       else return highScore;
