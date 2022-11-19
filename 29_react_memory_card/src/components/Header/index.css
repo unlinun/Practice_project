@@ -1,0 +1,19 @@
+/* HEADER */
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 4rem;
+  margin-bottom: 2rem;
+}
+
+.header__title {
+  font-size: 1.25rem;
+}
+
+@media (min-width: 48em) {
+  .header__title {
+    font-size: 1.875rem;
+  }
+}

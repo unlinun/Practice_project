@@ -1,0 +1,43 @@
+.panel__score {
+  display: flex;
+  gap: 1rem;
+}
+
+.score {
+  width: 6rem;
+  height: 4rem;
+  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--color-white);
+}
+
+.score--highest {
+  background-color: var(--color-gray);
+}
+
+.score--current {
+  background-color: var(--color-main);
+}
+
+.score__content {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+@media (min-width: 48em) {
+  .score {
+    width: 8.5rem;
+    height: 6rem;
+    font-size: 1.25rem;
+  }
+  .score__content {
+    font-size: 1.875rem;
+  }
+}
