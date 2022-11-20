@@ -4,12 +4,15 @@ import Header from "./components/Header";
 import Cards from "./components/Cards";
 import { nanoid } from "nanoid";
 import "./App.css";
+import Info from "./components/Info";
 
 export default function App() {
   const [currentScore, setCurrentScore] = useState(0);
   const [bestScore, setBestScore] = useState(0);
   const [level, setLevel] = useState(null);
   const [gameStart, setGameStart] = useState(false);
+  const [gameAlert, setGameAlert] = useState(false);
+
   const [cards, setCards] = useState([]);
   const [cardOne, setCardOne] = useState(null);
   const [cardTwo, setCardTwo] = useState(null);
@@ -17,13 +20,20 @@ export default function App() {
 
   function handleStart(e) {
     e.preventDefault();
-    setGameStart((gameStart) => !gameStart);
+    if (level) {
+      setGameStart((gameStart) => !gameStart);
+    }
   }
 
   function handleLevel(e) {
-    setLevel(e.target.value);
+    if (e.target.value !== "null") {
+      setLevel(e.target.value);
+    }
   }
 
+  function handleGameAlert() {
+    setGameAlert(false);
+  }
   function getRandomArr() {
     const array = [];
     do {
@@ -112,8 +122,7 @@ export default function App() {
             : currentScore
         );
         setTimeout(() => {
-          window.confirm("GAME OVER");
-          initGame();
+          setGameAlert(true);
         }, 1000);
       }
     }
@@ -130,11 +139,19 @@ export default function App() {
         bestScore={bestScore}
       />
       <Cards
+        gameStart={gameStart}
         cards={cards}
         handleChoice={handleChoice}
         cardOne={cardOne}
         cardTwo={cardTwo}
         cardDisable={cardDisable}
+        currentScore={currentScore}
+      />
+      <Info
+        gameAlert={gameAlert}
+        handleStart={handleStart}
+        handleGameAlert={handleGameAlert}
+        currentScore={currentScore}
       />
     </>
   );

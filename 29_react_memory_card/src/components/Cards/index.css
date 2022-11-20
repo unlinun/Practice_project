@@ -26,3 +26,12 @@
   grid-template-columns: repeat(4, 1fr);
   gap: 1rem;
 }
+
+.main__alert {
+  padding: 2rem;
+  grid-column: 1/5;
+  justify-self: center;
+  align-self: center;
+  background-color: var(--color-second);
+  color: var(--color-white);
+}
