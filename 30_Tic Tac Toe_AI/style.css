@@ -1,0 +1,32 @@
+:root {
+  --main-color: #141e87;
+  --white-color: #fbfbfb;
+}
+html {
+  font-family: "Courier New", Courier, monospace;
+}
+
+body {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  justify-content: center;
+}
+
+.hidden {
+  display: none;
+}
+
+table tr td {
+  width: 150px;
+  height: 150px;
+  font-size: 80px;
+  font-weight: 600;
+  text-align: center;
+  color: var(--white-color);
+  background-color: var(--main-color);
+
+  cursor: pointer;
+}

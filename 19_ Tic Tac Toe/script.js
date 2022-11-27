@@ -212,8 +212,8 @@ const gameStart = (function () {
     state.players = [];
     const one = players[0];
     const two = players[1];
-    const person1 = Person(one.name, one.mark, one.image, false);
-    const person2 = Person(two.name, two.mark, two.image, true);
+    const person1 = Person(one.name, one.mark, one.image, true);
+    const person2 = Person(two.name, two.mark, two.image, false);
     state.players.push(person1);
     state.players.push(person2);
     state.players.forEach((player) => {
@@ -234,7 +234,6 @@ const gameStart = (function () {
 
   function setRow(row, cell) {
     rows[row][cell] = gameStart.state.mark;
-    console.log(rows);
     return state;
   }
 
