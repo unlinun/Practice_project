@@ -3,21 +3,18 @@ import { Routes, Route, Link } from "react-router-dom";
 import { HiMenu } from "react-icons/hi";
 import { AiFillCloseCircle } from "react-icons/ai";
 import { client } from "../client";
-import Sidebar from "../Component/Sidebar";
-import UserProfile from "../Component/UserProfile";
+import { Sidebar, UserProfile } from "../Component";
 import { userQuery } from "../utils/data";
 import Pins from "./Pins";
 import logo from "../assets/logo.png";
 import { useState } from "react";
 import { useEffect } from "react";
+import { fetchUser } from "../utils/fetchUser";
 
 function Home() {
   const [toggleSidebar, setToggleSidebar] = useState(false);
   const [user, setUser] = useState(null);
-  const userInfo =
-    localStorage.getItem("user") !== "undefined"
-      ? JSON.parse(localStorage.getItem("user"))
-      : localStorage.clear();
+  const userInfo = fetchUser();
 
   useEffect(() => {
     const query = userQuery(userInfo?.googleId);
@@ -61,7 +58,7 @@ function Home() {
       </div>
       <div className="pb-2 flex-1 h-screen overflow-y-scroll">
         <Routes>
-          <Route path="/user-profile/:userId" element={UserProfile} />
+          <Route path="/user-profile/:userId" element={<UserProfile />} />
           <Route path="/*" element={<Pins user={user && user} />} />
         </Routes>
       </div>
