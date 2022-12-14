@@ -1,12 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { icons } from "../util/data";
 
-function Navbar() {
+function Navbar({ products }) {
   return (
     <header className="header">
       <nav className="header__nav">
         <Link className="nav__logo" to="/">
-          <img src="./images/LOGO.png" alt="logo" />
+          <img src={icons.logo} alt="logo" />
         </Link>
         <Link className="nav__link" to="/products">
           Products
@@ -14,10 +15,10 @@ function Navbar() {
       </nav>
       <div className="header__icons">
         <button className="icons search">
-          <img src="./images/search.png" alt="search" />{" "}
+          <img src={icons.search} alt="search" />{" "}
         </button>
         <Link className="icons" to="/shoppingcart">
-          <img src="./images/shopping_bag.png" alt="cart" />
+          <img className="bag" src={icons.bag} alt="cart" />
         </Link>
       </div>
     </header>

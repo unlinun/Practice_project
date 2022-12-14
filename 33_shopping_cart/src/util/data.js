@@ -20,6 +20,16 @@ import mainPage01 from "../images/首頁資訊01.webp";
 import mainPage02 from "../images/首頁資訊02.jpeg";
 import mainPage03 from "../images/首頁資訊03.jpeg";
 
+import logo from "../images/LOGO.png";
+import heartEmpty from "../images/heart-empty.png";
+import heartFull from "../images/heart-full.png";
+import search from "../images/search.png";
+import share from "../images/share.png";
+import bag from "../images/shopping_bag.png";
+import minus from "../images/minus.png";
+import plus from "../images/plus.png";
+import returnImg from "../images/return.png";
+
 export const products = [
   {
     id: "TW001",
@@ -30,6 +40,8 @@ export const products = [
     quantity: 5,
     like: false,
     sale: false,
+    cart: false,
+    addCart: false,
   },
   {
     id: "TW002",
@@ -40,6 +52,8 @@ export const products = [
     quantity: 10,
     like: false,
     sale: false,
+    cart: false,
+    addCart: false,
   },
   {
     id: "TW003",
@@ -50,6 +64,8 @@ export const products = [
     quantity: 2,
     like: false,
     sale: false,
+    cart: false,
+    addCart: false,
   },
   {
     id: "TW004",
@@ -60,6 +76,8 @@ export const products = [
     quantity: 10,
     like: false,
     sale: true,
+    cart: false,
+    addCart: false,
   },
   {
     id: "TW005",
@@ -70,6 +88,8 @@ export const products = [
     quantity: 3,
     like: false,
     sale: false,
+    cart: false,
+    addCart: false,
   },
   {
     id: "TW006",
@@ -80,6 +100,8 @@ export const products = [
     quantity: 10,
     like: false,
     sale: false,
+    cart: false,
+    addCart: false,
   },
   {
     id: "TW007",
@@ -90,6 +112,8 @@ export const products = [
     quantity: 10,
     like: false,
     sale: true,
+    cart: false,
+    addCart: false,
   },
   {
     id: "TW008",
@@ -100,6 +124,8 @@ export const products = [
     quantity: 1,
     like: false,
     sale: false,
+    cart: false,
+    addCart: false,
   },
   {
     id: "TW009",
@@ -110,6 +136,8 @@ export const products = [
     quantity: 10,
     like: false,
     sale: false,
+    cart: false,
+    addCart: false,
   },
   {
     id: "TW010",
@@ -120,6 +148,8 @@ export const products = [
     quantity: 10,
     like: false,
     sale: false,
+    cart: false,
+    addCart: false,
   },
   {
     id: "TW011",
@@ -130,6 +160,8 @@ export const products = [
     quantity: 0,
     like: false,
     sale: false,
+    cart: false,
+    addCart: false,
   },
   {
     id: "TW012",
@@ -140,6 +172,8 @@ export const products = [
     quantity: 10,
     like: false,
     sale: false,
+    cart: false,
+    addCart: false,
   },
   {
     id: "TW013",
@@ -150,6 +184,8 @@ export const products = [
     quantity: 1,
     like: false,
     sale: true,
+    cart: false,
+    addCart: false,
   },
   {
     id: "TW014",
@@ -160,6 +196,8 @@ export const products = [
     quantity: 10,
     like: false,
     sale: false,
+    cart: false,
+    addCart: false,
   },
   {
     id: "TW015",
@@ -170,6 +208,8 @@ export const products = [
     quantity: 10,
     like: false,
     sale: false,
+    cart: false,
+    addCart: false,
   },
   {
     id: "TW016",
@@ -180,6 +220,8 @@ export const products = [
     quantity: 3,
     like: false,
     sale: true,
+    cart: false,
+    addCart: false,
   },
 ];
 
@@ -213,3 +255,15 @@ export const mainPage = [
     page: "flowers",
   },
 ];
+
+export const icons = {
+  logo,
+  heartEmpty,
+  heartFull,
+  search,
+  share,
+  bag,
+  minus,
+  plus,
+  returnImg,
+};

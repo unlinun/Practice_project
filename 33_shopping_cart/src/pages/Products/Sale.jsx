@@ -1,15 +1,21 @@
 import React from "react";
 import ProductCard from "../../components/ProductCard";
-import { products } from "../../util/data";
 
-function Sale() {
+function Sale({ products, setAllProducts }) {
   const saleProducts = products.filter((product) => {
     return product.sale;
   });
   return (
     <section className="products">
       {saleProducts.map((product) => {
-        return <ProductCard key={product.id} product={product} />;
+        return (
+          <ProductCard
+            key={product.id}
+            product={product}
+            products={products}
+            setAllProducts={setAllProducts}
+          />
+        );
       })}
     </section>
   );

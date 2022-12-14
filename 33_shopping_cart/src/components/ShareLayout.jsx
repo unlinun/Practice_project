@@ -2,10 +2,10 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 import Navbar from "./Navbar";
 
-function ShareLayout() {
+function ShareLayout({ products }) {
   return (
     <>
-      <Navbar />
+      <Navbar products={products} />
       <Outlet />
     </>
   );

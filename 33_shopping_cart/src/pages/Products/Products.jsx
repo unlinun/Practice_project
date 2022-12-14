@@ -1,12 +1,19 @@
 import React from "react";
 import ProductCard from "../../components/ProductCard";
-import { products } from "../../util/data";
 
-function Products() {
+function Products({ products, setAllProducts }) {
+  console.log(products);
   return (
     <section className="products">
-      {products.map((product) => {
-        return <ProductCard key={product.id} product={product} />;
+      {products?.map((product) => {
+        return (
+          <ProductCard
+            key={product.id}
+            product={product}
+            products={products}
+            setAllProducts={setAllProducts}
+          />
+        );
       })}
     </section>
   );
