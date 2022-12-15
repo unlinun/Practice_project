@@ -1,0 +1,347 @@
+:root {
+  --main-color: #f77f00;
+  --second-color: #d62828;
+  --third-color: #0a3d58;
+  --forth-color: #f3bd51;
+  --light-gray-color: #d8dcdf;
+  --dark-gray-color: #5a6971;
+  --white-color: #ffffff;
+  --black-color: #000e16;
+}
+
+*,
+*::after,
+*::before {
+  padding: 0;
+  margin: 0;
+  box-sizing: inherit;
+}
+
+html {
+  font-size: 100%;
+  box-sizing: border-box;
+}
+
+// Register & Login form
+
+.form__container {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--light-gray-color);
+
+  .form__wrapper {
+    padding: 1.25rem 3.75rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    background-color: var(--forth-color);
+    border-radius: 0.5rem;
+    box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.2);
+    .logo {
+      color: var(--third-color);
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+    .title {
+      color: var(--third-color);
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+    .form {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      gap: 1rem;
+      input {
+        width: 18.75rem;
+        padding: 1rem;
+        background-color: transparent;
+        border: none;
+        border-bottom: 1px solid var(--dark-gray-color);
+        outline: none;
+        color: var(--black-color);
+        text-transform: capitalize;
+        caret-color: var(--dark-gray-color);
+        &::placeholder {
+          color: var(--dark-gray-color);
+        }
+      }
+      label {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        cursor: pointer;
+        img {
+          padding: 0.25rem;
+          width: 1.5rem;
+          background-color: var(--white-color);
+          border-radius: 0.25rem;
+          object-fit: cover;
+          &:hover {
+            transform: scale(0.96);
+            opacity: 0.8;
+          }
+        }
+        span {
+          font-size: 0.875rem;
+          font-weight: 500;
+          color: var(--dark-gray-color);
+        }
+      }
+      button {
+        width: 6.25rem;
+        padding: 0.25rem;
+        margin: 1rem;
+        background-color: var(--third-color);
+        border: none;
+        border-radius: 0.5rem;
+        font-size: 0.875rem;
+        color: var(--main-color);
+        cursor: pointer;
+        &:hover {
+          background-color: var(--black-color);
+        }
+      }
+    }
+  }
+}
+
+// Home page
+.home {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--dark-gray-color);
+  .container {
+    width: 80%;
+    height: 80%;
+    display: flex;
+    border-radius: 1rem;
+    overflow: hidden;
+    // sidebar
+    .sidebar {
+      flex: 1;
+      background-color: var(--light-gray-color);
+      border-right: 1px solid var(--white-color);
+      // navbar
+      .navbar {
+        padding: 1rem;
+        height: 5rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        &__logo {
+          color: var(--main-color);
+          font-weight: 500;
+        }
+        &__user {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          img {
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            object-fit: cover;
+          }
+          span {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--dark-gray-color);
+          }
+          button {
+            padding: 0.25rem;
+            background-color: var(--main-color);
+            border: none;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--black-color);
+            opacity: 0.5;
+
+            cursor: pointer;
+            &:hover {
+              opacity: 1;
+              transform: scale(0.98);
+            }
+          }
+        }
+      }
+      // search
+      .search {
+        border-bottom: 1px solid var(--white-color);
+        &__form {
+          input {
+            padding: 0.75rem;
+            width: 100%;
+            background-color: transparent;
+            border: none;
+            outline: none;
+            &::placeholder {
+              color: var(--dark-gray-color);
+            }
+          }
+        }
+      }
+      .user-chat {
+        padding: 0.75rem;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        color: var(--black-color);
+        cursor: pointer;
+        transition: all 0.2s;
+        &:hover {
+          background-color: var(--white-color);
+        }
+        img {
+          width: 2.5rem;
+          height: 2.5rem;
+          object-fit: cover;
+          border-radius: 50%;
+        }
+        .info {
+          span {
+            font-weight: 500;
+          }
+          p {
+            font-size: 0.75rem;
+          }
+        }
+      }
+      .chats {
+        max-height: 40rem;
+        overflow-y: scroll;
+      }
+    }
+    // chat
+    .chat {
+      flex: 2;
+      background-color: var(--white-color);
+      display: flex;
+      flex-direction: column;
+      &__info {
+        flex: 1;
+        padding: 1rem;
+        height: 5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: var(--light-gray-color);
+        span {
+          font-size: 0.875rem;
+          font-weight: 500;
+        }
+      }
+      &__icons {
+        display: flex;
+        gap: 1rem;
+        cursor: pointer;
+        img {
+          width: 1rem;
+          height: 1rem;
+        }
+      }
+      .messages {
+        padding: 1rem;
+        flex: 13;
+        overflow: scroll;
+        .message {
+          display: flex;
+          gap: 0.5rem;
+          margin-bottom: 1rem;
+          &__info {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex-direction: column;
+            img {
+              width: 2.5rem;
+              height: 2.5rem;
+              border-radius: 50%;
+              object-fit: cover;
+            }
+            span {
+              width: 4rem;
+              font-size: 0.75rem;
+              text-align: center;
+              color: var(--dark-gray-color);
+            }
+          }
+          &__content {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            flex-direction: column;
+            gap: 0.75rem;
+
+            p {
+              max-width: 80%;
+              padding: 0.25rem 0.5rem;
+              background-color: var(--dark-gray-color);
+              border-radius: 0 0.5rem 0.5rem 0.5rem;
+              color: var(--white-color);
+              font-size: 0.875rem;
+            }
+          }
+          &--owner {
+            flex-direction: row-reverse;
+            .message__content {
+              display: flex;
+              align-items: flex-end;
+            }
+            p {
+              background-color: var(--forth-color);
+              border-radius: 0.5rem 0 0.5rem 0.5rem;
+            }
+          }
+        }
+      }
+      .input {
+        flex: 1;
+        padding: 1rem;
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        background-color: var(--light-gray-color);
+        input {
+          width: 100%;
+          border: none;
+          background-color: transparent;
+          outline: none;
+        }
+        &__send {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          img {
+            width: 1rem;
+            height: 1rem;
+          }
+          label {
+            display: flex;
+            align-items: center;
+          }
+        }
+        button {
+          padding: 0.5rem;
+          background-color: var(--dark-gray-color);
+          border: none;
+          border-radius: 0.25rem;
+          color: var(--white-color);
+          opacity: 0.8;
+          cursor: pointer;
+          transition: all 0.2s;
+          &:hover {
+            opacity: 1;
+            transform: scale(0.98);
+          }
+        }
+      }
+    }
+  }
+}
