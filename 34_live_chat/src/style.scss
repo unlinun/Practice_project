@@ -58,16 +58,19 @@ html {
       input {
         width: 18.75rem;
         padding: 1rem;
-        background-color: transparent;
         border: none;
         border-bottom: 1px solid var(--dark-gray-color);
         outline: none;
         color: var(--black-color);
-        text-transform: capitalize;
         caret-color: var(--dark-gray-color);
         &::placeholder {
+          text-transform: capitalize;
           color: var(--dark-gray-color);
         }
+      }
+      &__error {
+        font-size: 0.75rem;
+        color: var(--second-color);
       }
       label {
         display: flex;
@@ -286,6 +289,9 @@ html {
               border-radius: 0 0.5rem 0.5rem 0.5rem;
               color: var(--white-color);
               font-size: 0.875rem;
+            }
+            img {
+              width: 30%;
             }
           }
           &--owner {

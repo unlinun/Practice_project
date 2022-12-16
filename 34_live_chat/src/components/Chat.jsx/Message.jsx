@@ -15,6 +15,7 @@ const Message = () => {
           quos nihil error neque quisquam repellendus. Harum ex temporibus saepe
           accusantium!
         </p>
+        <img src={placeholder} alt="" />
       </div>
     </div>
   );
