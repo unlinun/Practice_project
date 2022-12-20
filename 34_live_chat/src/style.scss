@@ -208,10 +208,13 @@ html {
           border-radius: 50%;
         }
         .info {
+          overflow: hidden;
           span {
             font-weight: 500;
           }
           p {
+            max-width: 8rem;
+            max-height: 1rem;
             font-size: 0.75rem;
           }
         }
@@ -301,6 +304,7 @@ html {
               align-items: flex-end;
             }
             p {
+              max-width: 80%;
               background-color: var(--forth-color);
               border-radius: 0.5rem 0 0.5rem 0.5rem;
             }

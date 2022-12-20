@@ -1,14 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import phone from "../../assets/images/phone.svg";
 import video from "../../assets/images/video.svg";
 import more from "../../assets/images/more.svg";
 import Messages from "./Messages";
 import Input from "./Input";
+import { ChatContext } from "../../context/ChatContext";
 const Chat = () => {
+  const { data } = useContext(ChatContext);
   return (
     <div className="chat">
       <div className="chat__info">
-        <span>User</span>
+        <span>{data.user?.displayName}</span>
         <div className="chat__icons">
           <img src={phone} alt="" />
           <img src={video} alt="" />

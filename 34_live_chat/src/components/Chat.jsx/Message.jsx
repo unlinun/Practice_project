@@ -1,21 +1,37 @@
-import React from "react";
-import placeholder from "../../assets/images/placeholder.jpg";
+import React, { useContext, useEffect, useRef } from "react";
+// import placeholder from "../../assets/images/placeholder.jpg";
+import { AuthContext } from "../../context/AuthContext";
+import { ChatContext } from "../../context/ChatContext";
 
-const Message = () => {
+const Message = ({ message }) => {
+  const { currentUser } = useContext(AuthContext);
+  const { data } = useContext(ChatContext);
+
+  const ref = useRef();
+  useEffect(() => {
+    ref.current?.scrollIntoView({ behavior: "smooth" });
+  }, [message]);
   return (
-    <div className="message message--owner">
+    <div
+      ref={ref}
+      className={`message ${
+        message.senderId === currentUser.uid ? "message--owner" : ""
+      }`}
+    >
       <div className="message__info">
-        <img src={placeholder} alt="" />
+        <img
+          src={
+            message.senderId === currentUser.uid
+              ? currentUser.photoURL
+              : data.user.photoURL
+          }
+          alt=""
+        />
         <span>just now</span>
       </div>
       <div className="message__content">
-        <p>
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Consectetur
-          laborum et consequuntur doloribus ut rerum tenetur animi, enim eaque
-          quos nihil error neque quisquam repellendus. Harum ex temporibus saepe
-          accusantium!
-        </p>
-        <img src={placeholder} alt="" />
+        <p>{message.text}</p>
+        {message.img && <img src={message.img} alt="" />}
       </div>
     </div>
   );
