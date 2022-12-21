@@ -29,13 +29,10 @@ body {
   justify-content: center;
 }
 
-#root {
+.container {
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-.container {
-  width: calc(100vw - 10rem);
 }
 
 // header
@@ -56,19 +53,184 @@ body {
 // level
 
 .levels {
-  width: 100%;
+  min-width: 50rem;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 5rem;
   &__level {
     flex: 1;
-    height: 20rem;
     padding: 1rem;
-    background-color: #999;
+    border: 2px solid #000;
     border-radius: 0.5rem;
+    text-align: center;
     cursor: pointer;
     &:hover {
       opacity: 0.8;
+    }
+    .image {
+      height: 20rem;
+      margin-bottom: 1rem;
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+  }
+}
+
+//ranking page
+.ranking {
+  padding: 2rem;
+  width: calc(100vw - 40%);
+  border-radius: 1rem;
+  &__links {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    a {
+      padding: 1rem;
+      text-decoration: none;
+      background-color: #000;
+      border-radius: 1rem;
+      color: #fff;
+    }
+  }
+  &__title {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 2rem;
+    font-weight: 600;
+    .position {
+      flex: 1;
+    }
+    .player {
+      flex: 2;
+    }
+    .score {
+      flex: 1;
+    }
+  }
+  &__item {
+    display: flex;
+    justify-content: space-around;
+    gap: 1rem;
+    padding: 1rem;
+    background-color: #999;
+
+    &:nth-child(even) {
+      background-color: #777;
+    }
+    .position {
+      flex: 1;
+    }
+    .player {
+      flex: 2;
+    }
+    .score {
+      flex: 1;
+    }
+  }
+}
+
+// gameBoard
+.game {
+  width: 40rem;
+  height: 60rem;
+  margin-bottom: 5rem;
+  position: relative;
+
+  &__characters {
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: space-around;
+    gap: 1rem;
+    .character {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      &--found {
+        img {
+          border: 1px solid #000;
+        }
+      }
+      img {
+        padding: 0.5rem;
+        width: 5rem;
+        height: 5rem;
+        object-fit: cover;
+        object-position: top;
+        border-radius: 50%;
+      }
+      p {
+        font-size: 0.75rem;
+        font-weight: 600;
+      }
+    }
+  }
+  .image {
+    position: relative;
+  }
+  &__img {
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  // drop down
+  &__drop {
+    background-color: #000;
+    position: absolute;
+    color: #fff;
+    font-size: 0.75rem;
+    &::after {
+      content: "";
+      width: 1rem;
+      height: 1rem;
+      background-color: rgb(255, 255, 255);
+      border-radius: 50%;
+      position: absolute;
+      top: -0.5rem;
+      left: -0.5rem;
+    }
+    .item {
+      padding: 1rem;
+      cursor: pointer;
+      &:hover {
+        background-color: #222;
+      }
+    }
+  }
+
+  // game over form page
+  .gameover {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &__form {
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      background-color: #fff;
+      border-radius: 1rem;
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        input {
+          padding: 0.5rem;
+        }
+      }
     }
   }
 }

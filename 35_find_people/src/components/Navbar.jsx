@@ -5,7 +5,7 @@ const Navbar = () => {
   return (
     <header className="header">
       <Link className="header__logo" to="/">
-        LOGO
+        FIND!
       </Link>
       <div className="header__nav">
         <Link className="items" to="/ranking">

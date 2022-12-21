@@ -1,70 +1,41 @@
-# Getting Started with Create React App
+# Find people
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## project goal
 
-## Available Scripts
+1. 遊戲主畫面會有 Navbar 導航至遊戲主頁以及排名頁面
+2. 遊戲主畫面會有三種等級的遊戲卡可以做選擇
+3. 當選擇了某一個等級的遊戲卡片，會自動導航到該等級的遊戲頁面
+4. 每一張卡片會有三個人物要尋找
+5. 當玩家找到全部的角色後，遊戲結束
+6. 當玩家尋找超過 300 秒，則遊戲結束
+7. 遊戲結束時會顯示輸入名字的輸入框，使該玩家可以將分數計入排名榜中，若該玩家不輸入，則不計入排名
 
-In the project directory, you can run:
+## work flow
 
-### `npm start`
+1. 使用 react router 建立單頁面的遊戲頁面
+2. 當玩家一進入到畫面:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- gameStart = false
+- gameOver = true
+- level = null
+- characters = {}
+- levelData = firebase(levels)
+- player = {}
+- render level cards （呈現三種等級的卡片組件）
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+3. 當玩家點擊某一等級的卡片:
 
-### `npm test`
+- gameStart = true
+- gameOver = false
+- level = levelData 中的 level
+- characters = levelData 中的 characters
+- 並新增一個玩家，將開始時間存入 startTime , 並新增一個 playerCoords
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 如何找到圖片上點擊位置的座標？
 
-### `npm run build`
+使用 offsetX, offsetY, pageX, pageY , offsetTop, offsetLeft
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- https://www.youtube.com/watch?v=Ybb-JFjf7m8
+- https://www.chestysoft.com/imagefile/javascript/get-coordinates.asp
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### 如何上傳圖片到 firebase?
