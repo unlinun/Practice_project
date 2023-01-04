@@ -10,8 +10,13 @@ import path from "path";
 import { fileURLToPath } from "url";
 import authRoutes from "./routes/auth.js";
 import userRoutes from "./routes/users.js";
-
+import postRoutes from "./routes/posts.js";
 import { register } from "./controller/auth.js";
+import { createPost } from "./controller/posts.js";
+import { verifyToken } from "./middleware/auth.js";
+import User from "./models/User.js";
+import Post from "./models/Post.js";
+import { users, posts } from "./data/index.js";
 /* CONFIGURATIONS  基本配置*/
 
 // 因為在 package.json 是使用 type : "module"，所以需要配置 __fileName, __dirName
@@ -47,10 +52,12 @@ const upload = multer({ storage });
 /* ROUTES WITH FILES */
 // 在此使用 upload.single 作為 middleware => 在呼叫 register 之前會先運行 middleware
 app.post("/auth/register", upload.single("picture"), register);
+app.post("/posts", verifyToken, upload.single("picture"), createPost);
 
 /* ROUTES */
 app.use("/auth", authRoutes);
 app.use("/users", userRoutes);
+app.use("/posts", postRoutes);
 
 /* MONGOOSE SETUP */
 const PORT = process.env.PORT || 6001;
@@ -63,6 +70,10 @@ mongoose
   .then(() => {
     app.listen(PORT, () => {
       console.log(`Server is running at http://localhost:${PORT}`);
+
+      // 加入 data 到 mongoDB
+      User.insertMany(users);
+      Post.insertMany(posts);
     });
   })
   .catch((error) => {
