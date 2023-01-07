@@ -1,5 +1,6 @@
 //  toolkit state
-
+// slice 可以透過 createSlice 產生，指的是將許多的 reducer 或 actions 集合起來，通常會放在單一的檔案中，例如，counterSlice
+// 在一個地方同時建立 action creator、reducers
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
