@@ -1,10 +1,11 @@
 //require user model
 const User = require("../models/User");
 const { StatusCodes } = require("http-status-codes");
+const { BadRequestError, UnauthenticatedError } = require("../errors");
 // require bcrypt to hash password then save to database
 // const bcrypt = require("bcryptjs");
 // require token
-const jwt = require("jsonwebtoken");
+// const jwt = require("jsonwebtoken");
 
 // register user
 const register = async (req, res) => {
@@ -28,19 +29,22 @@ const register = async (req, res) => {
 const login = async (req, res) => {
   const { email, password } = req.body;
   if (!email || !password) {
-    return res
-      .status(StatusCodes.BAD_REQUEST)
-      .json({ msg: "please provide email and password" });
+    // return res
+    //   .status(StatusCodes.BAD_REQUEST)
+    //   .json({ msg: "please provide email and password" });
+    throw new BadRequestError("please provide email and password");
   }
   const user = await User.findOne({ email });
   if (!user) {
-    return res
-      .status(StatusCodes.UNAUTHORIZED)
-      .json({ msg: "Invalid Credential" });
+    // return res
+    //   .status(StatusCodes.UNAUTHORIZED)
+    //   .json({ msg: "Invalid Credential" });
+    throw new UnauthenticatedError("Invalid Credential");
   }
   const isPasswordMatch = await user.comparePassword(password);
   if (!isPasswordMatch) {
-    res.status(StatusCodes.UNAUTHORIZED).json({ msg: "Invalid Credential" });
+    // res.status(StatusCodes.UNAUTHORIZED).json({ msg: "Invalid Credential" });
+    throw new UnauthenticatedError("Invalid Credential");
   }
   const token = user.createJWT();
   res.status(StatusCodes.OK).json({ user: { name: user.name }, token });
