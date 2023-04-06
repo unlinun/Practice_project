@@ -1,5 +1,8 @@
 # Interactive pricing
 
+![demo](https://user-images.githubusercontent.com/100119316/230271396-bd394d61-2dc5-4d7a-8903-63fe88e44f17.gif)
+
+
 ## Project issue 整體項目議題
 
 1. 依據使用者拉動滑桿有不同的價格
