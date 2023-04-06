@@ -1,5 +1,7 @@
 # Project overview
 
+![finished-demo](https://user-images.githubusercontent.com/100119316/230273028-def27df3-6263-479b-8d09-b4ea869b1df0.gif)
+
 ### Project name : calculator
 
 ### Project goal :
