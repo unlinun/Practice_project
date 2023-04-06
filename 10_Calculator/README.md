@@ -1,5 +1,7 @@
 # calculator 計算機
 
+![demo](https://user-images.githubusercontent.com/100119316/230270669-091251e1-7e73-4832-89c6-9825d810761c.gif)
+
 ## Project issue 整體項目議題
 
 1. 使用者需要可以變換主題，一共有三種主題
