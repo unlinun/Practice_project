@@ -1,4 +1,5 @@
 # Project Overview
+![demo](https://user-images.githubusercontent.com/100119316/230272950-4b152ed9-b1e9-4082-9fd0-75c8f48b2df0.gif)
 
 - Project name: Etch-A-Sketch
 - Project goal: Build a web site when people hover over the mouse, change the color of sketch board.
