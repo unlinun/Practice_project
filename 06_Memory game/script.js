@@ -20,24 +20,23 @@ class App {
   //// * set default
   _setDefault() {
     chooseSize.removeAttribute("disabled");
+    this.#cardArray = [];
     this.#point = 0;
     this.#step = 0;
+    this.#isStart = !this.#isStart;
     point.textContent = `${this.#point}`;
     step.textContent = `${this.#step}`;
     startBtn.textContent = "START";
-    this.#cardArray = [];
     cardBox.innerHTML = "";
     cardBox.style.gridTemplateRows = "";
     chooseSize.value = 0;
+    // render card and display: gird
   }
 
   //// 2. get card gird size and set array
   _getCardSize() {
-    if (chooseSize.value != 0) {
-      this.#isStart = !this.#isStart;
-    }
-    if (this.#isStart) {
-      chooseSize.setAttribute("disabled", "disabled");
+    if (this.#isStart && chooseSize.value !== 0) {
+      chooseSize.setAttribute("disabled", true);
       this.#isStart = false;
       const arr = [];
       const size = chooseSize.value;
@@ -48,7 +47,6 @@ class App {
       }
       // random sort of card array
       this.#cardArray = [...arr, ...arr].sort(() => Math.random() - 0.5);
-      console.log(this.#cardArray);
 
       // render card and display: gird
       this._renderCard(this.#cardArray);
@@ -112,7 +110,6 @@ class App {
   }
   // flip one card
   _flipCard(e) {
-    console.log(e.target);
     e.target.parentElement.classList.add("flip");
     if (!this.#isFlip) {
       this.#isFlip = true;

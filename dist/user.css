@@ -1,0 +1,1 @@
+.user{display:flex;align-items:center;gap:0.75rem;font-size:0.875rem;color:var(--dark-blue-color)}.user__name--current::after{content:"you";display:inline-block;margin-left:0.5rem;padding:0.125rem 0.25rem;background-color:var(--main-blue-color);font-size:0.75rem;color:var(--white-color)}.user__date{color:var(--gray-blue-color)}/*# sourceMappingURL=user.css.map */

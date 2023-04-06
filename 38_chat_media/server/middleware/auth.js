@@ -13,7 +13,7 @@ export const verifyToken = async (req, res, next) => {
       token = token.slice(7, token.length).trimLeft();
     }
     // 解密 JWT => 透過模組上的verify()方法可以完成 Base64 解碼與 Token 的驗證，並回傳解碼後的 Payload — 驗證時需要帶入欲驗證的token與自訂的密鑰：
-    const verified = jwt.verify(token, process.env.JWT_SECRET);
+    const verified = await jwt.verify(token, process.env.JWT_SECRET);
     req.user = verified;
     next();
   } catch (error) {

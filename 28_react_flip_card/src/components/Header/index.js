@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { nanoid } from "nanoid";
 import Card from "../Card";
 import Score from "../Score";
@@ -13,7 +13,7 @@ export default function Header() {
   const [level, setLevel] = useState();
   const [cardList, setCardList] = useState([]);
   const [clickedCard, setClickedCard] = useState([]);
-  const [clickNum, setClickNum] = useState(1);
+  const [clickNum, setClickNum] = useState(0);
 
   // 2. 當玩家選擇 selector 中的 level (onChange) ，並按下 start 按鈕時，會觸發 onClick 的事件
   function handleStart() {
@@ -71,11 +71,12 @@ export default function Header() {
     // const isSameLength = clickNum === cardList.length ? true : false;
     if (!isSameId && clickNum <= cardList.length) {
       setGameContinue(id);
-    } else {
+    } else if (isSameId || clickNum === cardList.length) {
       alert("over");
       setGameOver();
     }
   }
+
   function setGameContinue(id) {
     console.log(yourScore);
     // 如果沒有點擊過則加一分
