@@ -1,4 +1,5 @@
 # Find people
+![demo](https://user-images.githubusercontent.com/100119316/230274818-fcc00758-b423-4132-a377-daa0f65dde19.gif)
 
 ## project goal
 
